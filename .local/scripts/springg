@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+# Spring Initializr API URL
+SPRING_INITIALZR_METADATA_URL="https://start.spring.io"
+
+# Print available project types, languages, and Spring Boot versions
+echo "Available project types, languages, and Spring Boot versions:"
+curl -s "$SPRING_INITIALZR_METADATA_URL" | grep -E "type|language|bootVersion"
+
+echo
+echo
+
+# Prompt user for project details
+read -p "Enter Project Type (e.g., maven-project, gradle-kotlin) : " PROJECT_TYPE
+read -p "Enter Language (e.g., java, kotlin, groovy) : " LANGUAGE
+read -p "Enter Group ID (e.g., com.example) : " GROUP_ID
+read -p "Enter Artifact ID (e.g., my-spring-project) : " ARTIFACT_ID
+read -p "Enter the name (e.g., MySpringProject) : " PROJECT_NAME
+read -p "Enter Packaging Type (e.g., jar, war) : " PACKAGING
+read -p "Enter Java Version (e.g., 17, 20) : " JAVA_VERSION
+read -p "Enter dependencies (e.g., lombok, devtools) : " DEPENDENCIES
+
+# Setting packageName
+PACKAGE_NAME="${GROUP_ID}.${ARTIFACT_ID}"
+
+# Spring Initializr API URL for generating the project
+SPRING_INITIALZR_GENERATE_URL="${SPRING_INITIALZR_METADATA_URL}/starter.zip"
+
+# Create the project using Spring Initializr API with curl
+curl -G "$SPRING_INITIALZR_GENERATE_URL" \
+-d "type=${PROJECT_TYPE}" \
+-d "language=${LANGUAGE}" \
+-d "groupId=${GROUP_ID}" \
+-d "artifactId=${ARTIFACT_ID}" \
+-d "baseDir=${ARTIFACT_ID}" \
+-d "name=${PROJECT_NAME}" \
+-d "packageName=${PACKAGE_NAME}" \
+-d "packaging=${PACKAGING}" \
+-d "javaVersion=${JAVA_VERSION}" \
+-d "dependencies=${DEPENDENCIES}" \
+-o "${ARTIFACT_ID}.zip"
+
+# Create the directory for the project
+mkdir "${ARTIFACT_ID}"
+
+# Unzip the downloaded project archive into the artifact ID directory
+echo
+echo "Unzipping the project..."
+echo
+unzip "${ARTIFACT_ID}.zip" -d "${ARTIFACT_ID}"
+
+# Delete the downloaded archive
+rm "${ARTIFACT_ID}.zip"
+
+echo
+echo "Project setup completed."
+echo
+echo "In order to run the project, follow these steps:"
+echo
+echo "1. cd ${ARTIFACT_ID}"
+echo "2. ./mvnw spring-boot:run"
