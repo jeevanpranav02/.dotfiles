@@ -40,14 +40,12 @@ curl -G "$SPRING_INITIALZR_GENERATE_URL" \
 -d "dependencies=${DEPENDENCIES}" \
 -o "${ARTIFACT_ID}.zip"
 
-# Create the directory for the project
-mkdir "${ARTIFACT_ID}"
 
 # Unzip the downloaded project archive into the artifact ID directory
 echo
 echo "Unzipping the project..."
 echo
-unzip "${ARTIFACT_ID}.zip" -d "${ARTIFACT_ID}"
+unzip "${ARTIFACT_ID}.zip"
 
 # Delete the downloaded archive
 rm "${ARTIFACT_ID}.zip"
