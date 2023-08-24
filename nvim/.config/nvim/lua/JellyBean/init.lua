@@ -1,4 +1,3 @@
-print("Hello from Jelly")
 require("JellyBean.set")
 require("JellyBean.remap")
 

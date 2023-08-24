@@ -1,2 +1,1 @@
 require("JellyBean")
-print("Hello")
