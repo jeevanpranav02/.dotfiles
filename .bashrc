@@ -36,10 +36,12 @@ function run_tmux_sessionizer() {
 bind -x '"\C-f": run_tmux_sessionizer'
 
 # Cargo Binaries
-CARGO_HOME='/home/jellybean/.cargo'
+CARGO_HOME=$HOME/.cargo
 export CARGO_HOME
 export PATH=$PATH:$CARGO_HOME/bin
 
+# Personal Scripts
+export PATH=$PATH:$HOME/.local/scripts
 
 # TMUX specifc PS
 # Check if in a TMUX session
