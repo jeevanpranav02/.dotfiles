@@ -52,8 +52,7 @@ if [[ -n "$TMUX" ]]; then
     # Check if in a Git repository
     if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
         # If in a Git repository, add the Git branch
-    #  PS1+=" git:(\[\e[1;32m\]\$(git branch 2>/dev/null | grep \* | cut -d ' ' -f2)\[\033[0m\]) $ "
-    PS1+=" \[\e[91m\]git\[\e[0m\]:(\[\e[1;32m\]\$(git branch 2>/dev/null | grep \* | cut -d ' ' -f2)\[\e[0m\]) $ "
+        PS1+=" \[\e[91m\]git\[\e[0m\]:(\[\e[1;32m\]\$(git branch 2>/dev/null | grep \* | cut -d ' ' -f2)\[\e[0m\]) $ "
     else
         PS1+=" \[\e[0m\]$ "
     fi
