@@ -27,13 +27,11 @@ fi
 unset rc
 
 
-# Define a function to run tmux-sessionizer
-function run_tmux_sessionizer() {
-    bash ~/.local/scripts/tmux-sessionizer
-}
+# Bind Ctrl+Shift+F to tmux_sessionizer
+bind -x '"\C-f": tmux-sessionizer'
 
-# Bind Ctrl+Shift+F to run_tmux_sessionizer
-bind -x '"\C-f": run_tmux_sessionizer'
+# Bind Ctrl+` to tmux_sessionizer for opening dot files
+bind -x '"\C-`": tmux-sessionizer ~/.dotfiles'
 
 # Cargo Binaries
 CARGO_HOME=$HOME/.cargo
