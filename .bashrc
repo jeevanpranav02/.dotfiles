@@ -41,6 +41,16 @@ export PATH=$PATH:$CARGO_HOME/bin
 # Personal Scripts
 export PATH=$PATH:$HOME/.local/scripts
 
+# Flutter Sdk
+export PATH=$PATH:$HOME/tools/flutter/bin
+
+#SDK exporting
+export ANDROID_HOME=$HOME/tools/Android/Sdk
+
+#Exporting tools
+export PATH=$PATH:$HOME/tools/Android/Sdk/platform-tools
+
+
 # TMUX specifc PS
 # Check if in a TMUX session
 if [[ -n "$TMUX" ]]; then
