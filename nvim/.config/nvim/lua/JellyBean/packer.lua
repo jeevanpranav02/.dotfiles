@@ -30,6 +30,7 @@ return require('packer').startup(function(use)
         run = ':TSUpdate'
     })
     use("nvim-treesitter/nvim-treesitter-context");
+    use('nvim-treesitter/playground')
 
     -- Trouble for Telescope
     use({
@@ -37,12 +38,22 @@ return require('packer').startup(function(use)
         config = function()
             require("trouble").setup {
                 icons = false,
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
             }
         end
     })
+
+    -- Flutter Packer
+    --use {'dart-lang/dart-vim-plugin'}
+    --use {'thosakwe/vim-flutter'}
+    --use {'natebosch/vim-lsc'}
+    --use {'natebosch/vim-lsc-dart'}
+    use {
+        'akinsho/flutter-tools.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'stevearc/dressing.nvim', -- optional for vim.ui.select
+        },
+    }
 
     -- Harpoon
     use 'ThePrimeagen/harpoon'
@@ -55,6 +66,10 @@ return require('packer').startup(function(use)
 
     -- Git support
     use("tpope/vim-fugitive")
+
+    -- Java DT Language Server
+    use('mfussenegger/nvim-dap')
+    use('mfussenegger/nvim-jdtls')
 
     -- LSP
     use {
