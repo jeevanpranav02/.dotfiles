@@ -69,3 +69,8 @@ else
     PS1="> \[\e[38;5;32m\]\W \[\e[0m\]$ "
 fi
 
+export GOPATH=$HOME/go
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH=$BUN_INSTALL/bin:$PATH
