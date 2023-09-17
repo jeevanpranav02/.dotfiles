@@ -1,9 +1,9 @@
 XTerm.termName: xterm-256color
 
-! ## Set xterm window size ##
-XTerm*VT100.geometry: 130x50
+! Set xterm window size
+XTerm*VT100.geometry: 80x24
 
-! ## Set font and fontsize ##
+! Set font and fontsize
 XTerm*faceName: DejaVu Sans Mono Regular
 XTerm*faceSize: 14
 
@@ -20,25 +20,24 @@ XTerm*faceSize5: 22
 ! VT Font Menu: Huge
 XTerm*faceSize6: 24
 
-! ## Scrollbar ##
+! Scrollbar
 XTerm*vt100.scrollBar: false
 
 ! Do not scroll when there is new input
 XTerm*scrollTtyOutput: false
 
-! Scrolling by using Shift-PageUp / Shift-PageDown or mousewheel by default ##
 ! Lines of output you can scroll back over
 XTerm*saveLines: 15000
 
-! Enable copy/paste hotkeyes (mouse highlight = copy ,  shift+Insert = paste)
+! Enable copy/paste hotkeys (mouse highlight = copy, shift+Insert = paste)
 XTerm*selectToClipboard: true
 
-! ## Select text ##
+! Select text
 XTerm*highlightSelection: true
 ! Remove trailing spaces
 XTerm*trimSelection: true
 
-! ## Keybindings ##
+! Keybindings
 XTerm*vt100.translations: #override \n\
   Ctrl <Key>-: smaller-vt-font() \n\
   Ctrl <Key>+: larger-vt-font() \n\
@@ -46,50 +45,40 @@ XTerm*vt100.translations: #override \n\
   Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
   Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
 
-! ~~~~~~~~~~~~~~~~~~
-! ## Color Themes ##
-! ~~~~~~~~~~~~~~~~~~
-!
-! based on snazzy color theme
-! https://github.com/olstenlarck/urxvt-xterm-snazzy/blob/7c34009a19ade65271e26ef065c678b0fa2abd0d/.Xdefaults
-!
+! Color Themes based on natural colors
 XTerm*title: XTerminal
 XTerm*background: #1C1C1C
 XTerm*foreground: #DADADA
 
-! original #86a2b0
-XTerm*colorUL: #eff0eb
-XTerm*underlineColor: #eff0eb
+! black
+XTerm*color0  : #000000
+XTerm*color8  : #808080
 
-! ! black
-XTerm*color0  : #2E3436
-XTerm*color8  : #686868
-!
-! ! red
-XTerm*color1  : #ff5c57
-XTerm*color9  : #ff5c57
-!
-! ! green
-XTerm*color2  : #5af78e
-XTerm*color10 : #5af78e
-!
-! ! yellow
-XTerm*color3  : #f3f99d
-XTerm*color11 : #f3f99d
-!
-! ! blue
-XTerm*color4  : #57c7ff
-XTerm*color12 : #57c7ff
-!
-! ! magenta
-XTerm*color5  : #ff6ac1
-XTerm*color13 : #ff6ac1
-!
-! ! cyan
-XTerm*color6  : #9aedfe
-XTerm*color14 : #9aedfe
-!
-! ! white
-XTerm*color7  : #f1f1f0
-XTerm*color15 : #eff0eb
+! red
+XTerm*color1  : #800000
+XTerm*color9  : #FF0000
+
+! green
+XTerm*color2  : #008000
+XTerm*color10 : #00FF00
+
+! yellow
+XTerm*color3  : #808000
+XTerm*color11 : #FFFF00
+
+! blue
+XTerm*color4  : #000080
+XTerm*color12 : #0000FF
+
+! magenta
+XTerm*color5  : #800080
+XTerm*color13 : #FF00FF
+
+! cyan
+XTerm*color6  : #008080
+XTerm*color14 : #00FFFF
+
+! white
+XTerm*color7  : #C0C0C0
+XTerm*color15 : #FFFFFF
 
