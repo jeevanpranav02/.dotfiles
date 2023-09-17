@@ -15,6 +15,7 @@ order += "disk /"
 order += "battery all"
 order += "load"
 order += "tztime local"
+order += "volume master"
 
 battery all {
         format = "%status %percentage %remaining"
@@ -31,3 +32,11 @@ load {
 disk "/" {
         format = "%avail"
 }
+
+volume master {
+        format = "♪: %volume"
+        format_muted = "♪: muted (%volume)"
+        device = "pulse:1"
+}
+
+
