@@ -43,10 +43,6 @@ return require('packer').startup(function(use)
     })
 
     -- Flutter Packer
-    --use {'dart-lang/dart-vim-plugin'}
-    --use {'thosakwe/vim-flutter'}
-    --use {'natebosch/vim-lsc'}
-    --use {'natebosch/vim-lsc-dart'}
     use {
         'akinsho/flutter-tools.nvim',
         requires = {
@@ -70,6 +66,9 @@ return require('packer').startup(function(use)
     -- Java DT Language Server
     use('mfussenegger/nvim-dap')
     use('mfussenegger/nvim-jdtls')
+
+    -- Colorizer
+    use('norcalli/nvim-colorizer.lua')
 
     -- LSP
     use {
