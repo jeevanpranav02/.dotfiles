@@ -76,7 +76,7 @@ if [[ -n "$TMUX" ]]; then
     fi
 else
     # Default prompt when not in TMUX
-    PS1="> \[\e[38;5;32m\]\W \[\e[0m\]$ "
+    PS1="> \[\e[38;5;32m\]\w \[\e[0m\]$ "
 fi
 unset color_prompt force_color_prompt
 
