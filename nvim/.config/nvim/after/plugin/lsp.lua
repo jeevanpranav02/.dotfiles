@@ -6,12 +6,11 @@ lsp.ensure_installed({
     'tsserver',
     'rust_analyzer',
     'cssls',
-    'jdtls',
     'html',
+    'lua_ls',
     'yamlls'
 })
 
-lsp.skip_server_setup({'jdtls'})
 
 -- Fix Undefined global 'vim'
 lsp.nvim_workspace()
