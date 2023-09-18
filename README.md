@@ -1,1 +1,1 @@
-#Dotfiles for Ubwuntu
+# Dotfiles for Ubwuntu
