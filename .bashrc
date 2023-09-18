@@ -159,6 +159,3 @@ export PATH=$PATH:$HOME/tools/Android/Sdk/platform-tools
 
 # Bind Ctrl+F to tmux_sessionizer
 bind -x '"\C-f": tmux-sessionizer'
-
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
