@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+print_color() {
+    local code="$1"
+    local text="$2"
+    printf "\033[48;5;%dm\033[38;5;0m%3d\033[0m " "$code" "$code"
+}
+
+for color_code in {0..255}; do
+    print_color "$color_code" "$color_code"
+    if (( (color_code + 1) % 16 == 0 )); then
+        echo # Move to the next line
+    fi
+done
+
