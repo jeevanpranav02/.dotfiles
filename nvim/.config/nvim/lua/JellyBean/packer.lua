@@ -17,13 +17,16 @@ return require('packer').startup(function(use)
     }
     use { 'nvim-telescope/telescope-media-files.nvim' }
     use { 'nvim-lua/popup.nvim' }
+    --File browsing
+    use { 'nvim-telescope/telescope-file-browser.nvim' }
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
     -- Theme
     use({
         'rose-pine/neovim',
         as = 'rose-pine'
     })
-    vim.cmd('colorscheme rose-pine')
+    use('folke/tokyonight.nvim')
 
     -- Treesitter
     use('nvim-treesitter/nvim-treesitter', {
@@ -47,7 +50,7 @@ return require('packer').startup(function(use)
         'akinsho/flutter-tools.nvim',
         requires = {
             'nvim-lua/plenary.nvim',
-            'stevearc/dressing.nvim',             -- optional for vim.ui.select
+            'stevearc/dressing.nvim', -- optional for vim.ui.select
 
         },
     }
