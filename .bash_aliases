@@ -1,2 +1,5 @@
 alias anime='cd ~/Videos/Anime'
-alias movie='cd ~/Videos/Movie'
+alias movies='cd ~/Videos/Movies'
+alias postgre='sudo -i -u postgres'
+alias ta='tmux attach'
+alias tk='tmux kill-server'
