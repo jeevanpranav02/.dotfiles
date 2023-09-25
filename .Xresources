@@ -1,11 +1,19 @@
 XTerm.termName: xterm-256color
 
+XTerm.vt100.locale: true
+XTerm.vt100.metaSendsEscape: true
+XTerm.vt100.bellIsUrgent: true
+
 ! Set xterm window size
 XTerm*VT100.geometry: 80x24
 
 ! Set font and fontsize
-XTerm*faceName: DejaVu Sans Mono Regular
-XTerm*faceSize: 14
+XTerm*faceName: MesloLGM Nerd Font Mono
+XTerm*faceSize: 13
+
+! double-click to select whole URLs :D
+XTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
 
 ! VT Font Menu: Unreadable
 XTerm*faceSize1: 8
@@ -43,42 +51,43 @@ XTerm*vt100.translations: #override \n\
   Ctrl <Key>+: larger-vt-font() \n\
   Ctrl <Key>0: set-vt-font(d) \n\
   Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
-  Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+  Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
+  Ctrl <Key> M:  scroll-to(begin) \n\
+  Ctrl <Key> L:   scroll-to(end)
 
-! Color Themes based on natural colors
-XTerm*title: XTerminal
+! GNOME Terminal color palette
 XTerm*background: #1C1C1C
 XTerm*foreground: #DADADA
 
 ! black
-XTerm*color0  : #000000
-XTerm*color8  : #808080
+XTerm*color0  : #2E3436
+XTerm*color8  : #555753
 
 ! red
-XTerm*color1  : #800000
-XTerm*color9  : #FF0000
+XTerm*color1  : #CC0000
+XTerm*color9  : #EF2929
 
 ! green
-XTerm*color2  : #008000
-XTerm*color10 : #00FF00
+XTerm*color2  : #4E9A06
+XTerm*color10 : #8AE234
 
 ! yellow
-XTerm*color3  : #808000
-XTerm*color11 : #FFFF00
+XTerm*color3  : #C4A000
+XTerm*color11 : #FCE94F
 
 ! blue
-XTerm*color4  : #000080
-XTerm*color12 : #0000FF
+XTerm*color4  : #3465A4
+XTerm*color12 : #729FCF
 
 ! magenta
-XTerm*color5  : #800080
-XTerm*color13 : #FF00FF
+XTerm*color5  : #75507B
+XTerm*color13 : #AD7FA8
 
 ! cyan
-XTerm*color6  : #008080
-XTerm*color14 : #00FFFF
+XTerm*color6  : #06989A
+XTerm*color14 : #34E2E2
 
 ! white
-XTerm*color7  : #C0C0C0
-XTerm*color15 : #FFFFFF
+XTerm*color7  : #D3D7CF
+XTerm*color15 : #EEEEEC
 
