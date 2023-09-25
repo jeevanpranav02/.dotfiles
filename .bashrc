@@ -138,6 +138,9 @@ fi
 export GPG_TTY=$(tty)
 . "$HOME/.cargo/env"
 
+# Go lang
+export PATH=$PATH:/usr/local/go/bin
+
 # JAVA_HOME
 export JAVA_HOME=$HOME/tools/JDK/jdk-17.0.8.1
 export PATH=$PATH:$JAVA_HOME/bin
@@ -157,5 +160,15 @@ export ANDROID_HOME=$HOME/tools/Android/Sdk
 #Exporting tools
 export PATH=$PATH:$HOME/tools/Android/Sdk/platform-tools
 
+# Laravel
+export PATH=$PATH:$HOME/.config/composer/vendor/bin
+
 # Bind Ctrl+F to tmux_sessionizer
 bind -x '"\C-f": tmux-sessionizer'
+
+# Bind Ctrl+F to tmux_sessionizer
+bind -x '"\C-t": tmux-sessionizer ~/'
+
+export EDITOR="nvim"
+
+source ~/.bash_completion/alacritty
