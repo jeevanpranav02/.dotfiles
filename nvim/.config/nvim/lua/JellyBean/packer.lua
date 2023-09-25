@@ -94,6 +94,20 @@ return require('packer').startup(function(use)
             { 'hrsh7th/cmp-nvim-lua' },
             -- Snippets
             { 'L3MON4D3/LuaSnip' },
-            { 'rafamadriz/friendly-snippets' } }
+            { 'rafamadriz/friendly-snippets' },
+            { 'honza/vim-snippets' }
+        }
+
     }
+
+    -- Org mode
+    use {
+        "nvim-neorg/neorg",
+        run = ":Neorg sync-parsers",
+        requires = "nvim-lua/plenary.nvim",
+    }
+
+
+    -- Laravel support
+    use('adalessa/laravel.nvim')
 end)
