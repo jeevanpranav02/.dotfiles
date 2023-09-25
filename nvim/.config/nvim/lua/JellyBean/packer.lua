@@ -69,12 +69,12 @@ return require('packer').startup(function(use)
     use('mfussenegger/nvim-jdtls')
 
     -- Colorizer
-    use('norcalli/nvim-colorizer.lua')
+    use('NvChad/nvim-colorizer.lua')
 
     -- LSP
     use {
         'VonHeikemen/lsp-zero.nvim',
-        branch = 'v2.x',
+        branch = 'v3.x',
         requires = { -- LSP Support
             { 'neovim/nvim-lspconfig' },
             {
