@@ -65,7 +65,7 @@ fi
 # Check if in a TMUX session
 if [[ -n "$TMUX" ]]; then
     # Customize the prompt when in TMUX
-    PS1="> \[\e[38;5;32m\]\W\[\e[91m\]"
+    PS1=" > \[\e[38;5;32m\]\W\[\e[91m\]"
 
     # Check if in a Git repository
     if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
@@ -76,7 +76,7 @@ if [[ -n "$TMUX" ]]; then
     fi
 else
     # Default prompt when not in TMUX
-    PS1="> \[\e[38;5;32m\]\w \[\e[0m\]$ "
+    PS1=" > \[\e[38;5;32m\]\w \[\e[0m\]$ "
 fi
 unset color_prompt force_color_prompt
 

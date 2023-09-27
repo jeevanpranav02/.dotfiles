@@ -27,6 +27,7 @@ return require('packer').startup(function(use)
         as = 'rose-pine'
     })
     use('folke/tokyonight.nvim')
+    use('folke/zen-mode.nvim')
 
     -- Treesitter
     use('nvim-treesitter/nvim-treesitter', {
@@ -51,7 +52,6 @@ return require('packer').startup(function(use)
         requires = {
             'nvim-lua/plenary.nvim',
             'stevearc/dressing.nvim', -- optional for vim.ui.select
-
         },
     }
 

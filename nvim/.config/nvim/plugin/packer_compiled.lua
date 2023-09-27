@@ -259,6 +259,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/jp/.local/share/nvim/site/pack/packer/start/vim-snippets",
     url = "https://github.com/honza/vim-snippets"
+  },
+  ["zen-mode.nvim"] = {
+    loaded = true,
+    path = "/home/jp/.local/share/nvim/site/pack/packer/start/zen-mode.nvim",
+    url = "https://github.com/folke/zen-mode.nvim"
   }
 }
 
