@@ -95,9 +95,11 @@ return require('packer').startup(function(use)
             -- Snippets
             { 'L3MON4D3/LuaSnip' },
             { 'rafamadriz/friendly-snippets' },
-            { 'honza/vim-snippets' }
+            { 'honza/vim-snippets' },
+            { 'hrsh7th/vim-vsnip' },
+            { 'hrsh7th/vim-vsnip-integ' },
+            { 'Nash0x7E2/awesome-flutter-snippets' },
         }
-
     }
 
     -- Org mode
