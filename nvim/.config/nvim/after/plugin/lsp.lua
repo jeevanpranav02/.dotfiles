@@ -36,7 +36,14 @@ cmp.setup({
         ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
         ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    })
+    }),
+    sources = {
+        { name = 'vsnip',  priority = 50 },
+        { name = 'luasnip',  priority = 40 },
+        { name = 'nvim_lsp', priority = 30 },
+        { name = 'buffer',   priority = 20 },
+        { name = 'path',     priority = 10 },
+    },
 })
 
 lsp.set_preferences({
@@ -74,5 +81,14 @@ vim.diagnostic.config({
 })
 
 local lspconfig = require('lspconfig')
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 lspconfig.rust_analyzer.setup {}
+
+require("flutter-tools").setup {
+    config = {
+        lsp = {
+            capabilities = capabilities,
+        },
+    },
+}
