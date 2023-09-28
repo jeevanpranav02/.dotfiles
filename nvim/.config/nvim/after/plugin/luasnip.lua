@@ -23,7 +23,9 @@ luasnip.config.set_config {
     },
   },
 }
-
+-- Loading VSCode Snippets in LuaSnip
 require("luasnip.loaders.from_vscode").lazy_load()
+-- Use Flutter for .dart files
+require'luasnip'.filetype_extend("dart", {"flutter"})
 
 vim.keymap.set("n", "<leader><leader>s", "<cmd>source ~/.config/nvim/after/plugin/luasnip.lua<CR>")
