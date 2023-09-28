@@ -96,11 +96,20 @@ return require('packer').startup(function(use)
             { 'L3MON4D3/LuaSnip' },
             { 'rafamadriz/friendly-snippets' },
             { 'honza/vim-snippets' },
-            { 'hrsh7th/vim-vsnip' },
-            { 'hrsh7th/vim-vsnip-integ' },
-            { 'Nash0x7E2/awesome-flutter-snippets' },
+
+            -- Formating LSP Menu
+            { 'onsails/lspkind.nvim' },
         }
     }
+
+    -- Lua line
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
+
+    -- Comments
+    use { 'numToStr/Comment.nvim' }
 
     -- Org mode
     use {

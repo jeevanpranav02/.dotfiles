@@ -21,6 +21,8 @@ lsp.preset("recommended")
 local cmp = require('cmp')
 local cmp_action = require('lsp-zero').cmp_action()
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
+-- For clean looking LSP MENU
+local lspkind = require('lspkind')
 
 cmp.setup({
     window = {
@@ -38,11 +40,28 @@ cmp.setup({
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
     }),
     sources = {
-        { name = 'vsnip',  priority = 50 },
-        { name = 'luasnip',  priority = 40 },
-        { name = 'nvim_lsp', priority = 30 },
-        { name = 'buffer',   priority = 20 },
-        { name = 'path',     priority = 10 },
+        { name = 'luasnip' },
+        { name = 'nvim_lsp' },
+        { name = 'path' },
+        { name = 'buffer',  keyword_length = 5 },
+    },
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+        end,
+    },
+    formatting = {
+        -- Youtube: How to set up nice formatting for your sources.
+        format = lspkind.cmp_format {
+            with_text = true,
+            menu = {
+                luasnip = "[snip]",
+                nvim_lsp = "[LSP]",
+                buffer = "[buf]",
+                nvim_lua = "[api]",
+                path = "[path]",
+            },
+        },
     },
 })
 
