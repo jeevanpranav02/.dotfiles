@@ -11,7 +11,7 @@ return require('packer').startup(function(use)
     -- Telescope for Fuzzy Finding
     use {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.2',
+        tag = '0.1.3',
         -- or                            , branch = '0.1.x',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
@@ -28,6 +28,7 @@ return require('packer').startup(function(use)
     })
     use('folke/tokyonight.nvim')
     use('folke/zen-mode.nvim')
+    use('folke/twilight.nvim')
 
     -- Treesitter
     use('nvim-treesitter/nvim-treesitter', {
