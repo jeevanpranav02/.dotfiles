@@ -266,6 +266,11 @@ _G.packer_plugins = {
     path = "/home/jp/.local/share/nvim/site/pack/packer/start/trouble.nvim",
     url = "https://github.com/folke/trouble.nvim"
   },
+  ["twilight.nvim"] = {
+    loaded = true,
+    path = "/home/jp/.local/share/nvim/site/pack/packer/start/twilight.nvim",
+    url = "https://github.com/folke/twilight.nvim"
+  },
   undotree = {
     loaded = true,
     path = "/home/jp/.local/share/nvim/site/pack/packer/start/undotree",
