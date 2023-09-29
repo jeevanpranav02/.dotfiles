@@ -1,7 +1,6 @@
 # Dotfiles for Ubwuntu
-- i3
-- i3status
-- Neovim
-- Tmux
-- Compton
-- Xterm
+- Window Manager - i3wm
+- PDE - Neovim
+- Terminal - Tmux + Xterm
+- Compositor - Compton
+- Shell - zsh (ohmyzsh)
