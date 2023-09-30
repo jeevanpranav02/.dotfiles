@@ -108,7 +108,8 @@ return require('packer').startup(function(use)
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
     }
-
+    use { 'nvim-tree/nvim-tree.lua' }
+    require("nvim-tree").setup()
     -- Comments
     use { 'numToStr/Comment.nvim' }
 
@@ -119,7 +120,9 @@ return require('packer').startup(function(use)
         requires = "nvim-lua/plenary.nvim",
     }
 
-
     -- Laravel support
     use('adalessa/laravel.nvim')
+
+    -- SHitty Rain
+    use 'eandrju/cellular-automaton.nvim'
 end)
