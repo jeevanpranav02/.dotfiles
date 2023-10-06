@@ -21,7 +21,8 @@ require('telescope').setup {
             "windows",
             "linux",
             "ios",
-            "macos"
+            "macos",
+            "vendor"
         },
         initial_mode = "normal",
     },

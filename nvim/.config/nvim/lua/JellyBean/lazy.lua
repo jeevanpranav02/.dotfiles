@@ -37,10 +37,14 @@ local plugins = {
     -- Treesitter
     {
         'nvim-treesitter/nvim-treesitter',
-        build = ':TSUpdate'
+        event = { "BufReadPre", "BufNewFile" },
+        build = ':TSUpdate',
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter-textobjects",
+            "nvim-treesitter/nvim-treesitter-context",
+            'nvim-treesitter/playground',
+        },
     },
-    "nvim-treesitter/nvim-treesitter-context",
-    'nvim-treesitter/playground',
 
     -- Trouble for Telescope
     "folke/trouble.nvim",
@@ -80,7 +84,7 @@ local plugins = {
     { 'VonHeikemen/lsp-zero.nvim',                branch = 'v3.x' },
     { 'neovim/nvim-lspconfig' },
     { 'hrsh7th/cmp-nvim-lsp' },
-    { 'hrsh7th/nvim-cmp' },
+    { 'hrsh7th/nvim-cmp',                         event = "InsertEnter", },
     -- Snippets
     { 'L3MON4D3/LuaSnip' },
     { 'rafamadriz/friendly-snippets' },
@@ -92,7 +96,7 @@ local plugins = {
     -- Lua line
     {
         'nvim-lualine/lualine.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons'},
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
     -- Comments
     'numToStr/Comment.nvim',
