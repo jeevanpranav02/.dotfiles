@@ -1,5 +1,6 @@
 require("JellyBean.set")
 require("JellyBean.remap")
+require("JellyBean.lazy")
 
 local augroup = vim.api.nvim_create_augroup
 local JellyBeanGroup = augroup('JellyBean', {})
