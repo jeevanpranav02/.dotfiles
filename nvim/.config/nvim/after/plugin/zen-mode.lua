@@ -21,3 +21,6 @@ require("twilight").setup {
   context = -1,
   treesitter = true,
 }
+
+vim.api.nvim_set_keymap('n', '<leader>tw', ':Twilight<cr>', { silent = true }) --Toggle Twlight
+

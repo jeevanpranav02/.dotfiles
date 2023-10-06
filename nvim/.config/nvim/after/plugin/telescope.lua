@@ -32,7 +32,6 @@ require('telescope').setup {
         },
         grep_string = {
             theme = "dropdown",
-            previewer = false,
         },
         git_files = {
             theme = "dropdown",

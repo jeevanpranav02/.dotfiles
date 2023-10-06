@@ -16,7 +16,6 @@ set $mod Mod4
 font pango:monospace 13
 
 # GET DEM BORDERS OUT OF HEREc:w
-#
 # Thanks Childz
 for_window [class="^.*"] border pixel 2
                           # class                 border  backgr. text    indicator child_border
@@ -183,7 +182,51 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3status
+        i3bar_command i3bar --transparency
+        # 2px left/right and 2px top/bottom padding
+        padding 2px
+
+        mode dock
+        hidden_state hide
+        modifier Mod4
+
+        colors {
+            background #00000090
+            statusline #ffffff90
+            separator #66666690
+
+            focused_workspace  #4c789990 #285577A5 #ffffffEE
+            active_workspace   #33333390 #5f676aA5 #ffffffEE
+            inactive_workspace #33333390 #222222A5 #888888EE
+            urgent_workspace   #2f343a90 #900000A5 #ffffffEE
+            binding_mode       #2f343a90 #900000A5 #ffffffEE
+        }
 }
+
+# Shutdown Function
+mode "exit: [l]ogout, [r]eboot, [s]hutdown" {
+    bindsym l exec i3-msg exit
+    bindsym r exec reboot
+    bindsym s exec shutdown now
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
+bindsym $mod+x mode "exit: [l]ogout, [r]eboot, [s]hutdown"
+
+# set popups during fullscreen mode
+popup_during_fullscreen smart
+
+# move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# show the next scratchpad window or hide the focused scratchpad window
+bindsym $mod+minus scratchpad show
+
+# Gaps
+smart_gaps on
+gaps inner 8
+gaps outer 2
 
 # Nitrogen for wallpaper
 exec --no-startup-id nitrogen --restore
