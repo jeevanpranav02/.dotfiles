@@ -6,6 +6,7 @@ alias movies='cd ~/Videos/Movies'
 alias postgre='sudo -i -u postgres'
 alias ta='tmux attach'
 alias tk='tmux kill-server'
+alias weather='curl wttr.in'
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
