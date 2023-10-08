@@ -3,7 +3,7 @@ vim.cmd("highlight NetrwFile ctermfg=green")
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
-vim.g.netrw_liststyle = 3
+vim.g.netrw_liststyle = 0
 
 -- Keymappings
 vim.api.nvim_set_keymap('n', '<leader>du', ':Tex<CR>', { silent = true }) -- This duplicates the Current file/buffer

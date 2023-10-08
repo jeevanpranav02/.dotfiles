@@ -95,7 +95,7 @@ cmp.setup({
         native_menu = false,
 
         -- Let's play with this for a day or two
-        ghost_text = true,
+        ghost_text = false,
     },
 })
 

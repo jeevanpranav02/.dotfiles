@@ -65,7 +65,7 @@ local plugins = {
     "mbbill/undotree",
 
     -- For Pair Parenthesis
-    "windwp/nvim-autopairs",
+    { "windwp/nvim-autopairs",                    event = { "InsertEnter" }, },
 
     -- Git support
     "tpope/vim-fugitive",
@@ -81,10 +81,10 @@ local plugins = {
     { 'williamboman/mason.nvim' },
     { 'williamboman/mason-lspconfig.nvim' },
 
-    { 'VonHeikemen/lsp-zero.nvim',                branch = 'v3.x' },
+    { 'VonHeikemen/lsp-zero.nvim',        branch = 'v3.x' },
     { 'neovim/nvim-lspconfig' },
     { 'hrsh7th/cmp-nvim-lsp' },
-    { 'hrsh7th/nvim-cmp',                         event = "InsertEnter", },
+    { 'hrsh7th/nvim-cmp',                 event = "InsertEnter", },
     -- Snippets
     { 'L3MON4D3/LuaSnip' },
     { 'rafamadriz/friendly-snippets' },
@@ -114,6 +114,11 @@ local plugins = {
     -- SHitty Rain
     'eandrju/cellular-automaton.nvim',
 
+    -- Copilot support
+    {
+        "github/copilot.vim",
+        event = { "VimEnter" },
+    }
 }
 
 require("lazy").setup(plugins, opts)
