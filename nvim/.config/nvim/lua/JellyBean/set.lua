@@ -2,6 +2,7 @@ vim.opt.guicursor = ""
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
+vim.opt.signcolumn = "number"
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
