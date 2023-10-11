@@ -8,8 +8,10 @@ vim.keymap.set('n', '<leader>gr', builtin.lsp_references, {})
 vim.keymap.set('n', '<leader>gi', builtin.lsp_implementations, {})
 
 require('telescope').load_extension('media_files')
+require('telescope').load_extension('harpoon')
 
 vim.keymap.set('n', '<leader>me', '<cmd>Telescope media_files<CR>')
+vim.keymap.set('n', '<leader>pd', '<cmd>Telescope diagnostics<CR>')
 
 
 require('telescope').setup {
