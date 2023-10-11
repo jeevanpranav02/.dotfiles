@@ -156,4 +156,3 @@ lspconfig.lua_ls.setup {
     },
 }
 
-require('fidget').setup({})

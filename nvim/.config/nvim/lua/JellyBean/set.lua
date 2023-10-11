@@ -43,55 +43,9 @@ vim.opt.colorcolumn = "80"
 -- Syntax highlighting
 vim.opt.syntax = "off"
 
--- Show command in the status line
+-- Show command and mode in the status line
 vim.opt.showcmd = true
-
--- Clipboard settings
-vim.opt.clipboard = "unnamedplus"
+vim.opt.showmode = false
 
 -- Enable wildmenu
 vim.cmd('set wildmenu')
---statusline
-vim.cmd "highlight StatusType guibg=#b16286 guifg=#1d2021"
-vim.cmd "highlight StatusFile guibg=#fabd2f guifg=#1d2021"
-vim.cmd "highlight StatusModified guibg=#1d2021 guifg=#d3869b"
-vim.cmd "highlight StatusBuffer guibg=#98971a guifg=#1d2021"
-vim.cmd "highlight StatusLocation guibg=#458588 guifg=#1d2021"
-vim.cmd "highlight StatusPercent guibg=#1d2021 guifg=#ebdbb2"
-vim.cmd "highlight StatusNorm guibg=none guifg=white"
-vim.o.statusline = " "
-				.. ""
-				.. " "
-				.. "%l"
-				.. " "
-				.. " %#StatusType#"
-				.. "<< "
-				.. "%Y"
-				.. "  "
-				.. " >>"
-				.. "%#StatusFile#"
-				.. "<< "
-				.. "%F"
-				.. " >>"
-				.. "%#StatusModified#"
-				.. " "
-				.. "%m"
-				.. " "
-				.. "%#StatusNorm#"
-				.. "%="
-				.. "%#StatusBuffer#"
-				.. "<< "
-				.. "﬘ "
-				.. "%n"
-				.. " >>"
-				.. "%#StatusLocation#"
-				.. "<< "
-				.. "燐 "
-				.. "%l,%c"
-				.. " >>"
-				.. "%#StatusPercent#"
-				.. "<< "
-				.. "%p%%  "
-				.. " >> "
-
-
