@@ -56,7 +56,7 @@ XTerm*vt100.translations: #override \n\
   Ctrl <Key> L:   scroll-to(end)
 
 ! GNOME Terminal color palette
-XTerm*background: #333333
+XTerm*background: #1E1E2E
 XTerm*foreground: #DADADA
 
 ! black
