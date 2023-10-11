@@ -34,7 +34,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -182,25 +182,6 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3status
-        i3bar_command i3bar --transparency
-        # 2px left/right and 2px top/bottom padding
-        padding 2px
-
-        mode dock
-        hidden_state hide
-        modifier Mod4
-
-        colors {
-            background #00000090
-            statusline #ffffff90
-            separator #66666690
-
-            focused_workspace  #4c789990 #285577A5 #ffffffEE
-            active_workspace   #33333390 #5f676aA5 #ffffffEE
-            inactive_workspace #33333390 #222222A5 #888888EE
-            urgent_workspace   #2f343a90 #900000A5 #ffffffEE
-            binding_mode       #2f343a90 #900000A5 #ffffffEE
-        }
 }
 
 # Shutdown Function
@@ -258,3 +239,6 @@ bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/Scr
 bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
 bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
 bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+
+# Suspend
+bindsym $mod+Shift+period exec systemctl suspend
