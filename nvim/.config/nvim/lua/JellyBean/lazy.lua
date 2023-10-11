@@ -117,8 +117,17 @@ local plugins = {
     -- Copilot support
     {
         "github/copilot.vim",
-        event = { "VimEnter" },
-    }
+    },
+    -- SQL Completion
+    {
+        'kristijanhusak/vim-dadbod-ui',
+        dependencies = {
+            { 'tpope/vim-dadbod',                     lazy = true },
+            { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+        },
+    },
+
+    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 }
 
 require("lazy").setup(plugins, opts)
