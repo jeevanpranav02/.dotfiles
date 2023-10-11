@@ -33,6 +33,7 @@ local plugins = {
     'folke/tokyonight.nvim',
     'folke/zen-mode.nvim',
     'folke/twilight.nvim',
+    { "tjdevries/express_line.nvim", dev = false },
 
     -- Treesitter
     {
@@ -40,7 +41,6 @@ local plugins = {
         event = { "BufReadPre", "BufNewFile" },
         build = ':TSUpdate',
         dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects",
             "nvim-treesitter/nvim-treesitter-context",
             'nvim-treesitter/playground',
         },
