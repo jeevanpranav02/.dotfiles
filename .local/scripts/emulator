@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Check if ANDROID_HOME is set
+if [ -z "$ANDROID_HOME" ]; then
+  echo "ANDROID_HOME is not set. Please set it to the Android SDK directory."
+  exit 1
+fi
+
+# List available AVDs using the emulator command
+avd_list="$(${ANDROID_HOME}/emulator/emulator -list-avds | fzf)"
+
+# Check if a valid AVD was selected
+if [ -z "$avd_list" ]; then
+  echo "No AVD selected. Exiting."
+  exit 1
+fi
+
+# Run the selected AVD using the emulator command
+${ANDROID_HOME}/emulator/emulator -avd "$avd_list"
+
