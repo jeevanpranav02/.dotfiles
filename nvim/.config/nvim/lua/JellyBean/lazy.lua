@@ -44,7 +44,7 @@ local plugins = {
     'folke/tokyonight.nvim',
     'folke/zen-mode.nvim',
     'folke/twilight.nvim',
-    { "tjdevries/express_line.nvim", dev = false },
+    { "tjdevries/express_line.nvim",              dev = false },
 
     -- Treesitter
     {
@@ -106,11 +106,13 @@ local plugins = {
     -- Formating LSP Menu
     { 'onsails/lspkind.nvim' },
 
-    -- Lua line
+    -- For loading LSP
     {
-        'nvim-lualine/lualine.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        "j-hui/fidget.nvim",
+        tag = "legacy",
+        event = "LspAttach",
     },
+
     -- Comments
     'numToStr/Comment.nvim',
 
