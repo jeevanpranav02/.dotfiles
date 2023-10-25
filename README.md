@@ -1,6 +1,6 @@
 # Dotfiles for Ubwuntu
 - Window Manager - i3wm
 - PDE - Neovim
-- Terminal - Tmux + Xterm
+- Terminal - Tmux + kitty
 - Compositor - Compton
 - Shell - zsh (ohmyzsh)

@@ -44,7 +44,7 @@ exec --no-startup-id nm-applet
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec xterm
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -242,3 +242,6 @@ bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection c
 
 # Suspend
 bindsym $mod+Shift+period exec systemctl suspend
+
+# Android Emulator Floating Window
+for_window [title="^Android Emulator.+:[0-9]+$"] floating enable
