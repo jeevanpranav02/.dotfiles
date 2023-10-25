@@ -14,7 +14,7 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
 -- Paste from clipboard
-vim.keymap.set("n", "<C-V>", [["*p]])
+vim.keymap.set("n", "<leader>v", [["*p]])
 
 -- next greatest remap ever : asbjornHaland
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
@@ -33,6 +33,8 @@ vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+vim.keymap.set("n", "<M-Left>", "<cmd>tabnext<CR>zz")
+vim.keymap.set("n", "<M-Right>", "<cmd>tabprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })

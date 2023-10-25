@@ -21,6 +21,17 @@ local plugins = {
     },
     'nvim-telescope/telescope-media-files.nvim',
     'nvim-lua/popup.nvim',
+    'nvim-tree/nvim-web-devicons',
+    'nvim-telescope/telescope-dap.nvim',
+    {
+        "AckslD/nvim-neoclip.lua",
+        dependencies = {
+            { 'kkharji/sqlite.lua', module = 'sqlite' },
+        },
+        config = function()
+            require('neoclip').setup()
+        end,
+    },
     --File browsing
     'nvim-telescope/telescope-file-browser.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },

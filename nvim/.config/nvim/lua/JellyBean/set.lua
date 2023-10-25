@@ -4,7 +4,7 @@ vim.opt.guicursor = ""
 -- Line numbers and related settings
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.signcolumn = "number"
+vim.opt.signcolumn = "auto"
 
 -- Tab settings
 vim.opt.tabstop = 4
@@ -47,5 +47,8 @@ vim.opt.syntax = "off"
 vim.opt.showcmd = true
 vim.opt.showmode = false
 
--- Enable wildmenu
+-- General
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+
+-- Vim Commands
 vim.cmd('set wildmenu')
