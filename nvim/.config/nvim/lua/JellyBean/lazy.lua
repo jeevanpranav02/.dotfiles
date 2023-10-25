@@ -76,14 +76,16 @@ local plugins = {
     "mbbill/undotree",
 
     -- For Pair Parenthesis
-    { "windwp/nvim-autopairs",                    event = { "InsertEnter" }, },
+    { "windwp/nvim-autopairs",            event = { "InsertEnter" }, },
 
     -- Git support
     "tpope/vim-fugitive",
 
     -- Java DT Language Server
-    'mfussenegger/nvim-dap',
+    'rcarriga/nvim-dap-ui',
     'mfussenegger/nvim-jdtls',
+    'mfussenegger/nvim-dap',
+    'theHamsta/nvim-dap-virtual-text',
 
     -- Colorizer
     'NvChad/nvim-colorizer.lua',
