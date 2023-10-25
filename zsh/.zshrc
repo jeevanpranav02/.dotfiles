@@ -100,6 +100,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source ~/.zsh_profile
+source ~/.zsh_functions
 
 # Cargo path
 export GPG_TTY=$(tty)
@@ -135,5 +136,3 @@ bindkey -s ^f "tmux-sessionizer\n"
 
 # Bind Ctrl+F to tmux_sessionizer
 bindkey -s ^t "tmux-sessionizer ~/\n"
-
-export EDITOR="nvim"
