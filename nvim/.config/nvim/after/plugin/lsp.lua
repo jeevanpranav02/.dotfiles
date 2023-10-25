@@ -1,4 +1,5 @@
 local lsp = require('lsp-zero')
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
@@ -15,6 +16,7 @@ require('mason-lspconfig').setup({
         lsp.default_setup,
     }
 })
+
 
 lsp.preset("recommended")
 
@@ -134,9 +136,10 @@ vim.diagnostic.config({
 })
 
 local lspconfig = require('lspconfig')
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 lspconfig.rust_analyzer.setup {}
+
+lspconfig.jedi_language_server.setup {}
 
 lspconfig.lua_ls.setup {
     settings = {
@@ -156,3 +159,36 @@ lspconfig.lua_ls.setup {
     },
 }
 
+
+-- Flutter Tools Setup
+require("flutter-tools").setup {
+    debugger = {
+        enabled = true,
+        run_via_dap = true,
+        exception_breakpoints = { "raised", "uncaught" },
+    },
+    outline = { auto_open = false },
+    decorations = {
+        statusline = { device = true, app_version = true },
+    },
+    widget_guides = { enabled = true, debug = true },
+    dev_log = { enabled = true, open_cmd = "tabedit" },
+    lsp = {
+        color = {
+            enabled = true,
+            background = true,
+            virtual_text = false,
+        },
+        settings = {
+            showTodos = true,
+            analysisExcludedFolders = {
+                vim.fn.expand("$HOME") .. "/.pub-cache",
+                vim.fn.expand("$HOME") .. "/.dartServer",
+                vim.fn.expand("$HOME") .. "/tools/flutter/",
+            },
+            renameFilesWithClasses = "prompt",
+        },
+        on_attach = on_attach,
+        capabilities = capabilities,
+    },
+}

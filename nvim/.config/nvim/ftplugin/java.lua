@@ -1,5 +1,9 @@
+local status, jdtls = pcall(require, "jdtls")
+if not status then
+    return
+end
+
 local home = os.getenv('HOME')
-local jdtls = require('jdtls')
 
 local root_markers = { 'gradlew', 'mvnw', '.git' }
 local root_dir = require('jdtls.setup').find_root(root_markers)
@@ -7,13 +11,9 @@ local root_dir = require('jdtls.setup').find_root(root_markers)
 local workspace_folder = home .. "/.cache/jdtls/workspace" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
 
 local bundles = {
-    vim.fn.glob(
-    home .. '/tools/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar',
-    "\n")
+    vim.fn.glob('home/jp/tools/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar'),
+    vim.fn.glob('/home/jp/tools/vscode-java-test/*.jar'),
 }
-
-vim.list_extend(bundles,
-vim.split(vim.fn.glob(home .. "/tools/vscode-java-test/server/*.jar"), '\n'))
 
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
@@ -21,23 +21,71 @@ extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+local on_attach = function(client, bufnr)
+    require("jdtls").setup_dap { hotcodereplace = "auto" }
+    local status_ok, jdtls_dap = pcall(require, "jdtls.dap")
+    if status_ok then
+        jdtls_dap.setup_dap_main_class_configs()
+    end
+    local _, _ = pcall(vim.lsp.codelens.refresh)
+    vim.lsp.codelens.refresh()
+
+    local opts = {
+        silent = true,
+        buffer = bufnr
+    }
+
+    vim.keymap.set('n', "<C-o>", jdtls.organize_imports, {
+        desc = 'Organize imports',
+        buffer = bufnr
+    })
+
+    vim.keymap.set('n', "<leader>df", jdtls.test_class, opts)
+
+    vim.keymap.set('n', "<leader>dn", jdtls.test_nearest_method, opts)
+
+    vim.keymap.set('n', '<leader>rv', jdtls.extract_variable_all, {
+        desc = 'Extract variable',
+        buffer = bufnr
+    })
+
+    vim.keymap.set('v', '<leader>rm', [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], {
+        desc = 'Extract method',
+        buffer = bufnr
+    })
+
+    vim.keymap.set('n', '<leader>rc', jdtls.extract_constant, {
+        desc = 'Extract constant',
+        buffer = bufnr
+    })
+end
 local config = {
     capabilities = capabilities,
+    root_dir = root_dir,
+    on_attach = on_attach,
+    flags = {
+        debounce_text_changes = 80,
+        allow_incremental_sync = true,
+    },
+    init_options = {
+        bundles = bundles,
+    },
     settings = {
-        flags = {
-            allow_incremental_sync = true,
-        },
-        init_options = {
-        },
         java = {
-            --            saveActions = {
-            --                organizeImports = true,
-            --            },
+            eclipse = {
+                downloadSources = true,
+            },
+            saveActions = {
+                organizeImports = true,
+            },
             format = {
                 settings = {
                     url = home .. ".config/nvim/lang-servers/intellij-java-google-style.xml",
                     profile = "GoogleStyle",
                 },
+            },
+            maven = {
+                downloadSources = true,
             },
             signatureHelp = { enabled = true },
             contentProvider = { preferred = 'fernflower' },
@@ -57,9 +105,9 @@ local config = {
             },
             completion = {
                 favoriteStaticMembers = {
-                    -- "org.hamcrest.MatcherAssert.assertThat",
-                    -- "org.hamcrest.Matchers.*",
-                    -- "org.hamcrest.CoreMatchers.*",
+                    "org.hamcrest.MatcherAssert.assertThat",
+                    "org.hamcrest.Matchers.*",
+                    "org.hamcrest.CoreMatchers.*",
                     "org.junit.jupiter.api.Assertions.*",
                     "java.util.Objects.requireNonNull",
                     "java.util.Objects.requireNonNullElse",
@@ -106,55 +154,12 @@ local config = {
         "-javaagent:" .. home .. "/tools/jdtls/lombok.jar",
         '-jar',
         vim.fn.glob(
-        "/home/jp/tools/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar"),
+            "/home/jp/tools/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar"),
         "-configuration", "/home/jp/tools/jdtls/config_linux/",
         '-data', workspace_folder,
     },
-    init_options = {
-        bundles = bundles,
-    },
 }
 
-config['on_attach'] = function(client, bufnr)
-    --local _, _ = pcall(vim.lsp.codelens.refresh)
-    require('jdtls').setup_dap({ hotcodereplace = 'auto' })
-    require("lsp-config").on_attach(client, bufnr)
-
-
-    local opts = {
-        silent = true,
-        buffer = bufnr
-    }
-
-    vim.keymap.set('n', "<C-o>", jdtls.organize_imports, {
-        desc = 'Organize imports',
-        buffer = bufnr
-    })
-
-    vim.keymap.set('n', "<leader>df", jdtls.test_class, opts)
-
-    vim.keymap.set('n', "<leader>dn", jdtls.test_nearest_method, opts)
-
-    vim.keymap.set('n', '<leader>rv', jdtls.extract_variable_all, {
-        desc = 'Extract variable',
-        buffer = bufnr
-    })
-
-    vim.keymap.set('v', '<leader>rm', [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], {
-        desc = 'Extract method',
-        buffer = bufnr
-    })
-
-    vim.keymap.set('n', '<leader>rc', jdtls.extract_constant, {
-        desc = 'Extract constant',
-        buffer = bufnr
-    })
-
-    local status_ok, jdtls_dap = pcall(require, "jdtls.dap")
-    if status_ok then
-        jdtls_dap.setup_dap_main_class_configs()
-    end
-end
 
 require('dap.ext.vscode').load_launchjs()
 
@@ -166,3 +171,6 @@ require('dap.ext.vscode').load_launchjs()
 --})
 
 jdtls.start_or_attach(config)
+
+vim.bo.shiftwidth = 2
+vim.bo.tabstop = 2
