@@ -146,4 +146,4 @@ local plugins = {
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 }
 
-require("lazy").setup(plugins, opts)
+require("lazy").setup(plugins, {})
