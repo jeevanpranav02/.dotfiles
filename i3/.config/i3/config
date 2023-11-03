@@ -167,12 +167,18 @@ exec --no-startup-id picom
 # Enable smart gaps
 smart_gaps on
 # Set inner and outer gaps
-gaps inner 8
-gaps outer 2
+gaps inner 10
+gaps outer 10
 
 # Add borders to windows
-for_window [class="^.*"] border pixel 2
-for_window [class="^.*"] client.focused #77dd77 #285577 #ffffff #2e9ef4 #285577
+for_window [class="^.*"]    border pixel 1
+for_window [title="^.*"]    border pixel 0
+# for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] client.focused #ffffff #ffffff #ffffff #ffffff #ffffff
+
+bindsym $mod+Shift+minus	  gaps inner current plus 5
+bindsym $mod+Shift+plus		  gaps inner current minus 5
+bindsym $mod+Shift+d		    gaps inner current set 0; gaps outer current set 0
 
 # <<----------- i3bar Configuration ----------------->>
 
