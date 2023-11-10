@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Get path from user
+if [[ $# -eq 1 ]]; then
+    selected_image=$1
+else
+    # Use fzf to select a folder and preview images
+    selected_image=$(find  ~/Pictures/anime -type f -name '*.png' -o -name '*.jpg'| fzf )
+fi
+
+if [[ -z $selected_image ]]; then
+    exit 0
+fi
+
+# Check if an image was selected
+if [ -n "$selected_image" ]; then
+    # Display the selected image using kitty's icat
+    kitten icat "$selected_image"
+
+    # Now ask the user to whether set wallpaper or to copy it to ~/.local/bg.png
+    read -p "Set as wallpaper? [y/n] " reply
+    if [[ $reply =~ ^[Yy]$ ]]; then
+        # Set the selected image as wallpaper
+        feh --bg-fill --no-fehbg "$selected_image"
+        echo "Wallpaper set."
+    fi
+    # Copy the selected image to ~/.local/bg.png
+    cp "$selected_image" ~/.local/bg.png
+    echo "Image copied to ~/.local/bg.png"
+else
+    echo "No image selected."
+fi

@@ -75,6 +75,7 @@ bindsym $mod+a focus parent
 bindsym $mod+Home	workspace $ws1
 bindsym $mod+End	workspace $ws10
 bindsym $mod+Tab	workspace next
+bindsym $mod+Shift+Tab	workspace prev
 
 # Define names for default workspaces
 set $ws1 "1"
@@ -132,6 +133,12 @@ mode "resize" {
 # Enter resize mode with Mod key + r
 bindsym $mod+r mode "resize"
 
+# Increase Border Size
+bindsym $mod+y border pixel 5
+
+# Decrease Border Size
+bindsym $mod+t border pixel 0
+
 # <<----------- System Power Control ----------------->
 
 set $mode_system System (e) logout, (r) reboot, (s) sleep, (Shift+s) shutdown
@@ -157,7 +164,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # <<----------- Wallpaper and Transparency ----------------->>
 
 # Set wallpaper with Nitrogen
-exec --no-startup-id nitrogen --restore
+exec --no-startup-id feh --bg-fill --no-fehbg ~/.local/bg.png
 
 # Enable transparency with Compton
 exec --no-startup-id picom
