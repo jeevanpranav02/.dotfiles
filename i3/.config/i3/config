@@ -163,7 +163,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # <<----------- Wallpaper and Transparency ----------------->>
 
-# Set wallpaper with Nitrogen
+# Set wallpaper with Feh
 exec --no-startup-id feh --bg-fill --no-fehbg ~/.local/bg.png
 
 # Enable transparency with Compton
