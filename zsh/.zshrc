@@ -135,3 +135,6 @@ bindkey -s ^f "tmux-sessionizer\n"
 
 # Bind Ctrl+F to tmux_sessionizer
 bindkey -s ^t "tmux-sessionizer ~/\n"
+
+# Bind Ctrl+B to change background
+bindkey -s ^b "set_bg\n"
