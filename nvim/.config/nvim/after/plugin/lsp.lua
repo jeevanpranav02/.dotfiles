@@ -104,10 +104,10 @@ cmp.setup({
 lsp.set_preferences({
     suggest_lsp_servers = false,
     sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
+        error = '✘',
+        warn = '⚠',
+        hint = '⚑',
+        info = '»',
     }
 })
 
@@ -131,21 +131,47 @@ lsp.on_attach(on_attach)
 
 lsp.setup()
 
+-- TODO: I think I can remove this now.
+local sign = function(opts)
+    vim.fn.sign_define(opts.name, {
+        texthl = opts.name,
+        text = opts.text,
+        numhl = ''
+    })
+end
+
+sign({ name = 'DiagnosticSignError', text = '✘' })
+sign({ name = 'DiagnosticSignWarn', text = '▲' })
+sign({ name = 'DiagnosticSignHint', text = '⚑' })
+sign({ name = 'DiagnosticSignInfo', text = '»' })
+
+
 vim.diagnostic.config({
-    virtual_text = true
+    virtual_text = true,
+    underline = true,
+    signs = true,
+    update_in_insert = false,
+    severity_sort = true,
+    float = {
+        border = "single",
+        source = "always",
+    },
 })
+
 
 local lspconfig = require('lspconfig')
 
+-- Rust Analyzer Setup
 lspconfig.rust_analyzer.setup {}
 
+-- Python Setup
 lspconfig.jedi_language_server.setup {}
 
+-- Lua Setup
 lspconfig.lua_ls.setup {
     settings = {
         Lua = {
             diagnostics = {
-                -- Get the language server to recognize the `vim` global
                 globals = {
                     'vim',
                     'require'
@@ -247,7 +273,8 @@ require("flutter-tools").setup {
                 vim.fn.expand("$HOME") .. "/.dartServer",
                 vim.fn.expand("$HOME") .. "/tools/flutter/",
             },
-            renameFilesWithClasses = "prompt",
+            renameFilesWithClasses = "always",
+            enableSnippets = true,
         },
         on_attach = on_attach,
         capabilities = capabilities,

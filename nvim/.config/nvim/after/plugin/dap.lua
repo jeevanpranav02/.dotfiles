@@ -36,6 +36,7 @@ dap.configurations.dart = {
         cwd = "${workspaceFolder}",
     }
 }
+dap.defaults.dart.exception_breakpoints = { "Notice", "Warning", "Error", "Exception" }
 
 -- =================================================================================
 
@@ -110,3 +111,13 @@ nnoremap('<leader>d?', function()
 end, "Scopes")
 nnoremap('<leader>df', '<cmd>Telescope dap frames<cr>', "List frames")
 nnoremap('<leader>dh', '<cmd>Telescope dap commands<cr>', "List commands")
+
+
+-- Breakpoints on exceptions
+vim.keymap.set("n", "<leader>da", function()
+  require("dap").set_exception_breakpoints({ "Warning", "Error", "Exception" })
+end, { desc = "Stop on exceptions" }) -- TODO this one doesn't show on which-key
+
+vim.keymap.set("n", "<leader>dA", function()
+  require("dap").set_exception_breakpoints({ "Notice", "Warning", "Error", "Exception" })
+end, { desc = "Stop on all" })
