@@ -1,11 +1,11 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
+        'git',
+        'clone',
+        '--filter=blob:none',
+        'https://github.com/folke/lazy.nvim.git',
+        '--branch=stable', -- latest stable release
         lazypath,
     })
 end
@@ -23,8 +23,9 @@ local plugins = {
     'nvim-lua/popup.nvim',
     'nvim-tree/nvim-web-devicons',
     'nvim-telescope/telescope-dap.nvim',
+    'benfowler/telescope-luasnip.nvim',
     {
-        "AckslD/nvim-neoclip.lua",
+        'AckslD/nvim-neoclip.lua',
         dependencies = {
             { 'kkharji/sqlite.lua', module = 'sqlite' },
         },
@@ -41,46 +42,50 @@ local plugins = {
         'rose-pine/neovim',
         name = 'rose-pine'
     },
+    { "catppuccin/nvim",                          name = "catppuccin", priority = 1000 },
     'folke/tokyonight.nvim',
     'folke/zen-mode.nvim',
     'folke/twilight.nvim',
-    { "tjdevries/express_line.nvim",              dev = false },
+    { 'tjdevries/express_line.nvim', dev = false },
+    'tjdevries/colorbuddy.vim',
+    'tjdevries/gruvbuddy.nvim',
 
     -- Treesitter
     {
         'nvim-treesitter/nvim-treesitter',
-        event = { "BufReadPre", "BufNewFile" },
+        event = { 'BufReadPre', 'BufNewFile' },
         build = ':TSUpdate',
         dependencies = {
-            "nvim-treesitter/nvim-treesitter-context",
+            'nvim-treesitter/nvim-treesitter-context',
             'nvim-treesitter/playground',
         },
     },
 
     -- Trouble for Telescope
-    "folke/trouble.nvim",
+    'folke/trouble.nvim',
 
     -- Flutter Packer
     {
         'akinsho/flutter-tools.nvim',
         lazy = false,
         dependencies = {
+            'dart-lang/dart-vim-plugin',
             'nvim-lua/plenary.nvim',
             'stevearc/dressing.nvim', -- optional for vim.ui.select
+            'RobertBrunhage/flutter-riverpod-snippets',
         },
     },
 
-    -- Harpoon
-    "ThePrimeagen/harpoon",
+    -- GOATED plugins
+    'ThePrimeagen/harpoon',
+    'tpope/vim-fugitive',
+    'tpope/vim-surround',
 
     -- UndoTree similar to GitBranches
-    "mbbill/undotree",
+    'mbbill/undotree',
 
     -- For Pair Parenthesis
-    { "windwp/nvim-autopairs",            event = { "InsertEnter" }, },
-
-    -- Git support
-    "tpope/vim-fugitive",
+    { 'windwp/nvim-autopairs',       event = { 'InsertEnter' }, },
 
     -- Java DT Language Server
     'rcarriga/nvim-dap-ui',
@@ -98,7 +103,7 @@ local plugins = {
     { 'VonHeikemen/lsp-zero.nvim',        branch = 'v3.x' },
     { 'neovim/nvim-lspconfig' },
     { 'hrsh7th/cmp-nvim-lsp' },
-    { 'hrsh7th/nvim-cmp',                 event = "InsertEnter", },
+    { 'hrsh7th/nvim-cmp',                 event = 'InsertEnter', },
     -- Snippets
     { 'L3MON4D3/LuaSnip' },
     { 'rafamadriz/friendly-snippets' },
@@ -109,9 +114,9 @@ local plugins = {
 
     -- For loading LSP
     {
-        "j-hui/fidget.nvim",
-        tag = "legacy",
-        event = "LspAttach",
+        'j-hui/fidget.nvim',
+        tag = 'legacy',
+        event = 'LspAttach',
     },
 
     -- Comments
@@ -119,9 +124,9 @@ local plugins = {
 
     -- Org mode
     {
-        "nvim-neorg/neorg",
-        build = ":Neorg sync-parsers",
-        dependencies = "nvim-lua/plenary.nvim",
+        'nvim-neorg/neorg',
+        build = ':Neorg sync-parsers',
+        dependencies = 'nvim-lua/plenary.nvim',
     },
 
     -- Laravel support
@@ -132,7 +137,7 @@ local plugins = {
 
     -- Copilot support
     {
-        "github/copilot.vim",
+        'github/copilot.vim',
     },
     -- SQL Completion
     {
@@ -143,7 +148,43 @@ local plugins = {
         },
     },
 
-    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+    -- Phpactor support
+    {
+        'phpactor/phpactor',
+        build = 'composer install --no-dev --optimize-autoloader',
+        ft = 'php',
+        keys = {
+            { '<Leader>pm', ':PhpactorContextMenu<CR>' },
+            { '<Leader>pn', ':PhpactorClassNew<CR>' },
+        }
+    },
+
+    -- JSON
+    'b0o/schemastore.nvim',
+
+    -- SmoothScrolling
+    -- {
+    --     "karb94/neoscroll.nvim",
+    --     config = function()
+    --         require('neoscroll').setup {}
+    --     end
+    -- },
 }
 
-require("lazy").setup(plugins, {})
+require('lazy').setup(plugins, {
+    ui = {
+        icons = {
+            cmd = "⌘",
+            config = "🔨",
+            event = "📅",
+            ft = "📂",
+            init = "⚙",
+            keys = "🔑",
+            plugin = "🔌",
+            runtime = "💻",
+            source = "📄",
+            start = "🚀",
+            task = "📌",
+        },
+    },
+})

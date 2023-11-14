@@ -13,6 +13,9 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 
+-- Enable cursorline
+vim.opt.cursorline = true
+
 -- Word wrap
 vim.opt.wrap = false
 

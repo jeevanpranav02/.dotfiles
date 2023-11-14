@@ -41,15 +41,5 @@ require('neorg').setup {
                 neorg_leader = " ",
             },
         },
-        ["core.export"] = {
-            config = {
-                export_dir = "~/notes/"
-            },
-        },
-        ["core.export.markdown"] = {
-            config = {
-                extensions = "all",
-            },
-        },
     }
 }
