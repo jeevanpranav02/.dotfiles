@@ -172,7 +172,7 @@ exec --no-startup-id picom
 # <<----------- Gap & Appearance ----------------->>
 
 # Enable smart gaps
-smart_gaps on
+# smart_gaps on
 # Set inner and outer gaps
 gaps inner 10
 gaps outer 10
@@ -192,6 +192,19 @@ bindsym $mod+Shift+d		    gaps inner current set 0; gaps outer current set 0
 # Start i3bar to display a workspace bar
 bar {
     status_command i3status
+    i3bar_command i3bar --transparency
+
+    colors {
+            background #00000090
+            statusline #ffffff90
+            separator #66666690
+
+            focused_workspace  #4c789990 #285577A5 #ffffffEE
+            active_workspace   #33333390 #5f676aA5 #ffffffEE
+            inactive_workspace #33333390 #222222A5 #888888EE
+            urgent_workspace   #2f343a90 #900000A5 #ffffffEE
+            binding_mode       #2f343a90 #900000A5 #ffffffEE
+        }
 }
 
 # <<----------- Keybindings ----------------->>
