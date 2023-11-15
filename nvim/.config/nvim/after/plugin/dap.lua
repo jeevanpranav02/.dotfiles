@@ -52,7 +52,23 @@ end
 dap.listeners.before['event_exited']["dapui_config"] = function()
     dapui.close()
 end
-dapui.setup()
+dapui.setup({
+    windows = { indent = 2 },
+    layouts = {
+        {
+            elements = {
+                { id = 'scopes',      size = 0.25 },
+                { id = 'breakpoints', size = 0.25 },
+                { id = 'stacks',      size = 0.25 },
+                { id = 'watches',     size = 0.25 },
+            },
+            position = 'left',
+            size = 20,
+        },
+        { elements = { { id = 'repl', size = 0.9 } }, position = 'bottom', size = 10 },
+    },
+}
+)
 
 
 -- =================================================================================
@@ -74,7 +90,7 @@ require("nvim-dap-virtual-text").setup {
 
     -- experimental features:
     virt_text_pos = "eol", -- position of virtual text, see `:h nvim_buf_set_extmark()`
-    all_frames = false,    -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
+    all_frames = true,     -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
 }
 
 
@@ -115,9 +131,9 @@ nnoremap('<leader>dh', '<cmd>Telescope dap commands<cr>', "List commands")
 
 -- Breakpoints on exceptions
 vim.keymap.set("n", "<leader>da", function()
-  require("dap").set_exception_breakpoints({ "Warning", "Error", "Exception" })
+    require("dap").set_exception_breakpoints({ "Warning", "Error", "Exception" })
 end, { desc = "Stop on exceptions" }) -- TODO this one doesn't show on which-key
 
 vim.keymap.set("n", "<leader>dA", function()
-  require("dap").set_exception_breakpoints({ "Notice", "Warning", "Error", "Exception" })
+    require("dap").set_exception_breakpoints({ "Notice", "Warning", "Error", "Exception" })
 end, { desc = "Stop on all" })

@@ -76,6 +76,9 @@ local plugins = {
         },
     },
 
+    -- Manage multiple terminal windows
+    'akinsho/toggleterm.nvim',
+
     -- GOATED plugins
     'ThePrimeagen/harpoon',
     'tpope/vim-fugitive',
@@ -88,9 +91,15 @@ local plugins = {
     { 'windwp/nvim-autopairs',       event = { 'InsertEnter' }, },
 
     -- Java DT Language Server
-    'rcarriga/nvim-dap-ui',
     'mfussenegger/nvim-jdtls',
-    'mfussenegger/nvim-dap',
+    {
+        'mfussenegger/nvim-dap',
+        dependencies = {
+            { 'rcarriga/nvim-dap-ui' },
+            { 'theHamsta/nvim-dap-virtual-text' },
+        },
+    },
+    'rcarriga/nvim-dap-ui',
     'theHamsta/nvim-dap-virtual-text',
 
     -- Colorizer

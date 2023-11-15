@@ -254,12 +254,8 @@ require("flutter-tools").setup {
         run_via_dap = false,
         exception_breakpoints = ({ "raised", "uncaught" }),
     },
-    outline = { auto_open = false },
-    decorations = {
-        statusline = { device = true, app_version = true },
-    },
     widget_guides = { enabled = true, debug = true },
-    dev_log = { enabled = true, notify_errors = true, open_cmd = "tabedit", },
+    dev_log = { enabled = true, notify_errors = false, },
     lsp = {
         color = {
             enabled = true,

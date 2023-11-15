@@ -10,7 +10,6 @@ vim.keymap.set('n', '<leader>gi', builtin.lsp_implementations, {})
 vim.keymap.set('n', '<leader>pm', '<cmd>Telescope media_files<CR>')
 vim.keymap.set('n', '<leader>pd', '<cmd>Telescope diagnostics<CR>')
 vim.keymap.set('n', '<leader>=', '<cmd>Telescope registers<CR>')
-vim.keymap.set('n', '<leader>fr', '<cmd>Telescope flutter commands<CR>')
 vim.keymap.set('n', '<C-l>',
     "<cmd>Telescope luasnip theme=ivy initial_mode=normal <CR>")
 vim.api.nvim_set_keymap(
