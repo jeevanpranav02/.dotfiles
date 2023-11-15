@@ -1,0 +1,56 @@
+# XDG
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
+
+# Set the shell to zsh
+export SHELL=/bin/zsh
+
+# Something for me to see where aliases get defined
+# Use 256 colors
+# export TERM=xterm-256color
+export LANG=en_US.UTF8
+
+# Zsh options
+setopt autocd                 # Allow changing directories without typing 'cd'
+setopt autopushd              # Automatically push directories onto the directory stack with each 'cd'
+setopt vi                     # Enable vi mode
+setopt extended_glob          # Enable extended globbing (pattern matching)
+setopt extended_history       # Add timestamps to history entries
+setopt hist_expire_dups_first # Expire duplicates first when trimming history
+setopt hist_find_no_dups      # Do not find duplicates in the history list
+setopt hist_reduce_blanks     # Reduce consecutive blanks in history
+setopt hist_verify            # Verify history substitutions before executing
+setopt ignore_eof             # Ignore EOF (Ctrl-D) to prevent accidental logouts
+setopt inc_append_history     # Save history by line; exclusive to share_history
+setopt nobeep                 # Disable beep on error
+setopt notify                 # Asynchronous job control messages
+setopt pushd_ignore_dups      # Ignore duplicate entries when pushing directories onto the stack
+
+# Word boundaries
+autoload -Uz select-word-style
+select-word-style bash
+
+# Edit command line with C-x C-e
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
+
+# Disable ctrl-s to freeze terminal
+stty stop undef
+
+# Zsh highlighting settings
+zle_highlight=('paste:none')
+
+# Load and initialize completion
+autoload -Uz compinit
+compinit
+
+# Useful Functions
+source "$ZDOTDIR/zsh_functions"
+
+# Custom files
+zsh_add_file "zsh_prompt"
+zsh_add_file "zsh_aliases"
+zsh_add_file "zsh_exports"
+zsh_add_file "zsh_keybindings"

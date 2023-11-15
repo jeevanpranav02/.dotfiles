@@ -4,7 +4,7 @@
 - **PDE:** Neovim
 - **Terminal:** Tmux + kitty
 - **Compositor:** Picom
-- **Shell:** zsh (oh-my-zsh)
+- **Shell:** zsh
 
 ---
 

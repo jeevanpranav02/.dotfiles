@@ -1,0 +1,47 @@
+#!/bin/sh
+
+# Zsh history configuration
+# Configure zsh history file location and size
+HISTFILE=$XDG_CACHE_HOME/zsh/.zsh_history
+HISTSIZE=50000
+SAVEHIST=50000
+
+# Editor configuration
+# Set default editor to neovim and configure manpager
+export EDITOR="nvim"
+export VISUAL="nvim"
+export MANPAGER='nvim +Man!'
+
+# Add Go binary to the PATH
+export PATH=$PATH:$HOME/go/bin
+
+# Add local bin to the PATH
+export PATH="$HOME/.local/bin:$PATH"
+
+# FZF (fuzzy finder) configuration
+export FZF_DEFAULT_OPTS=' --preview "batcat --color=always --decorations=never {}"'
+
+# Cargo (Rust package manager) configuration
+# Set GPG_TTY for signing commits
+export GPG_TTY=$(tty)
+. "$HOME/.cargo/env"
+
+# Go language configuration
+export PATH=$PATH:/usr/local/go/bin
+
+# Java configuration
+export JAVA_HOME=$HOME/tools/JDK/jdk-17.0.8.1
+export PATH=$PATH:$JAVA_HOME/bin
+
+# Flutter configuration
+export PATH="$PATH:$HOME/tools/flutter/bin"
+
+# Personal Scripts
+export PATH=$PATH:$HOME/.local/scripts
+
+# Android SDK configuration
+export ANDROID_HOME=$HOME/tools/Android/Sdk
+export PATH=$PATH:$HOME/tools/Android/Sdk/platform-tools
+
+# Laravel configuration
+export PATH=$PATH:$HOME/.config/composer/vendor/bin

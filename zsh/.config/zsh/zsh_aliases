@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# Directory Navigation
+alias anime='cd ~/Videos/Anime'
+alias movies='cd ~/Videos/Movies'
+
+# PostgreSQL
+alias postgre='sudo -i -u postgres'
+
+# Tmux Shortcuts
+alias ta='tmux attach'
+alias tk='tmux kill-server'
+
+# Weather
+alias weather='curl wttr.in'
+
+# Kitty Terminal Update
+alias kittyupdate='curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin'
+
+# LS Aliases
+alias ll='ls -alF --color=auto --group-directories-first'       # Long list with hidden files
+alias la='ls -A --color=auto --group-directories-first'         # List all except . and ..
+alias l='ls -CF --color=auto --group-directories-first'         # Compact list
+alias las='ls -tarl --color=auto --group-directories-first'     # List, sort by modification time
+
+# Doom Emacs
+alias doom='~/.config/emacs/bin/doom'
+
+# Disk Usage
+alias diskusage='sudo du -sh * | sort -h -r'
+
+# Alert for Long-Running Commands
+# Usage: sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Git Aliases
+alias gitlog='git log --graph --oneline --decorate --all'
+alias gitfzf='git log --oneline | fzf --multi --preview "git show {+1} | batcat --color=always --decorations=never"'
+

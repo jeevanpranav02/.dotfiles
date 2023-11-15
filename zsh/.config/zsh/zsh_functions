@@ -1,0 +1,47 @@
+# Function to source files if they exist
+function zsh_add_file() {
+    # Check if the file exists, and if so, source it
+    [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
+}
+
+# Function to add Zsh plugins
+function zsh_add_plugin() {
+    # Extract the plugin name from the GitHub URL
+    PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
+
+    if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
+        # For existing plugins, try sourcing the plugin files
+        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
+        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
+    else
+        # If the plugin doesn't exist, clone it from GitHub
+        git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
+    fi
+}
+
+# Function to add Zsh completions
+function zsh_add_completion() {
+    # Extract the plugin name from the GitHub URL
+    PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
+
+    if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
+        # For existing completions, add the completion file path to fpath
+        completion_file_path=$(ls $ZDOTDIR/plugins/$PLUGIN_NAME/_*)
+        fpath+="$(dirname "${completion_file_path}")"
+        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh"
+    else
+        # If the completion doesn't exist, clone it from GitHub
+        git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
+        fpath+=$(ls $ZDOTDIR/plugins/$PLUGIN_NAME/_*)
+        rm $ZDOTDIR/.zccompdump
+    fi
+
+    # Extract the completion file name and add it to fpath
+    completion_file="$(basename "${completion_file_path}")"
+
+    # Initialize completions if specified
+    if [ "$2" = true ]; then
+        compinit "${completion_file:1}"
+    fi
+}
+
