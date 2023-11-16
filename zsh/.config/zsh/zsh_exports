@@ -2,7 +2,7 @@
 
 # Zsh history configuration
 # Configure zsh history file location and size
-HISTFILE=$XDG_CACHE_HOME/zsh/.zsh_history
+HISTFILE=$HOME/.zsh_history
 HISTSIZE=50000
 SAVEHIST=50000
 
