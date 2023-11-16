@@ -18,10 +18,14 @@ alias weather='curl wttr.in'
 alias kittyupdate='curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin'
 
 # LS Aliases
+alias ls='ls --color=auto --group-directories-first'            # List
 alias ll='ls -alF --color=auto --group-directories-first'       # Long list with hidden files
 alias la='ls -A --color=auto --group-directories-first'         # List all except . and ..
 alias l='ls -CF --color=auto --group-directories-first'         # Compact list
 alias las='ls -tarl --color=auto --group-directories-first'     # List, sort by modification time
+
+# Copy clipboard to primary
+alias clip='xclip -selection clipboard'
 
 # Doom Emacs
 alias doom='~/.config/emacs/bin/doom'
