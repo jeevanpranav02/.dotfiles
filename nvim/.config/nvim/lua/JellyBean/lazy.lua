@@ -97,6 +97,7 @@ local plugins = {
         dependencies = {
             { 'rcarriga/nvim-dap-ui' },
             { 'theHamsta/nvim-dap-virtual-text' },
+            { 'chunleng/nvim-dap-kitty-launcher'  },
         },
     },
     'rcarriga/nvim-dap-ui',
