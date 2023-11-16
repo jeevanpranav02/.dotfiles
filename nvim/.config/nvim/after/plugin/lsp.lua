@@ -252,6 +252,9 @@ require("flutter-tools").setup {
     debugger = {
         enabled = true,
         run_via_dap = false,
+        register_configurations = function(_)
+            require("dap.ext.vscode").load_launchjs()
+        end,
         exception_breakpoints = ({ "raised", "uncaught" }),
     },
     widget_guides = { enabled = true, debug = true },
