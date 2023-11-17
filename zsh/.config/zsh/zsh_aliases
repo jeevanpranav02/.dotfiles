@@ -24,6 +24,11 @@ alias la='ls -A --color=auto --group-directories-first'         # List all excep
 alias l='ls -CF --color=auto --group-directories-first'         # Compact list
 alias las='ls -tarl --color=auto --group-directories-first'     # List, sort by modification time
 
+# grep Aliases
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
 # Copy clipboard to primary
 alias clip='xclip -selection clipboard'
 
