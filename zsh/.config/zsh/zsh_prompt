@@ -48,9 +48,8 @@ local current_dir='%{$terminfo[bold]$fg[cyan]%}%c%{$reset_color%}'
 local git_branch='$(git_prompt_info)%{$reset_color%}'
 
 # Main prompt configuration
-PROMPT="
- %(?:%{$fg_bold[green]%}➜  :%{$fg_bold[red]%}➜  )${current_dir} ${git_branch}%B${user_symbol}%b"
-RPS1="%B${return_code}%b"
+PROMPT=" %(?:%{$fg_bold[green]%}➜  :%{$fg_bold[red]%}➜  )${current_dir} ${git_branch}%B${user_symbol}%b"
+# RPS1="%B${return_code}%b"
 
 # Customize Git prompt prefix, suffix, and colors
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:("
