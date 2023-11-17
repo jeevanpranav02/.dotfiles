@@ -251,19 +251,25 @@ lspconfig.jsonls.setup({
 require("flutter-tools").setup {
     debugger = {
         enabled = true,
-        run_via_dap = false,
+        run_via_dap = true,
         register_configurations = function(_)
             require("dap.ext.vscode").load_launchjs()
         end,
-        exception_breakpoints = ({ "raised", "uncaught" }),
+        exception_breakpoints = ({ "raised", "uncaught", "userUnhandled" }),
     },
     widget_guides = { enabled = true, debug = true },
-    dev_log = { enabled = true, notify_errors = false, },
+    dev_log = { enabled = true, notify_errors = false, open_cmd = "tabedit", },
     lsp = {
         color = {
             enabled = true,
             background = true,
-            virtual_text = false,
+            background_color = {
+                r = 19,
+                g = 17,
+                b = 24,
+            }, -- required, when background is transparent (i.e. background_color = { r = 19, g = 17, b = 24},)
+            virtual_text = true, -- show the highlight using virtual text
+            virtual_text_str = "■", -- the virtual text character to highlight
         },
         settings = {
             showTodos = true,
