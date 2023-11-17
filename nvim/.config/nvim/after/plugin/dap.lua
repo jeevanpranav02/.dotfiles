@@ -1,20 +1,31 @@
 -- Debug Adapter Protocol (DAB)
 local dap = require('dap')
 
+-- Call this function when running debug adapter
+function SetUpDapExceptionBreakPoints()
+    require('dap').set_exception_breakpoints({ "raised", "uncaught", "userUnhandled" })
+    print("DAP Exception Breakpoints Set")
+end
+
+vim.cmd [[
+    augroup file_blade_php
+      autocmd BufRead dap-repl lua SetUpDapExceptionBreakPoints()
+    augroup END
+]]
 -- ===============================================================================
 -- For Dart and Flutter Support
 dap.adapters.dart = {
     type = 'executable',
     command = vim.fn.stdpath('data') .. '/mason/bin/dart-debug-adapter',
-    args = { 'dart' }
+    args = { 'dart' },
+    options = {
+        detached = false,
+    }
 }
 dap.adapters.flutter = {
     type = 'executable',
     command = vim.fn.stdpath('data') .. '/mason/bin/dart-debug-adapter',
     args = { 'flutter' },
-    options = {
-        detached = false,
-    }
 }
 dap.configurations.dart = {
     {
@@ -36,7 +47,6 @@ dap.configurations.dart = {
         cwd = "${workspaceFolder}",
     }
 }
-dap.defaults.dart.exception_breakpoints = { "Notice", "Warning", "Error", "Exception" }
 
 -- =================================================================================
 
