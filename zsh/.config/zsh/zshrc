@@ -26,6 +26,7 @@ setopt inc_append_history     # Save history by line; exclusive to share_history
 setopt nobeep                 # Disable beep on error
 setopt notify                 # Asynchronous job control messages
 setopt pushd_ignore_dups      # Ignore duplicate entries when pushing directories onto the stack
+setopt interactive_comments   # Allow comments in interactive shell
 
 # Word boundaries
 autoload -Uz select-word-style

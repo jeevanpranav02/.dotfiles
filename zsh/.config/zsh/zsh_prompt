@@ -1,59 +1,37 @@
-#!/bin/zsh
+#!/bin/sh
 
-# Enable color support in the shell
+## autoload vcs and colors
+autoload -Uz vcs_info
 autoload -U colors && colors
-setopt PROMPT_SUBST
 
-# ZSH Theme - Modified from bira.zsh-theme
+# enable only git
+zstyle ':vcs_info:*' enable git
 
-# Display return code in red if non-zero
-local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
+# setup a hook that runs before every ptompt.
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
 
-# Function to display Git prompt information
-function git_prompt_info() {
-  # Get the Git branch name
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-
-  # Check if the working tree is dirty
-  local STATUS=''
-  local FLAGS
-  FLAGS=('--porcelain')
-  if [[ "$(command git config --get oh-my-zsh.hide-dirty)" != "1" ]]; then
-    if [[ $POST_1_7_2_GIT -gt 0 ]]; then
-      FLAGS+='--ignore-submodules=dirty'
+# add a function to check for untracked files in the directory.
+# from https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+#
++vi-git-untracked(){
+    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+        git status --porcelain | grep '??' &> /dev/null ; then
+        # This will show the marker if there are any untracked files in repo.
+        # If instead you want to show the marker only if there are untracked
+        # files in $PWD, use:
+        #[[ -n $(git ls-files --others --exclude-standard) ]] ; then
+        hook_com[staged]+='!' # signify new files with a bang
     fi
-    if [[ "$DISABLE_UNTRACKED_FILES_DIRTY" == "true" ]]; then
-      FLAGS+='--untracked-files=no'
-    fi
-    STATUS=$(command git status ${FLAGS} 2> /dev/null | tail -n1)
-  fi
-
-  # Set Git prompt colors based on the working tree status
-  if [[ -n $STATUS ]]; then
-    GIT_PROMPT_COLOR="$ZSH_THEME_GIT_PROMPT_DIRTY"
-    GIT_DIRTY_STAR="%{$fg[yellow]%}✘ "
-  else
-    GIT_PROMPT_COLOR="$ZSH_THEME_GIT_PROMPT_CLEAN"
-    unset GIT_DIRTY_STAR
-  fi
-
-  # Display Git branch information
-  echo "$ZSH_THEME_GIT_PROMPT_PREFIX$GIT_PROMPT_COLOR${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX$GIT_DIRTY_STAR"
 }
 
-# Customize current directory display
-local current_dir='%{$terminfo[bold]$fg[cyan]%}%c%{$reset_color%}'
+zstyle ':vcs_info:*' check-for-changes true
+# zstyle ':vcs_info:git:*' formats " %r/%S %b %m%u%c "
+zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]%}%F{#c4a7e7} %b%{$fg[blue]%})%{$reset_color%}"
 
-# Set Git branch display
-local git_branch='$(git_prompt_info)%{$reset_color%}'
-
-# Main prompt configuration
-PROMPT=" %(?:%{$fg_bold[green]%}➜  :%{$fg_bold[red]%}➜  )${current_dir} ${git_branch}%B${user_symbol}%b"
-# RPS1="%B${return_code}%b"
-
-# Customize Git prompt prefix, suffix, and colors
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:("
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[blue]%})$reset_color "
-ZSH_THEME_GIT_PROMPT_DIRTY="$fg[red]"
-ZSH_THEME_GIT_PROMPT_CLEAN="$fg[green]"
-
+# format our main prompt for hostname current folder, and permissions.
+PROMPT="%B%{$fg[blue]%}[%{$fg[white]%}%n%{$fg[red]%}@%{$fg[white]%}%m%{$fg[blue]%}] %(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )%{$fg[cyan]%}%c%{$reset_color%}"
+# PROMPT="%{$fg[green]%}%n@%m %~ %{$reset_color%}%#> "
+PROMPT+="\$vcs_info_msg_0_ "
