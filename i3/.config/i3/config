@@ -238,7 +238,7 @@ bindsym $mod+b exec --no-startup-id brave-browser
 
 # Dunstctl(Notification control)
 # Close the current notification using dunstctl
-bindsym Ctrl+space exec dunstctl close
+bindsym Shift+space exec dunstctl close
 
 # Close all notifications using dunstctl
 bindsym Ctrl+Shift+space exec dunstctl close-all
