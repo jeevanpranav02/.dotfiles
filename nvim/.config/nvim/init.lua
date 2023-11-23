@@ -1,4 +1,4 @@
-require("JellyBean")
+require("jb")
 
 if vim.g.neovide then
   vim.g.neovide_cursor_trail_legnth = 0

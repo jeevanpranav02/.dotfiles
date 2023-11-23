@@ -75,6 +75,8 @@ local plugins = {
             'RobertBrunhage/flutter-riverpod-snippets',
         },
     },
+    -- Log highlighter
+    { 'mtdl9/vim-log-highlighting', lazy = false },
 
     -- Manage multiple terminal windows
     'akinsho/toggleterm.nvim',
