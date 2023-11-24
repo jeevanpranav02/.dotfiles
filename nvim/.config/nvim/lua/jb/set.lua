@@ -22,7 +22,7 @@ vim.opt.wrap = false
 -- Disable swap and backup files, enable undofile
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = vim.fn.stdpath('data') .. "/site/undodir"
+vim.opt.undodir = vim.fn.stdpath("data") .. "/site/undodir"
 vim.opt.undofile = true
 
 -- Search settings
@@ -54,4 +54,4 @@ vim.opt.showmode = false
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- Vim Commands
-vim.cmd('set wildmenu')
+vim.cmd("set wildmenu")

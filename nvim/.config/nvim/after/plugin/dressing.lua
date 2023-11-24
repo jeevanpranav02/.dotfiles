@@ -1,5 +1,5 @@
 require("dressing").setup({
-    input = {
-        enable = false,
-    }
+	input = {
+		enable = false,
+	},
 })
