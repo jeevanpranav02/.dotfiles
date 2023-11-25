@@ -1,202 +1,237 @@
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        'git',
-        'clone',
-        '--filter=blob:none',
-        'https://github.com/folke/lazy.nvim.git',
-        '--branch=stable', -- latest stable release
-        lazypath,
-    })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-    -- Telescope for Fuzzy Finding
-    {
-        'nvim-telescope/telescope.nvim',
-        tag = '0.1.3',
-        -- or                            , branch = '0.1.x',
-        dependencies = { { 'nvim-lua/plenary.nvim' } }
-    },
-    'nvim-telescope/telescope-media-files.nvim',
-    'nvim-lua/popup.nvim',
-    'nvim-tree/nvim-web-devicons',
-    'nvim-telescope/telescope-dap.nvim',
-    'benfowler/telescope-luasnip.nvim',
-    {
-        'AckslD/nvim-neoclip.lua',
-        dependencies = {
-            { 'kkharji/sqlite.lua', module = 'sqlite' },
-        },
-        config = function()
-            require('neoclip').setup()
-        end,
-    },
-    --File browsing
-    'nvim-telescope/telescope-file-browser.nvim',
-    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+	--============================= Telescope =================================
 
-    -- Theme
-    {
-        'rose-pine/neovim',
-        name = 'rose-pine'
-    },
-    { "catppuccin/nvim",                          name = "catppuccin", priority = 1000 },
-    'folke/tokyonight.nvim',
-    'folke/zen-mode.nvim',
-    'folke/twilight.nvim',
-    { 'tjdevries/express_line.nvim', dev = false },
-    'tjdevries/colorbuddy.vim',
-    'tjdevries/gruvbuddy.nvim',
+	{
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.3",
+		-- or                            , branch = '0.1.x',
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+	},
 
-    -- Treesitter
-    {
-        'nvim-treesitter/nvim-treesitter',
-        event = { 'BufReadPre', 'BufNewFile' },
-        build = ':TSUpdate',
-        dependencies = {
-            'nvim-treesitter/nvim-treesitter-context',
-            'nvim-treesitter/playground',
-        },
-    },
+	-- Telescope Extensions
+	-- Media Files Viewer
+	"nvim-telescope/telescope-media-files.nvim",
 
-    -- Trouble for Telescope
-    'folke/trouble.nvim',
+	-- DAP Extension
+	"nvim-telescope/telescope-dap.nvim",
 
-    -- Flutter Packer
-    {
-        'akinsho/flutter-tools.nvim',
-        lazy = false,
-        dependencies = {
-            'dart-lang/dart-vim-plugin',
-            'nvim-lua/plenary.nvim',
-            'stevearc/dressing.nvim', -- optional for vim.ui.select
-            'RobertBrunhage/flutter-riverpod-snippets',
-        },
-    },
-    -- Log highlighter
-    { 'mtdl9/vim-log-highlighting', lazy = false },
+	-- LuaSnip Extension
+	"benfowler/telescope-luasnip.nvim",
 
-    -- Manage multiple terminal windows
-    'akinsho/toggleterm.nvim',
+	-- Register Content Viewer Extension
+	{
+		"AckslD/nvim-neoclip.lua",
+		dependencies = {
+			{ "kkharji/sqlite.lua", module = "sqlite" },
+		},
+		config = function()
+			require("neoclip").setup()
+		end,
+	},
 
-    -- GOATED plugins
-    'ThePrimeagen/harpoon',
-    'tpope/vim-fugitive',
-    'tpope/vim-surround',
+	-- File Browser
+	"nvim-telescope/telescope-file-browser.nvim",
 
-    -- UndoTree similar to GitBranches
-    'mbbill/undotree',
+	-- FZF Extension
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 
-    -- For Pair Parenthesis
-    { 'windwp/nvim-autopairs',       event = { 'InsertEnter' }, },
+	--=============================== Colors ==================================
 
-    -- Java DT Language Server
-    'mfussenegger/nvim-jdtls',
-    {
-        'mfussenegger/nvim-dap',
-        dependencies = {
-            { 'rcarriga/nvim-dap-ui' },
-            { 'theHamsta/nvim-dap-virtual-text' },
-            { 'chunleng/nvim-dap-kitty-launcher'  },
-        },
-    },
-    'rcarriga/nvim-dap-ui',
-    'theHamsta/nvim-dap-virtual-text',
+	{
+		"rose-pine/neovim",
+		name = "rose-pine",
+		priority = 1000,
+	},
+	{ "catppuccin/nvim", name = "catppuccin" },
+	{ "folke/tokyonight.nvim" },
+	{ "folke/zen-mode.nvim" },
+	{ "folke/twilight.nvim" },
+	{ "tjdevries/colorbuddy.vim" },
+	{ "tjdevries/gruvbuddy.nvim" },
 
-    -- Colorizer
-    'NvChad/nvim-colorizer.lua',
+	--================================ UI =====================================
 
-    -- LSP
-    { 'williamboman/mason.nvim' },
-    { 'williamboman/mason-lspconfig.nvim' },
+	{ "stevearc/dressing.nvim" }, -- optional for vim.ui.select
+	{ "onsails/lspkind.nvim" }, -- Formating LSP Menu
+	{ "SmiteshP/nvim-navic" },
+	-- For loading LSP
+	{
+		"j-hui/fidget.nvim",
+		tag = "legacy",
+		event = "LspAttach",
+	},
+	{ "tjdevries/express_line.nvim", dev = false },
+	{ "nvim-lualine/lualine.nvim" },
+	{ "nvim-tree/nvim-web-devicons" },
 
-    { 'VonHeikemen/lsp-zero.nvim',        branch = 'v3.x' },
-    { 'neovim/nvim-lspconfig' },
-    { 'hrsh7th/cmp-nvim-lsp' },
-    { 'hrsh7th/nvim-cmp',                 event = 'InsertEnter', },
-    -- Snippets
-    { 'L3MON4D3/LuaSnip' },
-    { 'rafamadriz/friendly-snippets' },
-    { 'honza/vim-snippets' },
+	--============================ Treesitter =================================
 
-    -- Formating LSP Menu
-    { 'onsails/lspkind.nvim' },
+	{
+		"nvim-treesitter/nvim-treesitter",
+		event = { "BufReadPre", "BufNewFile" },
+		build = ":TSUpdate",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter-context",
+			"nvim-treesitter/playground",
+		},
+	},
 
-    -- For loading LSP
-    {
-        'j-hui/fidget.nvim',
-        tag = 'legacy',
-        event = 'LspAttach',
-    },
+	--=============================== LSP =====================================
 
-    -- Comments
-    'numToStr/Comment.nvim',
+	{ "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
+	{ "neovim/nvim-lspconfig" },
+	{ "williamboman/mason.nvim" },
+	{ "williamboman/mason-lspconfig.nvim" },
 
-    -- Org mode
-    {
-        'nvim-neorg/neorg',
-        build = ':Neorg sync-parsers',
-        dependencies = 'nvim-lua/plenary.nvim',
-    },
+	{ "hrsh7th/cmp-nvim-lsp" },
+	{ "roobert/tailwindcss-colorizer-cmp.nvim" },
+	{ "hrsh7th/nvim-cmp", event = "InsertEnter" },
+	{ "L3MON4D3/LuaSnip" },
+	{ "rafamadriz/friendly-snippets" },
+	{ "honza/vim-snippets" },
+	{ "hrsh7th/cmp-buffer" },
 
-    -- Laravel support
-    'adalessa/laravel.nvim',
+	--=============================== DAP =====================================
 
-    -- SHitty Rain
-    'eandrju/cellular-automaton.nvim',
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			{ "rcarriga/nvim-dap-ui" },
+			{ "theHamsta/nvim-dap-virtual-text" },
+			{ "chunleng/nvim-dap-kitty-launcher" },
+			{ "theHamsta/nvim-dap-virtual-text" },
+			{ "mfussenegger/nvim-dap-python" },
+		},
+	},
 
-    -- Copilot support
-    {
-        'github/copilot.vim',
-    },
-    -- SQL Completion
-    {
-        'kristijanhusak/vim-dadbod-ui',
-        dependencies = {
-            { 'tpope/vim-dadbod',                     lazy = true },
-            { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
-        },
-    },
+	--========================= Language Specific ============================
 
-    -- Phpactor support
-    {
-        'phpactor/phpactor',
-        build = 'composer install --no-dev --optimize-autoloader',
-        ft = 'php',
-        keys = {
-            { '<Leader>pm', ':PhpactorContextMenu<CR>' },
-            { '<Leader>pn', ':PhpactorClassNew<CR>' },
-        }
-    },
+	------------------------------- Flutter ----------------------------------
+	{
+		"akinsho/flutter-tools.nvim",
+		lazy = false,
+		dependencies = {
+			"dart-lang/dart-vim-plugin",
+			"nvim-lua/plenary.nvim",
+			"RobertBrunhage/flutter-riverpod-snippets",
+		},
+	},
 
-    -- JSON
-    'b0o/schemastore.nvim',
+	--------------------------------- Java ------------------------------------
 
-    -- SmoothScrolling
-    -- {
-    --     "karb94/neoscroll.nvim",
-    --     config = function()
-    --         require('neoscroll').setup {}
-    --     end
-    -- },
+	{ "mfussenegger/nvim-jdtls" },
+
+	--------------------------------- SQL -------------------------------------
+
+	{
+		"kristijanhusak/vim-dadbod-ui",
+		dependencies = {
+			{ "tpope/vim-dadbod", lazy = true },
+			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
+		},
+	},
+
+	--------------------------- PHP and Laravel -------------------------------
+
+	{
+		"phpactor/phpactor",
+		build = "composer install --no-dev --optimize-autoloader",
+		ft = "php",
+		keys = {
+			{ "<Leader>pm", ":PhpactorContextMenu<CR>" },
+			{ "<Leader>pn", ":PhpactorClassNew<CR>" },
+		},
+	},
+
+	{ "adalessa/laravel.nvim" },
+
+	------------------------------- Python ------------------------------------
+
+	{ "AckslD/swenv.nvim" },
+
+	-------------------------------- JSON -------------------------------------
+
+	{ "b0o/schemastore.nvim" },
+
+	--============================= Miscellaneous =============================
+	-- Diagnostics Viewer
+	{ "folke/trouble.nvim" },
+
+	-- Linter
+	{
+		"mfussenegger/nvim-lint",
+		event = {
+			"BufReadPre",
+			"BufNewFile",
+		},
+	},
+	-- Formatter
+	{ "stevearc/conform.nvim" },
+
+	-- Log Highlighter
+	{ "mtdl9/vim-log-highlighting", lazy = false },
+
+	-- Comments
+	{ "numToStr/Comment.nvim" },
+
+	-- Manage multiple terminal windows
+	{ "akinsho/toggleterm.nvim" },
+
+	-- GOATED plugins
+	{ "ThePrimeagen/harpoon" },
+	{ "tpope/vim-fugitive" },
+	{ "tpope/vim-surround" },
+	{ "folke/neodev.nvim", opts = {} },
+
+	-- UndoTree similar to GitBranches
+	{ "mbbill/undotree" },
+
+	-- For Pair Parenthesis
+	{ "windwp/nvim-autopairs", event = { "InsertEnter" } },
+
+	-- Colorizer
+	{ "NvChad/nvim-colorizer.lua" },
+
+	-- Neorg mode
+	{
+		"nvim-neorg/neorg",
+		build = ":Neorg sync-parsers",
+		dependencies = "nvim-lua/plenary.nvim",
+	},
+
+	-- Copilot support
+	{
+		"github/copilot.vim",
+	},
+
+	-- File Explorer
+	{ "nvim-tree/nvim-tree.lua", dependencies = "nvim-tree/nvim-web-devicons" },
+
+	-- Shitty Rain
+	{ "eandrju/cellular-automaton.nvim" },
 }
 
-require('lazy').setup(plugins, {
-    ui = {
-        icons = {
-            cmd = "⌘",
-            config = "🔨",
-            event = "📅",
-            ft = "📂",
-            init = "⚙",
-            keys = "🔑",
-            plugin = "🔌",
-            runtime = "💻",
-            source = "📄",
-            start = "🚀",
-            task = "📌",
-        },
-    },
+require("lazy").setup(plugins, {
+	ui = {
+		border = "rounded",
+	},
+	change_detection = {
+		enabled = true,
+		notify = true,
+	},
 })

@@ -1,7 +1,6 @@
-require("jb")
+require("jb.set")
+require("jb.autocmds")
+require("jb.remap")
+require("jb.lazy")
 
-if vim.g.neovide then
-  vim.g.neovide_cursor_trail_legnth = 0
-  vim.g.neovide_cursor_animation_length = 0
-  vim.o.guifont = "Jetbrains Mono"
-end
+require("plugins")

@@ -52,6 +52,22 @@ vim.opt.showmode = false
 
 -- General
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.mouse = "a" -- allow the mouse to be used in neovim
 
--- Vim Commands
-vim.cmd("set wildmenu")
+-- search files into subfolders
+-- provides tab-complete for all files
+-- by default we had `/usr/include` in here, which we don't need
+vim.opt.path = { ".", "**" }
+-- vim wildignore. Used for path autocomplete and `gf`.
+vim.opt.wildignore:append({
+	"*/.git/", -- I might have to remove this when fugitive has problems
+	"*/__pycache__/",
+	"*/.direnv/",
+	"*/node_modules/",
+	"*/.pytest_cache/",
+	"*/.mypy_cache/",
+	"*/target/", -- rust target directory
+	"tags",
+})
+-- show all options when tab-completing
+vim.opt.wildmenu = true
