@@ -193,10 +193,13 @@ local plugins = {
 	{ "akinsho/toggleterm.nvim" },
 
 	-- GOATED plugins
-	{ "ThePrimeagen/harpoon" },
+	{ "ThePrimeagen/harpoon", branch = "harpoon2" },
 	{ "tpope/vim-fugitive" },
 	{ "tpope/vim-surround" },
 	{ "folke/neodev.nvim", opts = {} },
+
+	--Git signs
+	{ "lewis6991/gitsigns.nvim" },
 
 	-- UndoTree similar to GitBranches
 	{ "mbbill/undotree" },
