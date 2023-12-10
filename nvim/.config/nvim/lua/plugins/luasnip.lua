@@ -29,11 +29,20 @@ require("luasnip.loaders.from_vscode").lazy_load()
 -- Use Flutter for .dart files
 require("luasnip").filetype_extend("dart", { "flutter" })
 
--- Use javascript for React
-require("luasnip").filetype_extend("typescript", { "javascript" })
+-- Use javascript and typescript for React
+require("luasnip").filetype_extend("javascript", { "jsdoc" })
+require("luasnip").filetype_extend("typescript", { "javascript", "tsdoc" })
+require("luasnip").filetype_extend("javascriptreact", { "html", "jsdoc", "react-es7" })
+require("luasnip").filetype_extend("typescriptreact", { "html", "tsdoc", "react-ts" })
 
 -- Javadocs
 require("luasnip").filetype_extend("java", { "javadoc" })
+
+-- Lua
+require("luasnip").filetype_extend("lua", { "luadoc" })
+
+-- Python
+require("luasnip").filetype_extend("python", { "django", "djangohtml" })
 
 -- <c-k> is my expansion key
 -- this will expand the current item or jump to the next item within the snippet.
