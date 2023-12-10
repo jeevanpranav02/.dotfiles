@@ -80,3 +80,7 @@ fi
 
 # Automatically load bash completion functions
 autoload -U +X bashcompinit && bashcompinit
+
+
+# Flutter Completion
+source ~/.config/zsh/completion/_flutter
