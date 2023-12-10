@@ -18,18 +18,6 @@ dap.set_log_level("TRACE")
 require("dap.ext.vscode").load_launchjs()
 
 -- ===============================================================================
--- For Java support
-dap.configurations.java = {
-	{
-		type = "java",
-		request = "attach",
-		name = "Debug (Attach) - Remote",
-		hostName = "127.0.0.1",
-		port = 5005,
-	},
-}
-
--- ===============================================================================
 -- For Rust support
 dap.adapters.codelldb = {
 	type = "server",
