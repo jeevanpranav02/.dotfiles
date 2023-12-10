@@ -45,3 +45,6 @@ export PATH=$PATH:$HOME/tools/Android/Sdk/platform-tools
 
 # Laravel configuration
 export PATH=$PATH:$HOME/.config/composer/vendor/bin
+
+# Dart Binaries
+export PATH="$PATH":"$HOME/.pub-cache/bin"

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Zsh Plugin Update
+alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
+
 # Directory Navigation
 alias anime='cd ~/Videos/Anime'
 alias movies='cd ~/Videos/Movies'
@@ -46,3 +49,10 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias gitlog='git log --graph --oneline --decorate --all'
 alias gitfzf='git log --oneline | fzf --multi --preview "git show {+1} | batcat --color=always --decorations=never"'
 
+# Github CLI
+alias copilot='gh copilot'
+alias gcs='gh copilot suggest'
+alias gce='gh copilot explain'
+
+# Navigation Aliases
+alias dots='cd ~/.dotfiles'
