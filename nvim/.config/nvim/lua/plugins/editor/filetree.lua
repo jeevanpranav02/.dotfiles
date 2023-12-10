@@ -2,47 +2,87 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+local function my_on_attach(bufnr)
+	local api = require("nvim-tree.api")
+
+	local function opts(desc)
+		return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+	end
+
+	api.config.mappings.default_on_attach(bufnr)
+
+	vim.keymap.set("n", "l", api.node.open.edit, opts("Open"))
+	vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
+	vim.keymap.set("n", "v", api.node.open.vertical, opts("Open: Vertical Split"))
+	vim.keymap.del("n", "<C-k>", { buffer = bufnr })
+	vim.keymap.set("n", "<C-t>", ":tabnew<cr>", { buffer = bufnr })
+	vim.keymap.set("n", "<S-k>", api.node.open.preview, opts("Open Preview"))
+end
+
+local icons = require("ui.icons")
+
 require("nvim-tree").setup({
-	sync_root_with_cwd = true,
-	sort = {
-		sorter = "name",
-		folders_first = true,
-		files_first = false,
-	},
-	view = {
-		width = 30,
-	},
+	on_attach = my_on_attach,
+	sync_root_with_cwd = false,
+	hijack_unnamed_buffer_when_opening = false,
+	respect_buf_cwd = false,
 	renderer = {
-		add_trailing = true,
+		add_trailing = false,
 		group_empty = false,
+		highlight_git = false,
+		full_name = false,
+		highlight_opened_files = "icon",
+		root_folder_label = ":t",
 		indent_width = 2,
-		special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
-		symlink_destination = true,
-		icons = {
-			webdev_colors = true,
-			git_placement = "before",
-			padding = " ",
-			symlink_arrow = " -> ",
-			show = {
-				file = true,
-				folder = true,
-				folder_arrow = true,
-				git = true,
+		indent_markers = {
+			enable = false,
+			inline_arrows = true,
+			icons = {
+				corner = "└",
+				edge = "│",
+				item = "│",
+				none = " ",
 			},
 		},
-	},
-	actions = {
-		open_file = {
-			quit_on_open = false,
+		icons = {
+			git_placement = "before",
+			padding = " ",
+			symlink_arrow = " ➛ ",
+			glyphs = {
+				default = icons.ui.Text,
+				symlink = icons.ui.FileSymlink,
+				bookmark = icons.ui.BookMark,
+				folder = {
+					arrow_closed = icons.ui.ChevronRight,
+					arrow_open = icons.ui.ChevronShortDown,
+					default = icons.ui.Folder,
+					open = icons.ui.FolderOpen,
+					empty = icons.ui.EmptyFolder,
+					empty_open = icons.ui.EmptyFolderOpen,
+					symlink = icons.ui.FolderSymlink,
+					symlink_open = icons.ui.FolderOpen,
+				},
+				git = {
+					unstaged = icons.git.FileUnstaged,
+					staged = icons.git.FileStaged,
+					unmerged = icons.git.FileUnmerged,
+					renamed = icons.git.FileRenamed,
+					untracked = icons.git.FileUntracked,
+					deleted = icons.git.FileDeleted,
+					ignored = icons.git.FileIgnored,
+				},
+			},
 		},
-	},
-	filters = {
-		dotfiles = true,
+		special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
+		symlink_destination = true,
 	},
 	update_focused_file = {
 		enable = true,
-		update_root = true,
+		debounce_delay = 15,
+		update_root = false,
+		ignore_list = {},
 	},
+
 	diagnostics = {
 		enable = true,
 		show_on_dirs = false,
@@ -53,10 +93,15 @@ require("nvim-tree").setup({
 			max = vim.diagnostic.severity.ERROR,
 		},
 		icons = {
-			hint = "󰌶",
-			info = "",
-			warning = "",
-			error = "✘",
+			hint = icons.diagnostics.BoldHint,
+			info = icons.diagnostics.BoldInformation,
+			warning = icons.diagnostics.BoldWarning,
+			error = icons.diagnostics.BoldError,
+		},
+	},
+	actions = {
+		open_file = {
+			quit_on_open = true,
 		},
 	},
 	log = {
