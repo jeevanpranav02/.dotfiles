@@ -174,12 +174,11 @@ exec --no-startup-id picom
 # Enable smart gaps
 # smart_gaps on
 # Set inner and outer gaps
-gaps inner 10
-gaps outer 10
+gaps inner 3
+gaps outer 3
 
 # Add borders to windows
-for_window [class="^.*"]    border pixel 1
-for_window [title="^.*"]    border pixel 0
+for_window [class="^.*"]    border pixel 2
 # for_window [class="^.*"] border pixel 0
 for_window [class="^.*"] client.focused #ffffff #ffffff #ffffff #ffffff #ffffff
 
@@ -192,7 +191,7 @@ bindsym $mod+Shift+d		    gaps inner current set 0; gaps outer current set 0
 # Start i3bar to display a workspace bar
 bar {
     status_command i3status
-    i3bar_command i3bar --transparency
+    # i3bar_command i3bar --transparency
 
     colors {
             background #00000090
@@ -203,7 +202,7 @@ bar {
             active_workspace   #33333390 #5f676aA5 #ffffffEE
             inactive_workspace #33333390 #222222A5 #888888EE
             urgent_workspace   #2f343a90 #900000A5 #ffffffEE
-            binding_mode       #2f343a90 #900000A5 #ffffffEE
+            binding_mode       #2f343a90 #eb6f92A6 #ffffffEE
         }
 }
 
@@ -225,14 +224,14 @@ bindsym XF86MonBrightnessUp exec --no-startup-id light -A 1
 bindsym XF86MonBrightnessDown exec --no-startup-id light -U 1
 
 # Screenshots
-bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/Screenshots/$(date)"
-bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/Screenshots/$(date)"
-bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/Screenshots/$(date)"
+bindsym Ctrl+Print exec --no-startup-id maim "/home/$USER/Pictures/Screenshots/$(date)"
+bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/Screenshots/$(date)"
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/Screenshots/$(date)"
 
 # Clipboard Screenshots
-bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
-bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+bindsym Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+bindsym Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 
 bindsym $mod+b exec --no-startup-id brave-browser
 
@@ -252,7 +251,7 @@ bindsym Ctrl+Shift+period exec dunstctl context
 # <<--------- Assign Programs To Workspaces -------->>
 
 # Android Emulator Floating Window
-for_window [title="^Android Emulator.+:[0-9]+$"] floating enable
+for_window [title="^Android Emulator.+:[0-9]+$"] floating enable border pixel 0
 
 for_window [class="Brave-browser"]  		move to workspace $ws1
 

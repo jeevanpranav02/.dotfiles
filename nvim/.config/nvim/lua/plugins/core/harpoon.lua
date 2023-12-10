@@ -22,7 +22,11 @@
 local harpoon = require("harpoon")
 
 -- REQUIRED
-harpoon:setup()
+harpoon:setup({
+	settings = {
+		save_on_toggle = true,
+	},
+})
 -- REQUIRED
 
 vim.keymap.set("n", "<leader>a", function()

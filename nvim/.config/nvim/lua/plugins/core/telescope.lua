@@ -1,6 +1,7 @@
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
 vim.keymap.set("n", "<leader>pg", builtin.git_files, {})
+vim.keymap.set("n", "<leader>pb", builtin.buffers, {})
 vim.keymap.set("n", "<leader>ps", function()
 	builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)
@@ -15,14 +16,37 @@ vim.api.nvim_set_keymap(
 	"n",
 	"<leader>fb",
 	"<cmd>lua require 'telescope'.extensions.file_browser.file_browser()<CR>",
-	{ noremap = true }
+	{ noremap = true, desc = "File browser" }
 )
 
 require("telescope").setup({
 	defaults = {
-		-- winblend = 40,
-		prompt_position = "top",
+		prompt_prefix = "   ",
+		selection_caret = "  ",
+		selection_strategy = "reset",
+		results_title = false,
+		entry_prefix = "  ",
+		border = {},
+		borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+		color_devicons = true,
+		set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
+		vimgrep_arguments = {
+			"rg",
+			"-L",
+			"--color=never",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--smart-case",
+		},
 		sorting_strategy = "ascending",
+		file_sorter = require("telescope.sorters").get_fuzzy_file,
+		generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
+		path_display = { "absolute" },
+		file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+		grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+		qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
 		layout_strategy = "horizontal",
 		file_ignore_patterns = {
 			"node_modules",
@@ -36,26 +60,31 @@ require("telescope").setup({
 		},
 		initial_mode = "normal",
 		layout_config = {
-			width = 0.8,
+			horizontal = {
+				prompt_position = "top",
+				preview_width = 0.55,
+				results_width = 0.8,
+			},
+			vertical = {
+				mirror = false,
+			},
+			width = 0.87,
+			height = 0.80,
+			preview_cutoff = 120,
+		},
+		buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
+		mappings = {
+			n = { ["q"] = require("telescope.actions").close },
 		},
 	},
 	pickers = {
-		find_files = {
-			theme = "dropdown",
-			previewer = false,
-			layout_config = {
-				height = 0.5,
-				width = 120,
-			},
-		},
-		grep_string = {
-			layout_options = {
-				preview_width = 0.4,
-			},
-		},
-		git_files = {
-			layout_options = {
-				preview_width = 0.4,
+		buffers = {
+			show_all_buffers = true,
+			sort_lastused = true,
+			mappings = {
+				n = {
+					["<c-d>"] = require("telescope.actions").delete_buffer,
+				},
 			},
 		},
 	},
@@ -73,6 +102,7 @@ require("telescope").setup({
 			depth = 1,
 		},
 		fzf = {
+			fuzzy = true, -- false will only do exact matching
 			override_generic_sorter = true, -- override the generic sorter
 			override_file_sorter = true, -- override the file sorter
 			case_mode = "smart_case", -- or "ignore_case" or "respect_case"

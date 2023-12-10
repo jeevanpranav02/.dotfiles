@@ -4,10 +4,9 @@ local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local icons = require("ui.icons")
 ---@diagnostic disable-next-line: missing-fields
 cmp.setup({
-	window = {
-		completion = cmp.config.window.bordered(),
-		documentation = cmp.config.window.bordered(),
-	},
+	-- window = {
+	-- 	documentation = cmp.config.window.bordered(),
+	-- },
 	mapping = cmp.mapping.preset.insert({
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-f>"] = cmp_action.luasnip_jump_forward(),
@@ -19,10 +18,11 @@ cmp.setup({
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 	}),
 	sources = {
-		{ name = "luasnip" },
 		{ name = "nvim_lsp" },
+		{ name = "luasnip", option = { use_show_condition = false } },
 		{ name = "path" },
 		{ name = "buffer", keyword_length = 5 },
+		{ name = "emoji" },
 	},
 	snippet = {
 		expand = function(args)
@@ -31,16 +31,15 @@ cmp.setup({
 	},
 	formatting = {
 		expandable_indicator = true,
-		fields = { "kind", "abbr", "menu" },
+		fields = { "abbr", "kind", "menu" },
 		format = function(entry, vim_item)
 			vim_item.kind = icons.kind[vim_item.kind]
 			vim_item.menu = ({
-				nvim_lsp = "",
-				nvim_lua = "",
-				luasnip = "",
-				buffer = "",
-				path = "",
-				emoji = "",
+				nvim_lsp = "[LSP]",
+				luasnip = "[LuaSnip]",
+				nvim_lua = "[Lua]",
+				buffer = "[Buffer]",
+				path = "[Path]",
 			})[entry.source.name]
 
 			if vim.tbl_contains({ "nvim_lsp" }, entry.source.name) then
@@ -158,6 +157,7 @@ cmp.setup({
 			return vim_item
 		end,
 	},
+	---@diagnostic disable-next-line: missing-fields
 	sorting = {
 		-- TODO: Would be cool to add stuff like "See variable names before method names" in rust, or something like that.
 		comparators = {
@@ -193,3 +193,27 @@ cmp.setup({
 		ghost_text = false,
 	},
 })
+
+---@diagnostic disable-next-line: missing-fields
+require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+	sources = {
+		{ name = "dap" },
+	},
+})
+
+-- gray
+vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { bg = "NONE", strikethrough = true, fg = "#808080" })
+-- blue
+vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { bg = "NONE", fg = "#569CD6" })
+vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { link = "CmpIntemAbbrMatch" })
+-- light blue
+vim.api.nvim_set_hl(0, "CmpItemKindVariable", { bg = "NONE", fg = "#9CDCFE" })
+vim.api.nvim_set_hl(0, "CmpItemKindInterface", { link = "CmpItemKindVariable" })
+vim.api.nvim_set_hl(0, "CmpItemKindText", { link = "CmpItemKindVariable" })
+-- pink
+vim.api.nvim_set_hl(0, "CmpItemKindFunction", { bg = "NONE", fg = "#C586C0" })
+vim.api.nvim_set_hl(0, "CmpItemKindMethod", { link = "CmpItemKindFunction" })
+-- front
+vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { bg = "NONE", fg = "#D4D4D4" })
+vim.api.nvim_set_hl(0, "CmpItemKindProperty", { link = "CmpItemKindKeyword" })
+vim.api.nvim_set_hl(0, "CmpItemKindUnit", { link = "CmpItemKindKeyword" })

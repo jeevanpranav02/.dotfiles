@@ -1,8 +1,8 @@
 vim.g.mapleader = " "
 
 -- vim.keymap.set("n", "-", vim.cmd.Ex)
-vim.keymap.set({ "n", "x", "v" }, "j",  'gj')
-vim.keymap.set({ "n", "x", "v" }, "k", 'gk')
+vim.keymap.set({ "n", "x", "v" }, "j", "gj")
+vim.keymap.set({ "n", "x", "v" }, "k", "gk")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
@@ -12,12 +12,17 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
+-- Indent with selecting previous selection
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
+
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
 -- Paste from clipboard
-vim.keymap.set("n", "<leader>v", [["*p]])
-
+vim.keymap.set("n", "<C-S-V>", [["*p]])
+vim.cmd([[cnoremap <C-S-V> <C-r>+]])
+vim.cmd([[imap <C-S-V> <C-r>+]])
 -- next greatest remap ever : asbjornHaland
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
@@ -33,8 +38,8 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+vim.keymap.set("n", "]b", "<cmd>bnext<CR>zz")
+vim.keymap.set("n", "[b", "<cmd>bprev<CR>zz")
 vim.keymap.set("n", ",<Left>", "<cmd>tabnext<CR>zz")
 vim.keymap.set("n", ",<Right>", "<cmd>tabprev<CR>zz")
 

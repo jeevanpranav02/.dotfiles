@@ -1,27 +1,20 @@
 require("plugins.lsp.cmp")
+require("plugins.lsp.mason")
 local lsp = require("lsp-zero")
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-require("mason").setup({})
-require("mason-lspconfig").setup({
-	ensure_installed = {
-		"tsserver",
-		"volar",
-		"tailwindcss",
-		"vale_ls",
-		"html",
-		"lua_ls",
-		"yamlls",
-	},
-	handlers = {
-		lsp.default_setup,
-	},
-})
 
 lsp.preset("recommended")
 
 local on_attach = function(client, bufnr)
 	local opts = { buffer = bufnr, remap = false }
+
+	vim.keymap.set("n", "<leader>0", function()
+		if vim.lsp.inlay_hint.is_enabled(bufnr) then
+			vim.lsp.inlay_hint.enable(bufnr, false)
+		else
+			vim.lsp.inlay_hint.enable(bufnr, true)
+		end
+	end, opts)
 
 	vim.keymap.set("n", "<leader>gd", function()
 		vim.lsp.buf.definition()
@@ -67,11 +60,15 @@ local sign = function(opts)
 		numhl = "",
 	})
 end
-
 sign({ name = "DiagnosticSignError", text = "✘" })
 sign({ name = "DiagnosticSignWarn", text = "⚠" })
 sign({ name = "DiagnosticSignHint", text = "󰌶" })
 sign({ name = "DiagnosticSignInfo", text = "󰋼" })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+	callback = function(_, _, args) end,
+})
 
 vim.diagnostic.config({
 	virtual_text = {
@@ -83,7 +80,7 @@ vim.diagnostic.config({
 	update_in_insert = true,
 	severity_sort = true,
 	float = {
-		border = "single",
+		-- border = "single",
 		source = "always",
 	},
 })
@@ -92,14 +89,28 @@ local lspconfig = require("lspconfig")
 local lspconfig_util = require("lspconfig.util")
 
 -- Rust Analyzer Setup
-lspconfig.rust_analyzer.setup({})
+lspconfig.rust_analyzer.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+	filetypes = { "rust" },
+	settings = {
+		["rust-analyzer"] = {
+			cargo = {
+				allFeatures = true,
+				autoReload = true,
+			},
+		},
+	},
+})
 
 -- Lua Setup
 lspconfig.lua_ls.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
 	settings = {
 		Lua = {
 			codeLens = { enable = true },
-			hint = { enable = true, arrayIndex = "Disable", setType = false, paramName = "Disable", paramType = true },
+			hint = { enable = true, arrayIndex = "Literal", setType = false, paramName = "Disable", paramType = true },
 			format = { enable = false },
 			diagnostics = {
 				globals = { "vim", "P", "describe", "it", "before_each", "after_each", "packer_plugins", "pending" },
@@ -152,13 +163,35 @@ lspconfig.phpactor.setup({
 	},
 })
 
--- Vue, JavaScript, TypeScript
-lspconfig.volar.setup({
+-- JavaScript, TypeScript
+lspconfig.tsserver.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	-- Enable "Take Over Mode" where volar will provide all JS/TS LSP services
-	-- This drastically improves the responsiveness of diagnostic updates on change
-	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+	disable_formatting = true,
+	settings = {
+		javascript = {
+			inlayHints = {
+				includeInlayEnumMemberValueHints = true,
+				includeInlayFunctionLikeReturnTypeHints = true,
+				includeInlayFunctionParameterTypeHints = true,
+				includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+				includeInlayPropertyDeclarationTypeHints = true,
+				includeInlayVariableTypeHints = true,
+			},
+		},
+		typescript = {
+			inlayHints = {
+				includeInlayEnumMemberValueHints = true,
+				includeInlayFunctionLikeReturnTypeHints = true,
+				includeInlayFunctionParameterTypeHints = true,
+				includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+				includeInlayPropertyDeclarationTypeHints = true,
+				includeInlayVariableTypeHints = true,
+			},
+		},
+	},
 })
 
 -- Tailwind CSS
@@ -394,41 +427,7 @@ lspconfig.pylsp.setup({
 	},
 })
 
--- Flutter Tools Setup
-require("flutter-tools").setup({
-	debugger = {
-		enabled = true,
-		run_via_dap = true,
-		register_configurations = function(_)
-			require("dap.ext.vscode").load_launchjs()
-		end,
-		exception_breakpoints = { "raised", "uncaught", "userUnhandled" },
-	},
-	widget_guides = { enabled = true, debug = true },
-	dev_log = { enabled = true, notify_errors = false, open_cmd = "tabedit" },
-	lsp = {
-		color = {
-			enabled = true,
-			background = true,
-			background_color = {
-				r = 19,
-				g = 17,
-				b = 24,
-			}, -- required, when background is transparent (i.e. background_color = { r = 19, g = 17, b = 24},)
-			virtual_text = true, -- show the highlight using virtual text
-			virtual_text_str = "■", -- the virtual text character to highlight
-		},
-		settings = {
-			showTodos = true,
-			analysisExcludedFolders = {
-				vim.fn.expand("$HOME") .. "/.pub-cache",
-				vim.fn.expand("$HOME") .. "/.dartServer",
-				vim.fn.expand("$HOME") .. "/tools/flutter/",
-			},
-			renameFilesWithClasses = "always",
-			enableSnippets = true,
-		},
-		on_attach = on_attach,
-		capabilities = capabilities,
-	},
-})
+local M = {}
+M.capabilities = capabilities
+M.on_attach = on_attach
+return M
