@@ -16,26 +16,31 @@ local plugins = {
 
 	{
 		"nvim-telescope/telescope.nvim",
+		lazy = false,
 		tag = "0.1.3",
 		-- or                            , branch = '0.1.x',
 		dependencies = {
 			"nvim-lua/plenary.nvim",
+			-- Telescope Extensions
+			-- Media Files Viewer
+			"nvim-telescope/telescope-media-files.nvim",
+
+			-- DAP Extension
+			"nvim-telescope/telescope-dap.nvim",
+
+			-- LuaSnip Extension
+			"benfowler/telescope-luasnip.nvim",
+			-- File Browser
+			"nvim-telescope/telescope-file-browser.nvim",
+			-- FZF Extension
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		},
 	},
-
-	-- Telescope Extensions
-	-- Media Files Viewer
-	"nvim-telescope/telescope-media-files.nvim",
-
-	-- DAP Extension
-	"nvim-telescope/telescope-dap.nvim",
-
-	-- LuaSnip Extension
-	"benfowler/telescope-luasnip.nvim",
 
 	-- Register Content Viewer Extension
 	{
 		"AckslD/nvim-neoclip.lua",
+		lazy = false,
 		dependencies = {
 			{ "kkharji/sqlite.lua", module = "sqlite" },
 		},
@@ -43,12 +48,6 @@ local plugins = {
 			require("neoclip").setup()
 		end,
 	},
-
-	-- File Browser
-	"nvim-telescope/telescope-file-browser.nvim",
-
-	-- FZF Extension
-	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 
 	--=============================== Colors ==================================
 
@@ -66,17 +65,18 @@ local plugins = {
 
 	--================================ UI =====================================
 
+	{ "nvimdev/dashboard-nvim", event = "VimEnter" },
+	--[[ { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} }, ]]
 	{ "stevearc/dressing.nvim" }, -- optional for vim.ui.select
 	{ "onsails/lspkind.nvim" }, -- Formating LSP Menu
-	{ "SmiteshP/nvim-navic" },
 	-- For loading LSP
 	{
 		"j-hui/fidget.nvim",
 		tag = "legacy",
+		lazy = true,
 		event = "LspAttach",
 	},
 	{ "tjdevries/express_line.nvim", dev = false },
-	{ "nvim-lualine/lualine.nvim" },
 	{ "nvim-tree/nvim-web-devicons" },
 
 	--============================ Treesitter =================================
@@ -98,22 +98,29 @@ local plugins = {
 	{ "williamboman/mason.nvim" },
 	{ "williamboman/mason-lspconfig.nvim" },
 
+	{
+		"hrsh7th/nvim-cmp",
+		event = "InsertEnter",
+	},
 	{ "hrsh7th/cmp-nvim-lsp" },
 	{ "roobert/tailwindcss-colorizer-cmp.nvim" },
-	{ "hrsh7th/nvim-cmp", event = "InsertEnter" },
+	{ "saadparwaiz1/cmp_luasnip" },
+	{ "hrsh7th/cmp-cmdline" },
+	{ "hrsh7th/cmp-buffer" },
+	{ "hrsh7th/cmp-emoji" },
 	{ "L3MON4D3/LuaSnip" },
 	{ "rafamadriz/friendly-snippets" },
 	{ "honza/vim-snippets" },
-	{ "hrsh7th/cmp-buffer" },
 
 	--=============================== DAP =====================================
 
 	{
 		"mfussenegger/nvim-dap",
+		lazy = true,
+		event = "VeryLazy",
 		dependencies = {
 			{ "rcarriga/nvim-dap-ui" },
-			{ "theHamsta/nvim-dap-virtual-text" },
-			{ "chunleng/nvim-dap-kitty-launcher" },
+			{ "rcarriga/cmp-dap" },
 			{ "theHamsta/nvim-dap-virtual-text" },
 			{ "mfussenegger/nvim-dap-python" },
 		},
@@ -121,9 +128,21 @@ local plugins = {
 
 	--========================= Language Specific ============================
 
+	--------------------------------- Rust -----------------------------------
+
+	{
+		"simrat39/rust-tools.nvim",
+		ft = "rust",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+		},
+		lazy = false,
+	},
+
 	------------------------------- Flutter ----------------------------------
 	{
 		"akinsho/flutter-tools.nvim",
+		ft = "dart",
 		lazy = false,
 		dependencies = {
 			"dart-lang/dart-vim-plugin",
@@ -198,9 +217,6 @@ local plugins = {
 	{ "tpope/vim-surround" },
 	{ "folke/neodev.nvim", opts = {} },
 
-	--Git signs
-	{ "lewis6991/gitsigns.nvim" },
-
 	-- UndoTree similar to GitBranches
 	{ "mbbill/undotree" },
 
@@ -229,12 +245,51 @@ local plugins = {
 	{ "eandrju/cellular-automaton.nvim" },
 }
 
+-- require("lazy").setup(plugins, {
 require("lazy").setup(plugins, {
 	ui = {
-		border = "rounded",
+		icons = {
+			ft = "",
+			lazy = "󰂠 ",
+			loaded = "",
+			not_loaded = "",
+		},
 	},
 	change_detection = {
-		enabled = true,
+		enabled = false,
 		notify = true,
+	},
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"2html_plugin",
+				"tohtml",
+				"getscript",
+				"getscriptPlugin",
+				"gzip",
+				"logipat",
+				-- "netrw",
+				-- "netrwPlugin",
+				-- "netrwSettings",
+				-- "netrwFileHandlers",
+				"matchit",
+				"tar",
+				"tarPlugin",
+				"rrhelper",
+				"spellfile_plugin",
+				"vimball",
+				"vimballPlugin",
+				"zip",
+				"zipPlugin",
+				"tutor",
+				"rplugin",
+				"syntax",
+				"synmenu",
+				"optwin",
+				"compiler",
+				"bugreport",
+				"ftplugin",
+			},
+		},
 	},
 })
