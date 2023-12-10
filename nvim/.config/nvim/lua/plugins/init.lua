@@ -1,5 +1,3 @@
-print("Hello from custom.plugin")
-
 -- Core Plugins
 require("plugins.core.fugitive")
 require("plugins.core.harpoon")
@@ -8,6 +6,8 @@ require("plugins.core.treesitter")
 
 -- Language Server Config
 require("plugins.lsp")
+require("plugins.lsp.volar")
+require("plugins.lsp.flutter-tools")
 
 -- Linter Config
 require("plugins.linter")
@@ -38,3 +38,5 @@ require("plugins.extra.neorg")
 require("plugins.extra.undotree")
 require("plugins.extra.zenmode")
 require("plugins.extra.statusline")
+require("plugins.extra.alpha")
+--[[ require("plugins.extra.indentline") ]]
