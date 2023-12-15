@@ -6,6 +6,7 @@ require("colorizer").setup({
 		"typescript",
 		"typescriptreact",
 		html = { mode = "foreground" },
+		"!rust",
 	},
 	user_default_options = {
 		RGB = true, -- #RGB hex codes
