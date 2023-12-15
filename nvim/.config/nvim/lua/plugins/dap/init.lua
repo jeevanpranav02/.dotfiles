@@ -1,6 +1,6 @@
 -- Debug Adapter Protocol (DAB)
 local dap = require("dap")
-dap.set_log_level("TRACE")
+dap.set_log_level("INFO")
 
 -- Call this function when running debug adapter
 -- function SetUpDapExceptionBreakPoints()

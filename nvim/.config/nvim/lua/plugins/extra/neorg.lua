@@ -34,16 +34,6 @@ require("neorg").setup({
 		["core.ui.calendar"] = {},
 		["core.queries.native"] = {},
 		["core.summary"] = {},
-		["core.presenter"] = {
-			config = {
-				zen_mode = "zen-mode",
-				slide_count = {
-					enable = true,
-					position = "top",
-					count_format = "[%d/%d]",
-				},
-			},
-		},
 		["core.dirman"] = {
 			config = {
 				workspaces = {

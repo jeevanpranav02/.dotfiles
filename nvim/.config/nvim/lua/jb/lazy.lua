@@ -93,8 +93,14 @@ local plugins = {
 
 	--=============================== LSP =====================================
 
-	{ "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
-	{ "neovim/nvim-lspconfig" },
+	{
+		"VonHeikemen/lsp-zero.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		branch = "v3.x",
+		dependencies = {
+			{ "neovim/nvim-lspconfig", event = { "BufReadPre", "BufNewFile" } },
+		},
+	},
 	{ "williamboman/mason.nvim" },
 	{ "williamboman/mason-lspconfig.nvim" },
 
@@ -102,13 +108,13 @@ local plugins = {
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
 	},
-	{ "hrsh7th/cmp-nvim-lsp" },
-	{ "roobert/tailwindcss-colorizer-cmp.nvim" },
-	{ "saadparwaiz1/cmp_luasnip" },
+	{ "hrsh7th/cmp-nvim-lsp", event = "InsertEnter" },
+	{ "roobert/tailwindcss-colorizer-cmp.nvim", event = "InsertEnter" },
+	{ "saadparwaiz1/cmp_luasnip", event = "InsertEnter" },
 	{ "hrsh7th/cmp-cmdline" },
-	{ "hrsh7th/cmp-buffer" },
-	{ "hrsh7th/cmp-emoji" },
-	{ "L3MON4D3/LuaSnip" },
+	{ "hrsh7th/cmp-buffer", event = "InsertEnter" },
+	{ "hrsh7th/cmp-emoji", event = "InsertEnter" },
+	{ "L3MON4D3/LuaSnip", event = "InsertEnter" },
 	{ "rafamadriz/friendly-snippets" },
 	{ "honza/vim-snippets" },
 
@@ -117,7 +123,6 @@ local plugins = {
 	{
 		"mfussenegger/nvim-dap",
 		lazy = true,
-		event = "VeryLazy",
 		dependencies = {
 			{ "rcarriga/nvim-dap-ui" },
 			{ "rcarriga/cmp-dap" },
@@ -128,22 +133,11 @@ local plugins = {
 
 	--========================= Language Specific ============================
 
-	--------------------------------- Rust -----------------------------------
-
-	{
-		"simrat39/rust-tools.nvim",
-		ft = "rust",
-		dependencies = {
-			"neovim/nvim-lspconfig",
-		},
-		lazy = false,
-	},
-
 	------------------------------- Flutter ----------------------------------
 	{
 		"akinsho/flutter-tools.nvim",
 		ft = "dart",
-		lazy = false,
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			"dart-lang/dart-vim-plugin",
 			"nvim-lua/plenary.nvim",
@@ -177,7 +171,7 @@ local plugins = {
 		},
 	},
 
-	{ "adalessa/laravel.nvim" },
+	{ "adalessa/laravel.nvim", ft = "php" },
 
 	------------------------------- Python ------------------------------------
 
@@ -185,7 +179,7 @@ local plugins = {
 
 	-------------------------------- JSON -------------------------------------
 
-	{ "b0o/schemastore.nvim" },
+	{ "b0o/schemastore.nvim", ft = "json" },
 
 	--============================= Miscellaneous =============================
 	-- Diagnostics Viewer
@@ -200,13 +194,13 @@ local plugins = {
 		},
 	},
 	-- Formatter
-	{ "stevearc/conform.nvim" },
+	{ "stevearc/conform.nvim", event = { "BufReadPre", "BufNewFile" } },
 
 	-- Log Highlighter
 	{ "mtdl9/vim-log-highlighting", lazy = false },
 
 	-- Comments
-	{ "numToStr/Comment.nvim" },
+	{ "numToStr/Comment.nvim", event = { "BufReadPre", "BufNewFile" } },
 
 	-- Manage multiple terminal windows
 	{ "akinsho/toggleterm.nvim" },
@@ -215,7 +209,10 @@ local plugins = {
 	{ "ThePrimeagen/harpoon", branch = "harpoon2" },
 	{ "tpope/vim-fugitive" },
 	{ "tpope/vim-surround" },
-	{ "folke/neodev.nvim", opts = {} },
+	{ "folke/neodev.nvim", ft = "lua" },
+
+	--Git signs
+	{ "lewis6991/gitsigns.nvim", event = { "BufReadPre", "BufNewFile" } },
 
 	-- UndoTree similar to GitBranches
 	{ "mbbill/undotree" },
@@ -224,7 +221,7 @@ local plugins = {
 	{ "windwp/nvim-autopairs", event = { "InsertEnter" } },
 
 	-- Colorizer
-	{ "NvChad/nvim-colorizer.lua" },
+	{ "NvChad/nvim-colorizer.lua", event = { "BufReadPre", "BufNewFile" } },
 
 	-- Neorg mode
 	{
@@ -236,6 +233,7 @@ local plugins = {
 	-- Copilot support
 	{
 		"github/copilot.vim",
+		event = "InsertEnter",
 	},
 
 	-- File Explorer
