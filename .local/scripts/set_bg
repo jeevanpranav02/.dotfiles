@@ -5,7 +5,7 @@ if [[ $# -eq 1 ]]; then
     selected_image=$1
 else
     # Use fzf to select a folder and preview images
-    selected_image=$(find  ~/Pictures/anime -type f -name '*.png' -o -name '*.jpg'| fzf )
+    selected_image=$(find  ~/Pictures/anime -type f -name '*.png' -o -name '*.jpg'| fzf --preview='chafa {}')
 fi
 
 if [[ -z $selected_image ]]; then
