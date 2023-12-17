@@ -4,6 +4,7 @@
 set $mod Mod4
 
 set $term --no-startup-id kitty
+# set $term --no-startup-id i3-sensible-terminal
 
 # Enable moving floating windows with Mod key + mouse
 floating_modifier $mod
@@ -172,15 +173,17 @@ exec --no-startup-id picom
 # <<----------- Gap & Appearance ----------------->>
 
 # Enable smart gaps
-# smart_gaps on
+smart_gaps on
 # Set inner and outer gaps
 gaps inner 3
 gaps outer 3
 
 # Add borders to windows
 for_window [class="^.*"]    border pixel 2
-# for_window [class="^.*"] border pixel 0
-for_window [class="^.*"] client.focused #ffffff #ffffff #ffffff #ffffff #ffffff
+client.focused #bbbbbb #ffffff #ffffff #ffffff #bbbbbb
+
+# Smart gaps
+smart_borders on
 
 bindsym $mod+Shift+minus	  gaps inner current plus 5
 bindsym $mod+Shift+plus		  gaps inner current minus 5
@@ -237,7 +240,7 @@ bindsym $mod+b exec --no-startup-id brave-browser
 
 # Dunstctl(Notification control)
 # Close the current notification using dunstctl
-bindsym Shift+space exec dunstctl close
+bindsym Mod1+space exec dunstctl close
 
 # Close all notifications using dunstctl
 bindsym Ctrl+Shift+space exec dunstctl close-all
