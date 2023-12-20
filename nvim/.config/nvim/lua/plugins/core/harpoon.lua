@@ -48,3 +48,7 @@ end)
 vim.keymap.set("n", "<C-s>", function()
 	harpoon:list():select(4)
 end)
+
+vim.api.nvim_set_hl(0, "HarpoonWindow", { fg = "none", bg = "none" })
+vim.api.nvim_set_hl(0, "HarpoonBorder", { fg = "#ffffff", bg = "none" })
+vim.api.nvim_set_hl(0, "HarpoonTitle", { fg = "#ffffff", bg = "none" })

@@ -27,3 +27,8 @@ require("gitsigns").setup({
 	sign_priority = 6,
 	update_debounce = 100,
 })
+
+vim.api.nvim_set_hl(0, "GitSignsAdd", { bg = "none" })
+vim.api.nvim_set_hl(0, "GitSignsChange", { bg = "none" })
+vim.api.nvim_set_hl(0, "GitSignsDelete", { bg = "none" })
+vim.api.nvim_set_hl(0, "GitSignsUntracked", { bg = "none" })
