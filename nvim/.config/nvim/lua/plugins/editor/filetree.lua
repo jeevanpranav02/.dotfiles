@@ -15,7 +15,7 @@ local function my_on_attach(bufnr)
 	vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
 	vim.keymap.set("n", "v", api.node.open.vertical, opts("Open: Vertical Split"))
 	vim.keymap.del("n", "<C-k>", { buffer = bufnr })
-	vim.keymap.set("n", "<C-t>", ":tabnew<cr>", { buffer = bufnr })
+	vim.keymap.set("n", "<C-t>", "<nop>", { buffer = bufnr })
 	vim.keymap.set("n", "<S-k>", api.node.open.preview, opts("Open Preview"))
 end
 

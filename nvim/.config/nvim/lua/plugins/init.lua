@@ -26,12 +26,11 @@ require("plugins.trouble")
 require("plugins.dap")
 
 -- Editor UI Config
-require("plugins.editor.dressing")
-require("plugins.editor.colors")
 require("plugins.editor.filetree")
 require("plugins.editor.colorizer")
 require("plugins.editor.toggleterm")
 require("plugins.editor.autopairs")
+require("plugins.editor.colors.gruvbuddy")
 
 -- Addition Goodtohave Plugins
 require("plugins.extra.comment")
@@ -39,5 +38,5 @@ require("plugins.extra.neorg")
 require("plugins.extra.undotree")
 require("plugins.extra.zenmode")
 require("plugins.extra.statusline")
-require("plugins.extra.alpha")
---[[ require("plugins.extra.indentline") ]]
+require("plugins.extra.gitsigns")
+-- require("plugins.extra.dashboard")

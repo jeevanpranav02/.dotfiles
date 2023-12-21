@@ -6,6 +6,7 @@ require("nvim-treesitter.configs").setup({
 		"css",
 		"javascript",
 		"typescript",
+		"tsx",
 		"rust",
 		"lua",
 		"vim",

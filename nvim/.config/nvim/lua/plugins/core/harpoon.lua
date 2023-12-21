@@ -25,6 +25,7 @@ local harpoon = require("harpoon")
 harpoon:setup({
 	settings = {
 		save_on_toggle = true,
+		sync_on_ui_close = true,
 	},
 })
 -- REQUIRED
@@ -33,7 +34,7 @@ vim.keymap.set("n", "<leader>a", function()
 	harpoon:list():append()
 end)
 vim.keymap.set("n", "<M-e>", function()
-	harpoon.ui:toggle_quick_menu(harpoon:list())
+	harpoon.ui:toggle_quick_menu((harpoon:list()), { border = "rounded", title_pos = "center" })
 end)
 
 vim.keymap.set("n", "<C-h>", function()
@@ -48,7 +49,3 @@ end)
 vim.keymap.set("n", "<C-s>", function()
 	harpoon:list():select(4)
 end)
-
-vim.api.nvim_set_hl(0, "HarpoonWindow", { fg = "none", bg = "none" })
-vim.api.nvim_set_hl(0, "HarpoonBorder", { fg = "#ffffff", bg = "none" })
-vim.api.nvim_set_hl(0, "HarpoonTitle", { fg = "#ffffff", bg = "none" })
