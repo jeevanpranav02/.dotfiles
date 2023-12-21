@@ -13,78 +13,117 @@ end
 -- end
 require("colorbuddy").colorscheme("gruvbuddy")
 
-local c = require("colorbuddy.color").colors
+local colors = require("colorbuddy.color").colors
 local Group = require("colorbuddy.group").Group
-local g = require("colorbuddy.group").groups
-local s = require("colorbuddy.style").styles
+local groups = require("colorbuddy.group").groups
+local styles = require("colorbuddy.style").styles
+local Color = require("colorbuddy.color").Color
 
-Group.new("@variable", c.superwhite, nil, s.italic)
+-- Custom Colors
+Color.new("skyblue"   , "#569CD6")
+Color.new("lightblue" , "#9CDCFE")
+Color.new("pink"      , "#C586C0")
+Color.new("front"     , "#D4D4D4")
 
-Group.new("GoTestSuccess", c.green, nil, s.bold)
-Group.new("GoTestFail", c.red, nil, s.bold)
+--  Random Stuff
+Group.new("GoTestSuccess" , colors.green , nil , styles.bold)
+Group.new("GoTestFail"    , colors.red   , nil , styles.bold)
 
--- Group.new("Keyword", c.purple, nil, nil)
+Group.new("TSPunctBracket" , colors.orange:light():light())
 
-Group.new("TSPunctBracket", c.orange:light():light())
+Group.new("StatuslineError1" , colors.red:light():light() , groups.Statusline)
+Group.new("StatuslineError2" , colors.red:light()         , groups.Statusline)
+Group.new("StatuslineError3" , colors.red                 , groups.Statusline)
+Group.new("StatuslineError3" , colors.red:dark()          , groups.Statusline)
+Group.new("StatuslineError3" , colors.red:dark():dark()   , groups.Statusline)
 
-Group.new("StatuslineError1", c.red:light():light(), g.Statusline)
-Group.new("StatuslineError2", c.red:light(), g.Statusline)
-Group.new("StatuslineError3", c.red, g.Statusline)
-Group.new("StatuslineError3", c.red:dark(), g.Statusline)
-Group.new("StatuslineError3", c.red:dark():dark(), g.Statusline)
+Group.new("pythonTSType" , colors.red)
+Group.new("goTSType"     , groups.Type.fg:dark() , nil , groups.Type)
 
-Group.new("pythonTSType", c.red)
-Group.new("goTSType", g.Type.fg:dark(), nil, g.Type)
-
-Group.new("typescriptTSConstructor", g.pythonTSType)
-Group.new("typescriptTSProperty", c.blue)
+Group.new("typescriptTSConstructor" , groups.pythonTSType)
+Group.new("typescriptTSProperty"    , colors.blue)
 
 -- vim.cmd [[highlight WinSeparator guifg=#4e545c guibg=None]]
-Group.new("WinSeparator", nil, nil)
+Group.new("WinSeparator" , nil , nil)
 
 -- I don't think I like highlights for text
--- Group.new("LspReferenceText", nil, c.gray0:light(), s.bold)
--- Group.new("LspReferenceWrite", nil, c.gray0:light())
+-- Group.new("LspReferenceText"  , nil , colors.gray0:light()  , styles.bold)
+-- Group.new("LspReferenceWrite" , nil , colors.gray0:light())
 
--- Group.new("TSKeyword", c.purple, nil, s.underline, c.blue)
--- Group.new("LuaFunctionCall", c.green, nil, s.underline + s.nocombine, g.TSKeyword.guisp)
+-- Group.new("TSKeyword"       , c.purple , nil , s.underline               , c.blue)
+-- Group.new("LuaFunctionCall" , c.green  , nil , s.underline + s.nocombine , g.TSKeyword.guisp)
 
-Group.new("TSTitle", c.blue)
+Group.new("TSTitle" , colors.blue)
 
 -- TODO: It would be nice if we could only highlight
 -- the text with characters or something like that...
 -- but we'll have to stick to that for later.
-Group.new("InjectedLanguage", nil, g.Normal.bg:dark())
+Group.new("InjectedLanguage" , nil , groups.Normal.bg:dark())
 
-Group.new("LspParameter", nil, nil, s.italic)
-Group.new("LspDeprecated", nil, nil, s.strikethrough)
-Group.new("@function.bracket", g.Normal, g.Normal)
-Group.new("@variable.builtin", c.purple:light():light(), g.Normal)
+Group.new("LspParameter"  , nil , nil , styles.italic)
+Group.new("LspDeprecated" , nil , nil , styles.strikethrough)
 
--- Group.new("VirtNonText", c.yellow:light():light(), nil, s.italic)
-Group.new("VirtNonText", c.gray3:dark(), nil, s.italic)
+-- Group.new("VirtNonText" , c.yellow:light():light() , nil , s.italic)
+Group.new("VirtNonText"    , colors.gray3:dark()      , nil , styles.italic)
 
-Group.new("TreesitterContext", nil, g.Normal.bg:light())
-Group.new("TreesitterContextLineNumber", c.blue)
+Group.new("TreesitterContext"           , nil          , groups.Normal.bg:light())
+Group.new("TreesitterContextLineNumber" , colors.blue)
 -- hi TreesitterContextBottom gui=underline guisp=Grey
--- Group.new("TreesitterContextBottom", nil, nil, s.underline)
+-- Group.new("TreesitterContextBottom" , nil , nil , s.underline)
 
-Group.new("@property", c.blue)
-Group.new("@punctuation.bracket.rapper", c.gray3, nil, s.none)
-Group.new("@rapper_argument", c.red, nil, s.italic)
-Group.new("@rapper_return", c.orange:light(), nil, s.italic)
-Group.new("@constructor.ocaml", c.orange:light(), nil, s.none)
-Group.new("constant", c.orange, nil, s.none)
-Group.new("@comment", c.gray3, nil, s.italic)
-Group.new("@punctuation.bracket", c.gray2:light(), nil, s.bold)
+Group.new("@variable"                   , colors.superwhite         , nil , styles.italic)
+Group.new("@property"                   , colors.blue)
+Group.new("@punctuation.bracket.rapper" , colors.gray3              , nil , styles.none)
+Group.new("@rapper_argument"            , colors.red                , nil , styles.italic)
+Group.new("@rapper_return"              , colors.orange:light()     , nil , styles.italic)
+Group.new("@constructor.ocaml"          , colors.orange:light()     , nil , styles.none)
+Group.new("constant"                    , colors.orange             , nil , styles.none)
+Group.new("@comment"                    , colors.gray3              , nil , styles.italic)
+Group.new("@punctuation.bracket"        , colors.gray2:light()      , nil , styles.bold)
+Group.new("@operator"                   , colors.superwhite)
+Group.new("@attribute"                  , colors.superwhite)
+Group.new("@keyword"                    , colors.purple             , nil , styles.none)
+-- Group.new("@keyword.faded"           , groups.nontext.fg:light() , nil , styles.none)
+-- Group.new("@keyword.faded"           , c.green)
 
-Group.new("@keyword", c.blue, nil, s.italic)
-Group.new("@keyword.faded", g.nontext.fg:light(), nil, s.none)
--- Group.new("@keyword.faded", c.green)
+Group.new("@function.bracket" , groups.Normal                 , groups.Normal)
+Group.new("@variable.builtin" , colors.purple:light():light() , groups.Normal)
 
-Group.new("Function", c.yellow, nil, s.none)
-Group.new("TabLineFill", nil, nil)
+Group.new("Function"    , colors.yellow , nil  , styles.none)
+Group.new("TabLineFill" , nil           , nil)
 
+-- General Stuff
+Group.new("Normal"      , colors.superwhite , nil)
+Group.new("NormalFloat" , colors.superwhite , nil)
+Group.new("LineNr"      , colors.gray3      , nil)
+Group.new("SignColumn"  , colors.superwhite , nil)
+Group.new("ColorColumn" , nil               , colors.gray2 )
+Group.new("Folded"      , colors.gray3      , nil)
+
+-- Completion -- cmp-nvim
+Group.new("CmpItemAbbr"           , groups.Comment)
+Group.new("CmpItemAbbrDeprecated" , groups.Error)
+Group.new("CmpItemAbbrMatchFuzzy" , groups.CmpItemAbbr.fg:dark() , nil , styles.italic)
+Group.new("CmpItemMenu"           , groups.NonText)
+Group.new("CmpItemKind"           , groups.Special)
+Group.new("CmpItemKindVariable"   , colors.skyblue)
+Group.new("CmpItemKindFunction"   , colors.lightblue)
+Group.new("CmpItemKindKeyword"    , colors.pink)
+Group.new("CmpItemKindProperty"   , colors.front)
+Group.new("CmpItemKindUnit"       , colors.superwhite)
+
+-- Harpoon
+Group.new("HarpoonWindow" , colors.superwhite , nil)
+Group.new("HarpoonBorder" , colors.gray3      , nil)
+Group.new("HarpoonTitle"  , colors.gray3      , nil)
+
+-- GitSigns
+Group.new("GitSignsAdd"       , colors.green:dark()   , nil)
+Group.new("GitSignsChange"    , colors.orange:light() , nil)
+Group.new("GitSignsDelete"    , colors.red:light()    , nil)
+Group.new("GitSignsUntracked" , colors.blue:light()   , nil)
+
+-- Linking stuff
 vim.cmd([[
   hi link @function.call.lua LuaFunctionCall
   hi link @lsp.type.variable.lua variable
@@ -193,15 +232,3 @@ vim.cmd([[
   hi link DapUIStoppedThread DapUIBreakpointsPath
   hi link DapUIDecoration DapUIBreakpointsPath
 ]])
-
-Group.new("Normal", c.superwhite, nil)
-Group.new("NormalFloat", c.superwhite, nil)
-Group.new("LineNr", c.gray3, nil)
-Group.new("SignColumn", c.superwhite, nil)
-
--- Completion
-Group.new("CmpItemAbbr", g.Comment)
-Group.new("CmpItemAbbrDeprecated", g.Error)
-Group.new("CmpItemAbbrMatchFuzzy", g.CmpItemAbbr.fg:dark(), nil, s.italic)
-Group.new("CmpItemKind", g.Special)
-Group.new("CmpItemMenu", g.NonText)
