@@ -214,6 +214,8 @@ bar {
 # Start a terminal
 bindsym $mod+Return exec $term
 
+bindsym $mod+Shift+Return exec --no-startup-id i3-sensible-terminal
+
 # Kill focused window
 bindsym $mod+Shift+q kill
 
