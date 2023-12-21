@@ -32,6 +32,8 @@ local plugins = {
 			"benfowler/telescope-luasnip.nvim",
 			-- File Browser
 			"nvim-telescope/telescope-file-browser.nvim",
+			-- UI select
+			"nvim-telescope/telescope-ui-select.nvim",
 			-- FZF Extension
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		},
@@ -207,7 +209,11 @@ local plugins = {
 	{ "ThePrimeagen/harpoon", branch = "harpoon2" },
 	{ "tpope/vim-fugitive" },
 	{ "tpope/vim-surround" },
+	{ "tpope/vim-repeat" },
 	{ "folke/neodev.nvim", ft = "lua" },
+
+	-- Autoalign text something like a table
+	{ "godlygeek/tabular" },
 
 	--Git signs
 	{ "lewis6991/gitsigns.nvim", event = { "BufReadPre", "BufNewFile" } },
@@ -232,6 +238,13 @@ local plugins = {
 	{
 		"github/copilot.vim",
 		event = "InsertEnter",
+	},
+	-- Cody - SOURCEGRAPH
+	{
+		"sourcegraph/sg.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim", --[[ "nvim-telescope/telescope.nvim ]]
+		},
 	},
 
 	-- File Explorer
