@@ -65,9 +65,7 @@ local plugins = {
 
 	--================================ UI =====================================
 
-	{ "nvimdev/dashboard-nvim", event = "VimEnter" },
-	--[[ { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} }, ]]
-	{ "stevearc/dressing.nvim" }, -- optional for vim.ui.select
+	-- { "nvimdev/dashboard-nvim", event = "VimEnter" },
 	{ "onsails/lspkind.nvim" }, -- Formating LSP Menu
 	-- For loading LSP
 	{
@@ -243,7 +241,6 @@ local plugins = {
 	{ "eandrju/cellular-automaton.nvim" },
 }
 
--- require("lazy").setup(plugins, {
 require("lazy").setup(plugins, {
 	ui = {
 		icons = {
