@@ -8,6 +8,7 @@ require("plugins.core.treesitter")
 require("plugins.lsp")
 require("plugins.lsp.volar")
 require("plugins.lsp.flutter-tools")
+require("plugins.lsp.sg-cody")
 
 -- Linter Config
 require("plugins.linter")
