@@ -67,6 +67,8 @@ local on_attach = function(client, bufnr)
 		buffer = bufnr,
 	}
 
+	-- require("jb.lsputils").on_attach(client, bufnr)
+
 	vim.keymap.set("n", "<leader>0", function()
 		if vim.lsp.inlay_hint.is_enabled(bufnr) then
 			vim.lsp.inlay_hint.enable(bufnr, false)

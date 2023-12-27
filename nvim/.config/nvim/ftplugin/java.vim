@@ -9,3 +9,5 @@ endif
 setlocal path=.,src/main/java/**,src/test/java/**,**/src/main/java/**,**/src/test/java/**
 setlocal include=^\s*import
 setlocal includeexpr=substitute(v:fname,'\\.','/','g')
+setlocal shiftwidth=2
+setlocal tabstop=2
