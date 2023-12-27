@@ -1,11 +1,19 @@
 #!/bin/bash
 
+# Set previer based on terminal
+if [$TERM -eq "xterm-kitty"]; then
+    image_viewer="kitten icat"
+else
+    image_viewer="chafa"
+fi
+
+
 # Get path from user
 if [[ $# -eq 1 ]]; then
     selected_image=$1
 else
     # Use fzf to select a folder and preview images
-    selected_image=$(find  ~/Pictures/anime -type f -name '*.png' -o -name '*.jpg'| fzf --preview='chafa {}')
+    selected_image=$(find  ~/Pictures/anime -type f -name '*.png' -o -name '*.jpg'| fzf --preview="$image_viewer {}")
 fi
 
 if [[ -z $selected_image ]]; then
@@ -15,7 +23,7 @@ fi
 # Check if an image was selected
 if [ -n "$selected_image" ]; then
     # Display the selected image using kitty's icat
-    kitten icat "$selected_image"
+    $image_viewer "$selected_image"
 
     # Now ask the user to whether set wallpaper or to copy it to ~/.local/bg.png
     read -p "Set as wallpaper? [y/n] " reply
