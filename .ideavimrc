@@ -76,7 +76,7 @@ set ignorecase
 nnoremap <c-/> :action FindInPath<CR>
 nnoremap <leader>ca :action GotoAction<CR>
 nnoremap <leader>pf :action GotoFile<CR>
-nnoremap <leader>rr :action FindUsages<CR>
+nnoremap <leader>vrr :action FindUsages<CR>
 nnoremap <leader>s :action GotoRelated<CR>
 nnoremap <leader>h :action CallHierarchy<CR>
 nnoremap <leader>tt :action ShowNavBar<CR>
