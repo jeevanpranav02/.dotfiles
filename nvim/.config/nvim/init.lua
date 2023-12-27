@@ -1,9 +1,48 @@
+---@diagnostic disable: undefined-global
+require("jb.globals")
 require("jb.set")
 require("jb.autocmds")
 require("jb.remap")
-require("jb.lazy")
 
-require("plugins")
+-- Core Plugins
+Spec("plugins.core.treesitter")
+Spec("plugins.core.telescope")
+Spec("plugins.core.harpoon")
+Spec("plugins.core.tpope")
+
+-- Debugger
+Spec("plugins.dap")
+
+-- LSP
+Spec("plugins.lsp")
+
+-- Language Plugins
+Spec("plugins.lsp.lang.c_sharp")
+Spec("plugins.lsp.lang.flutter")
+Spec("plugins.lsp.lang.java")
+Spec("plugins.lsp.lang.json")
+Spec("plugins.lsp.lang.lua")
+Spec("plugins.lsp.lang.php")
+Spec("plugins.lsp.lang.python")
+Spec("plugins.lsp.lang.rust")
+Spec("plugins.lsp.lang.tailwind")
+Spec("plugins.lsp.lang.yaml")
+
+-- Editor Plugins
+Spec("plugins.editor.colors")
+Spec("plugins.editor.autopairs")
+Spec("plugins.editor.colorizer")
+Spec("plugins.editor.filetree")
+Spec("plugins.editor.toggleterm")
+
+-- UI Plugins
+Spec("plugins.formatter")
+Spec("plugins.linter")
+Spec("plugins.luasnip")
+Spec("plugins.trouble")
+
+-- Extra Plugins
+Spec("plugins.extra")
 
 if vim.g.neovide then
 	vim.o.guifont = "Fira Code:h9"
@@ -22,3 +61,5 @@ if vim.g.neovide then
 	vim.g.neovide_floating_blur_amount_y = 2.0
 	vim.g.neovide_hide_mouse_when_typing = true
 end
+
+require("jb.lazy")
