@@ -28,6 +28,8 @@ vim.opt.undofile = true
 -- Search settings
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
+vim.opt.inccommand = "split"
+vim.opt.ignorecase = true
 
 -- Enable termguicolors
 vim.opt.termguicolors = true
@@ -38,7 +40,7 @@ vim.opt.sidescrolloff = 8
 vim.opt.isfname:append("@-@")
 
 -- Set update time
-vim.opt.updatetime = 750
+vim.opt.updatetime = 50
 
 -- Color column
 vim.opt.colorcolumn = "80"
@@ -71,3 +73,9 @@ vim.opt.wildignore:append({
 })
 -- show all options when tab-completing
 vim.opt.wildmenu = true
+
+-- Clipboard
+-- vim.opt.clipboard = "unnamedplus"
+
+-- VirtualEdit
+vim.opt.virtualedit = "block"
