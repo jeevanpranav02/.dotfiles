@@ -7,7 +7,7 @@ return {
 
 		local on_attach = require("jb.lsputils").on_attach
 
-		local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+		local capabilities = require("jb.lsputils").capabilities
 		-- Lua Setup
 		lspconfig.lua_ls.setup({
 			on_attach = on_attach,

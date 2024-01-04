@@ -79,3 +79,6 @@ vim.opt.wildmenu = true
 
 -- VirtualEdit
 vim.opt.virtualedit = "block"
+
+-- Global path
+vim.g.python3_host_prog = vim.fn.expand("$HOME/.virtualenvs/nvim/bin/python")

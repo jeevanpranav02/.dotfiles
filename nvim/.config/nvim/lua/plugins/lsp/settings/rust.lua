@@ -2,17 +2,31 @@ local lspconfig = require("lspconfig")
 
 local on_attach = require("jb.lsputils").on_attach
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("jb.lsputils").capabilities
 -- Rust Analyzer Setup
 lspconfig.rust_analyzer.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	filetypes = { "rust" },
 	settings = {
 		["rust-analyzer"] = {
 			cargo = {
 				allFeatures = true,
-				autoReload = true,
+				loadOutDirsFromCheck = true,
+				runBuildScripts = true,
+			},
+			-- Add clippy lints for Rust.
+			checkOnSave = {
+				allFeatures = true,
+				command = "clippy",
+				extraArgs = { "--no-deps" },
+			},
+			procMacro = {
+				enable = true,
+				ignored = {
+					["async-trait"] = { "async_trait" },
+					["napi-derive"] = { "napi" },
+					["async-recursion"] = { "async_recursion" },
+				},
 			},
 		},
 	},

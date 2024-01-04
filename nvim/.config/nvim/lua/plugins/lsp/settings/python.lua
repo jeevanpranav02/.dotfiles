@@ -3,7 +3,7 @@ local util = require("lspconfig.util")
 
 local on_attach = require("jb.lsputils").on_attach
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("jb.lsputils").capabilities
 local venv_path = os.getenv("VIRTUAL_ENV")
 local py_path = nil
 -- decide which python executable to use for mypy
