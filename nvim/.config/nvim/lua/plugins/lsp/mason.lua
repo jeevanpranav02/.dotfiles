@@ -1,11 +1,9 @@
 return {
 	"williamboman/mason.nvim",
 	dependencies = {
-		{ "VonHeikemen/lsp-zero.nvim", },
 		{ "williamboman/mason-lspconfig.nvim" },
 	},
 	config = function()
-		local lsp = require("lsp-zero")
 		require("mason").setup({
 			ui = {
 				border = "rounded",
@@ -27,9 +25,6 @@ return {
 				"lua_ls",
 				"yamlls",
 			},
-			handlers = {
-				lsp.default_setup,
-			},
 		})
-	end
+	end,
 }

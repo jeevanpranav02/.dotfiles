@@ -1,17 +1,44 @@
 return {
 	{
-		"VonHeikemen/lsp-zero.nvim",
-		lazy = true,
-		event = { "BufReadPre", "BufNewFile" },
-		branch = "v3.x",
-
+		"williamboman/mason.nvim",
+		dependencies = {
+			{ "williamboman/mason-lspconfig.nvim" },
+		},
 		config = function()
-			local lsp = require("lsp-zero")
-			lsp.preset("recommended")
-			local on_attach = require("jb.lsputils").on_attach
-			lsp.on_attach(on_attach)
-			lsp.setup()
-
+			require("mason").setup({
+				ui = {
+					border = "rounded",
+					icons = {
+						package_installed = require("ui.icons").ui.BoldCheck,
+						package_pending = require("ui.icons").ui.BookMark,
+						package_uninstalled = require("ui.icons").ui.NotLoaded,
+					},
+				},
+			})
+			require("mason-lspconfig").setup({
+				ensure_installed = {
+					"tsserver",
+					"volar",
+					"tailwindcss",
+					"vale_ls",
+					"omnisharp",
+					"html",
+					"lua_ls",
+					"yamlls",
+				},
+			})
+		end,
+	},
+	{
+		"neovim/nvim-lspconfig",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			{ "williamboman/mason.nvim" },
+			{ "williamboman/mason-lspconfig.nvim" },
+			{ "onsails/lspkind.nvim" }, -- Formating LSP Menu
+			{ "b0o/schemastore.nvim", ft = { "json", "jsonc", "yaml" } },
+		},
+		config = function()
 			-- TODO: I think I can remove this now.
 			local sign = function(opts)
 				vim.fn.sign_define(opts.name, {
@@ -45,22 +72,19 @@ return {
 					source = "always",
 				},
 			})
-		end,
-	},
-	{
-		"neovim/nvim-lspconfig",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = {
-			{ "williamboman/mason.nvim" },
-			{ "williamboman/mason-lspconfig.nvim" },
-			{ "onsails/lspkind.nvim" }, -- Formating LSP Menu
-			{ "b0o/schemastore.nvim", ft = { "json", "jsonc", "yaml" } },
-		},
-		config = function()
-			require("lsp-zero").extend_lspconfig()
+
+			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+				-- Use a sharp border with `FloatBorder` highlights
+				border = "rounded",
+			})
+
+			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+				-- Use a sharp border with `FloatBorder` highlights
+				border = "rounded",
+			})
 
 			-- Rust Analyzer Setup
-			-- require("plugins.lsp.settings.rust")
+			require("plugins.lsp.settings.rust")
 
 			-- JavaScript, TypeScript, TailwindCSS
 			require("plugins.lsp.settings.typescript")
