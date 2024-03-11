@@ -1,6 +1,9 @@
 return {
 	{
 		"phpactor/phpactor",
+		dependencies = {
+			"jose-elias-alvarez/null-ls.nvim",
+		},
 		build = "composer install --no-dev --optimize-autoloader",
 		lazy = true,
 		ft = "php",
@@ -66,6 +69,7 @@ return {
 			"tpope/vim-dotenv",
 			"MunifTanjim/nui.nvim",
 		},
+		ft = { "php", "blade" },
 		cmd = { "Sail", "Artisan", "Composer", "Npm", "Yarn", "Laravel" },
 		keys = {
 			{ "<leader>la", ":Laravel artisan<cr>" },

@@ -2,7 +2,6 @@ local status, jdtls = pcall(require, "jdtls")
 if not status then
 	return
 end
-local api = vim.api
 local home = os.getenv("HOME")
 
 local root_markers = { "gradlew", "mvnw", ".git" }
@@ -10,7 +9,7 @@ local root_dir = require("jdtls.setup").find_root(root_markers)
 
 jdtls.jol_path = os.getenv("HOME") .. "/tools/jol.jar"
 
-local workspace_folder = home .. "/.cache/jdtls/workspace" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
+local workspace_folder = home .. "/.cache/jdtls/workspace-" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
 local jar_patterns = {
 	"/tools/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar",
 	"/tools/vscode-java-decompiler/server/*.jar",
@@ -47,20 +46,24 @@ for _, jar_pattern in ipairs(jar_patterns) do
 end
 
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
--- extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
+extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 extendedClientCapabilities.onCompletionItemSelectedCommand = "editor.action.triggerParameterHints"
 
 local capabilities = require("jb.lsputils").capabilities
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+-- capabilities.workspace.configuration = true
+-- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local on_attach = function(client, bufnr)
-	local status_ok, jdtls_dap = pcall(require, "jdtls.dap")
-	if status_ok then
-		jdtls_dap.setup_dap_main_class_configs()
+	local function with_compile(fn)
+		return function()
+			if vim.bo.modified then
+				vim.cmd("w")
+			end
+			client.request_sync("java/buildWorkspace", false, 5000, bufnr)
+			fn()
+		end
 	end
 
-	local _, _ = pcall(vim.lsp.codelens.refresh)
 	vim.lsp.codelens.refresh()
 
 	local opts = {
@@ -68,41 +71,46 @@ local on_attach = function(client, bufnr)
 		buffer = bufnr,
 	}
 
-	-- require("jb.lsputils").on_attach(client, bufnr)
+	local set = vim.keymap.set
+	set(
+		"n",
+		"<F5>",
+		with_compile(function()
+			local main_config_opts = {
+				verbose = false,
+				on_ready = require("dap").continue,
+			}
+			require("jdtls.dap").setup_dap_main_class_configs(main_config_opts)
+		end),
+		opts
+	)
+	require("jb.lsputils").on_attach(client, bufnr)
 
-	vim.keymap.set("n", "<leader>0", function()
-		if vim.lsp.inlay_hint.is_enabled(bufnr) then
-			vim.lsp.inlay_hint.enable(bufnr, false)
-		else
-			vim.lsp.inlay_hint.enable(bufnr, true)
-		end
-	end, opts)
-
-	vim.keymap.set("n", "<C-o>", jdtls.organize_imports, {
+	set("n", "<M-o>", jdtls.organize_imports, {
 		desc = "Organize imports",
 		buffer = bufnr,
 	})
 
-	vim.keymap.set("n", "<leader>df", jdtls.test_class, opts)
+	set("n", "<leader>df", jdtls.test_class, opts)
 
-	vim.keymap.set("n", "<leader>dn", jdtls.test_nearest_method, opts)
+	set("n", "<leader>dn", jdtls.test_nearest_method, opts)
 
-	vim.keymap.set("n", "<leader>rv", jdtls.extract_variable_all, {
+	set("n", "<leader>rv", jdtls.extract_variable_all, {
 		desc = "Extract variable",
 		buffer = bufnr,
 	})
 
-	vim.keymap.set("v", "<leader>rm", [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], {
+	set("v", "<leader>rm", [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], {
 		desc = "Extract method",
 		buffer = bufnr,
 	})
 
-	vim.keymap.set("n", "<leader>rc", jdtls.extract_constant, {
+	set("n", "<leader>rc", jdtls.extract_constant, {
 		desc = "Extract constant",
 		buffer = bufnr,
 	})
 
-	vim.keymap.set("n", "<leader>ds", function()
+	set("n", "<leader>ds", function()
 		local dap = require("dap")
 		if dap.session() then
 			local widgets = require("dap.ui.widgets")
@@ -115,82 +123,97 @@ local on_attach = function(client, bufnr)
 
 	require("jdtls").setup_dap({ hotcodereplace = "auto" })
 end
+
+local settings = {
+	java = {
+		maxConcurrentBuilds = 8,
+		eclipse = {
+			downloadSources = false,
+		},
+		saveActions = {
+			organizeImports = true,
+		},
+		maven = {
+			downloadSources = true,
+		},
+		autobuild = { enabled = true },
+		signatureHelp = { enabled = true },
+		contentProvider = { preferred = "fernflower" },
+		implementationsCodeLens = {
+			enabled = true,
+		},
+		referencesCodeLens = {
+			enabled = true,
+		},
+		references = {
+			includeDecompiledSources = true,
+		},
+		inlayHints = {
+			parameterNames = {
+				enabled = "all", -- literals, all, none
+			},
+		},
+		completion = {
+			favoriteStaticMembers = {
+				"io.crate.testing.Asserts.assertThat",
+				"org.assertj.core.api.Assertions.assertThat",
+				"org.assertj.core.api.Assertions.assertThatThrownBy",
+				"org.assertj.core.api.Assertions.assertThatExceptionOfType",
+				"org.assertj.core.api.Assertions.catchThrowable",
+				"org.hamcrest.MatcherAssert.assertThat",
+				"org.hamcrest.Matchers.*",
+				"org.hamcrest.CoreMatchers.*",
+				"org.junit.jupiter.api.Assertions.*",
+				"java.util.Objects.requireNonNull",
+				"java.util.Objects.requireNonNullElse",
+				"org.mockito.Mockito.*",
+			},
+			filteredTypes = {
+				"com.sun.*",
+				"io.micrometer.shaded.*",
+				"java.awt.*",
+				"jdk.*",
+				"sun.*",
+			},
+		},
+		sources = {
+			organizeImports = {
+				starThreshold = 9999,
+				staticStarThreshold = 9999,
+			},
+		},
+		codeGeneration = {
+			toString = {
+				template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
+			},
+			hashCodeEquals = {
+				useJava7Objects = true,
+			},
+			useBlocks = true,
+		},
+		format = {
+			settings = {
+				url = home .. "/.config/nvim/lang-servers/eclipse-java-google-style.xml",
+				profile = "GoogleStyle",
+			},
+		},
+	},
+}
+
 local config = {
 	capabilities = capabilities,
 	root_dir = root_dir,
 	on_attach = on_attach,
+	on_init = function(client, _)
+		client.notify("workspace/didChangeConfiguration", { settings = settings })
+	end,
 	flags = {
 		debounce_text_changes = 80,
 		allow_incremental_sync = true,
 	},
 	init_options = {
 		bundles = bundles,
-	},
-	settings = {
-		java = {
-			maxConcurrentBuilds = 8,
-			eclipse = {
-				downloadSources = true,
-			},
-			saveActions = {
-				organizeImports = true,
-			},
-			maven = {
-				downloadSources = true,
-			},
-			signatureHelp = { enabled = true },
-			contentProvider = { preferred = "fernflower" },
-			implementationsCodeLens = {
-				enabled = true,
-			},
-			referencesCodeLens = {
-				enabled = true,
-			},
-			references = {
-				includeDecompiledSources = true,
-			},
-			inlayHints = {
-				parameterNames = {
-					enabled = "all", -- literals, all, none
-				},
-			},
-			completion = {
-				favoriteStaticMembers = {
-					"org.hamcrest.MatcherAssert.assertThat",
-					"org.hamcrest.Matchers.*",
-					"org.hamcrest.CoreMatchers.*",
-					"org.junit.jupiter.api.Assertions.*",
-					"java.util.Objects.requireNonNull",
-					"java.util.Objects.requireNonNullElse",
-					"org.mockito.Mockito.*",
-					"java.util.stream.Collectors.*",
-					"org.assertj.core.api.Assertions.*",
-				},
-				filteredTypes = {
-					"com.sun.*",
-					"io.micrometer.shaded.*",
-					"java.awt.*",
-					"jdk.*",
-					"sun.*",
-				},
-			},
-			sources = {
-				organizeImports = {
-					starThreshold = 9999,
-					staticStarThreshold = 9999,
-				},
-			},
-			codeGeneration = {
-				toString = {
-					template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
-				},
-				hashCodeEquals = {
-					useJava7Objects = true,
-				},
-				useBlocks = true,
-			},
-			extendedClientCapabilities = extendedClientCapabilities,
-		},
+		extendedClientCapabilities = extendedClientCapabilities,
 	},
 	cmd = {
 		"java",
@@ -207,22 +230,19 @@ local config = {
 		"java.base/java.lang=ALL-UNNAMED",
 		"-javaagent:" .. home .. "/tools/jdtls/lombok.jar",
 		"-jar",
-		vim.fn.glob("/home/jp/tools/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar"),
+		home .. "/tools/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar",
 		"-configuration",
-		"/home/jp/tools/jdtls/config_linux/",
+		home .. "/tools/jdtls/config_linux/",
 		"-data",
 		workspace_folder,
 	},
+	settings = settings,
+	-- handlers = {
+	-- 	["language/status"] = function() end,
+	-- },
 }
 
 require("dap.ext.vscode").load_launchjs()
-
---vim.api.nvim_create_autocmd({ "BufWritePost" }, {
---    pattern = { "*.java" },
---    callback = function()
---        local _, _ = pcall(vim.lsp.codelens.refresh)
---    end,
---})
 
 jdtls.start_or_attach(config)
 

@@ -1,5 +1,7 @@
 return {
 	"folke/neodev.nvim",
+	lazy = true,
+	ft = "lua",
 	opts = {},
 	config = function()
 		require("neodev").setup({})

@@ -21,7 +21,7 @@ lspconfig.rust_analyzer.setup({
 				extraArgs = { "--no-deps" },
 			},
 			procMacro = {
-				enable = true,
+				enable = false,
 				ignored = {
 					["async-trait"] = { "async_trait" },
 					["napi-derive"] = { "napi" },

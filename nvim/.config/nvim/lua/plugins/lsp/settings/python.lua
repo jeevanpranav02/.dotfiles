@@ -12,6 +12,7 @@ if venv_path ~= nil then
 else
 	py_path = vim.g.python3_host_prog
 end
+
 lspconfig.pylsp.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
@@ -33,7 +34,7 @@ lspconfig.pylsp.setup({
 				autopep8 = { enabled = false },
 				flake8 = {
 					enabled = true,
-					maxLineLength = 88,
+					maxLineLength = 100,
 					ignore = {
 						"E501", -- Line too long
 						"E203", -- Whitespace before ':'
@@ -62,8 +63,6 @@ lspconfig.pylsp.setup({
 						"*/test.py",
 						"*/conftest.py",
 						"*/conftest/*",
-						"*/conftest/*",
-						"*/conftest/*",
 					},
 				},
 				mccabe = { enabled = false },
@@ -82,11 +81,10 @@ lspconfig.pylsp.setup({
 					memory = false,
 				},
 				rope_completion = {
-					enabled = false,
+					enabled = true,
 					eager = false,
 				},
 				yapf = { enabled = false },
-
 				jedi = {
 					environment = vim.env.VIRTUAL_ENV or "/usr",
 				},
@@ -149,75 +147,3 @@ lspconfig.pylsp.setup({
 		debounce_text_changes = 200,
 	},
 })
-
--- lspconfig.pyright.setup({
--- 	capabilities = capabilities,
--- 	root_dir = lspconfig_util.root_pattern(
--- 		"pyproject.toml",
--- 		".git",
--- 		"setup.py",
--- 		"setup.cfg",
--- 		"requirements.txt",
--- 		"Pipfile",
--- 		"pyrightconfig.json",
--- 		-- customize
--- 		"manage.py",
--- 		"server.py",
--- 		"main.py"
--- 	),
--- 	on_attach = on_attach,
--- 	settings = {
--- 		python = {
--- 			analysis = {
--- 				autoImportCompletions = true,
---
--- 				-- Determines whether pyright automatically adds common search paths like "src" if there are no execution environments defined in the config file.
--- 				autoSearchPaths = false,
---
--- 				--[[
---                     Determines whether pyright analyzes (and reports errors for) all files in the workspace, as indicated by the config file.
---                     If this option is set to "openFilesOnly", pyright analyzes only open files.
---                     ]]
--- 				diagnosticMode = "workspace", -- "openFilesOnly" | "workspace"
---
--- 				-- Paths to add to the default execution environment extra paths if there are no execution environments defined in the config file.
--- 				extraPaths = {},
---
--- 				-- Level of logging for Output panel. The default value for this option is "Information".
--- 				logLevel = "Information", -- "Error", "Warning", "Information", "Trace"
---
--- 				-- Path to directory containing custom type stub files.
--- 				-- stubPath = "",
---
--- 				-- Determines the default type-checking level used by pyright. This can be overridden in the configuration file.
--- 				typeCheckingMode = "basic", -- "off" | "basic" | "strict"
---
--- 				-- Paths to look for typeshed modules. Pyright currently honors only the first path in the array.
--- 				typeshedPaths = {},
---
--- 				--[[
---                     REFERENCE: https://github.com/microsoft/pyright/issues/3201#issuecomment-1069658359
---                     Determines whether pyright reads, parses and analyzes library code to extract type information in the absence of type stub files.
---                     Type information will typically be incomplete.
---                     We recommend using type stubs where possible. The default value for this option is false.
---                     ]]
--- 				useLibraryCodeForTypes = true,
--- 			},
--- 		},
--- 		pyright = {
--- 			--[[
---                 Disables all language services except for “hover”.
---                 This includes type completion, signature completion, find definition, find references, and find symbols in file.
---                 This option is useful if you want to use pyright only as a type checker but want to run another Python language server for language service features.
---                 ]]
--- 			disableLanguageServices = false,
---
--- 			--[[
---                 Disables the “Organize Imports” command.
---                 This is useful if you are using another extension that provides similar functionality and you don’t want the two extensions to fight each other.
---                 Accessible in Neovim with :PyrightOrganizeImports
---                 ]]
--- 			disableOrganizeImports = true,
--- 		},
--- 	},
--- })

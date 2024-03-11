@@ -1,7 +1,7 @@
 return {
 	"hrsh7th/nvim-cmp",
 	lazy = true,
-	event = "InsertEnter",
+	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		{ "hrsh7th/cmp-nvim-lsp" },
 		{ "hrsh7th/cmp-path" },
@@ -51,6 +51,7 @@ return {
 						cargo = "[cargo]",
 						luasnip = "[snip]",
 						cody = "[cody]",
+						emoji = "[emoji]",
 					},
 				}),
 			},
@@ -90,11 +91,11 @@ return {
 			source.group_index = source.group_index or 1
 		end
 		require("cmp").setup(opts)
-		---@diagnostic disable-next-line: missing-fields
-		require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-			sources = {
-				{ name = "dap" },
-			},
-		})
+		-- ---@diagnostic disable-next-line: missing-fields
+		-- require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+		-- 	sources = {
+		-- 		{ name = "dap" },
+		-- 	},
+		-- })
 	end,
 }
