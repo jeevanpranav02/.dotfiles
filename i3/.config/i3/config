@@ -21,6 +21,9 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # NetworkManager applet
 exec --no-startup-id nm-applet
 
+# Screen Timeout
+exec xset dpms 0 0 2800
+
 # Volume controls
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
