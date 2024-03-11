@@ -1,5 +1,7 @@
 LAZY_PLUGIN_SPEC = {}
 
+--- Load Plugin in Spec of Lazy
+---@param item string
 function Spec(item)
 	table.insert(LAZY_PLUGIN_SPEC, { import = item })
 end
@@ -66,13 +68,6 @@ function ColorMyPencils(color)
 			vim.api.nvim_set_hl(0, hl, col)
 		end
 	end
-	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-	vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
-	vim.api.nvim_set_hl(0, "LineNr", { bg = "none" })
-	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-	vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
-	vim.api.nvim_set_hl(0, "NormalSB", { bg = "none" })
-
 	-- NvimTree
 	vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "none" })
 end

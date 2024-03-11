@@ -4,7 +4,7 @@ vim.opt.guicursor = ""
 -- Line numbers and related settings
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.signcolumn = "auto"
+vim.opt.signcolumn = "yes"
 
 -- Tab settings
 vim.opt.tabstop = 4
