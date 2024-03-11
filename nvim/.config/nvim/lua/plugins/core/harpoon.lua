@@ -20,7 +20,7 @@ return {
 		end)
 
 		vim.keymap.set("n", "<M-e>", function()
-			harpoon.ui:toggle_quick_menu((harpoon:list()), { border = "rounded", title_pos = "center" })
+			harpoon.ui:toggle_quick_menu(harpoon:list())
 		end)
 
 		vim.keymap.set("n", "<C-h>", function()

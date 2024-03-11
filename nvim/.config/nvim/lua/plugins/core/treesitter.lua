@@ -38,6 +38,10 @@ return {
 			auto_install = false,
 			highlight = {
 				enable = true,
+				---@diagnostic disable-next-line: unused-local
+				disable = function(_lang, bufnr) -- Disable in files with more than 5K
+					return vim.api.nvim_buf_line_count(bufnr) > 5000
+				end,
 				additional_vim_regex_highlighting = false,
 			},
 			incremental_selection = {
