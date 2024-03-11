@@ -176,10 +176,10 @@ exec --no-startup-id picom
 # <<----------- Gap & Appearance ----------------->>
 
 # Enable smart gaps
-smart_gaps on
-# Set inner and outer gaps
-gaps inner 3
-gaps outer 3
+# smart_gaps on
+# # Set inner and outer gaps
+# gaps inner 3
+# gaps outer 3
 
 # Add borders to windows
 for_window [class="^.*"]    border pixel 2
@@ -266,3 +266,7 @@ for_window [class="Brave-browser"]  		move to workspace $ws1
 for_window [class="firefox"]  	        move to workspace $ws2
 
 for_window [class="Spotify"]            move to workspace $ws9
+
+for_window [class="Lutris"]            move to workspace $ws8
+
+for_window [class="steam"]         move to workspace $ws8
