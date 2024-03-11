@@ -1,6 +1,7 @@
 return {
 	"L3MON4D3/LuaSnip",
-	event = "InsertEnter",
+	lazy = true,
+	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		{ "rafamadriz/friendly-snippets" },
 		{ "honza/vim-snippets" },
@@ -51,6 +52,9 @@ return {
 
 		-- Python
 		require("luasnip").filetype_extend("python", { "django", "djangohtml" })
+
+		-- Rust
+		require("luasnip").filetype_extend("rust", { "rustdoc" })
 
 		-- <c-k> is my expansion key
 		-- this will expand the current item or jump to the next item within the snippet.

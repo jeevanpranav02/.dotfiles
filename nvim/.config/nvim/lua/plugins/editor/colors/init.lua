@@ -1,8 +1,9 @@
+local _enable_lazy = { true, true, true, false }
 return {
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
-		lazy = false,
+		lazy = _enable_lazy[1],
 		config = function()
 			if not pcall(require, "rose-pine") then
 				return
@@ -10,6 +11,7 @@ return {
 			require("rose-pine").setup({
 				disable_background = true,
 				disable_float_background = true,
+				disable_italics = true,
 			})
 			ColorMyPencils("rose-pine")
 		end,
@@ -17,7 +19,7 @@ return {
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
-		lazy = true,
+		lazy = _enable_lazy[2],
 		config = function()
 			if not pcall(require, "catppuccin") then
 				return
@@ -30,11 +32,12 @@ return {
 	},
 	{
 		"folke/tokyonight.nvim",
-		lazy = true,
+		lazy = _enable_lazy[3],
 		config = function()
 			if not pcall(require, "tokyonight") then
 				return
 			end
+			---@diagnostic disable-next-line: missing-fields
 			require("tokyonight").setup({
 				transparent = true,
 			})
@@ -43,7 +46,7 @@ return {
 	},
 	{
 		"tjdevries/colorbuddy.vim",
-		lazy = true,
+		lazy = _enable_lazy[4],
 		dependencies = { "tjdevries/gruvbuddy.nvim" },
 		config = function()
 			vim.cmd.highlight("clear")
@@ -155,11 +158,11 @@ return {
 			Group.new("CmpItemAbbrMatchFuzzy", groups.CmpItemAbbr.fg:dark(), nil, styles.italic)
 			Group.new("CmpItemMenu", groups.NonText)
 			Group.new("CmpItemKind", groups.Special)
-			Group.new("CmpItemKindVariable", colors.skyblue)
-			Group.new("CmpItemKindFunction", colors.lightblue)
-			Group.new("CmpItemKindKeyword", colors.pink)
-			Group.new("CmpItemKindProperty", colors.front)
-			Group.new("CmpItemKindUnit", colors.superwhite)
+			-- Group.new("CmpItemKindVariable", colors.skyblue)
+			-- Group.new("CmpItemKindFunction", colors.lightblue)
+			-- Group.new("CmpItemKindKeyword", colors.pink)
+			-- Group.new("CmpItemKindProperty", colors.front)
+			-- Group.new("CmpItemKindUnit", colors.superwhite)
 
 			-- Harpoon
 			Group.new("HarpoonWindow", colors.superwhite, nil)
@@ -174,113 +177,113 @@ return {
 
 			-- Linking stuff
 			vim.cmd([[
-            hi link @function.call.lua LuaFunctionCall
-            hi link @lsp.type.variable.lua variable
-            hi link @lsp.type.variable.ocaml variable
-            hi link @lsp.type.variable.rust variable
-            hi link @lsp.type.namespace @namespace
-            hi link @lsp.type.comment @comment
-            hi link @punctuation.bracket.rapper @text.literal
-            hi link @normal Normal
-            hi link CurSearch IncSearch
-            hi link diffAdded DiffAdd
-            hi link diffChanged DiffChange
-            hi link diffRemoved DiffDelete
-            hi link StatusLineTerm StatusLine
-            hi link StatusLineTermNC StatusLineNC
-            hi link WildMenu IncSearch
-            hi link Typedef Type
-            hi link markdownH1Delimiter markdownH1
-            hi link markdownH2Delimiter markdownH2
-            hi link markdownH3Delimiter markdownH3
-            hi link markdownH4Delimiter markdownH4
-            hi link markdownH5Delimiter markdownH5
-            hi link markdownH6Delimiter markdownH6
-            hi link markdownUrl markdownLinkText
-            hi link mkdLink mkdInlineURL
-            hi link mkdLinkDef mkdInlineURL
-            hi link mkdURL mkdInlineURL
-            hi link @boolean Boolean
-            hi link @character Character
-            hi link @character.special @character
-            hi link @comment Comment
-            hi link @conditional Conditional
-            hi link @constant Constant
-            hi link @constant.macro @constant
-            hi link @function Function
-            hi link @function.macro @function
-            hi link @include Include
-            hi link @keyword Keyword
-            hi link @label Label
-            hi link @macro Macro
-            hi link @number Number
-            hi link @operator Operator
-            hi link @preproc PreProc
-            hi link @punctuation.bracket @punctuation
-            hi link @punctuation.delimiter @punctuation
-            hi link @punctuation.special @punctuation
-            hi link @regexp String
-            hi link @repeat Repeat
-            hi link @storageclass StorageClass
-            hi link @string String
-            hi link @string.special @string
-            hi link @symbol Identifier
-            hi link @tag Tag
-            hi link @text.math Special
-            hi link @text.environment Macro
-            hi link @text.environment.name Type
-            hi link @text.title Title
-            hi link @text.note SpecialComment
-            hi link @todo Todo
-            hi link @type Type
-            hi link @namespace @include
-            hi link @lsp.type.enum @type
-            hi link @lsp.type.keyword @keyword
-            hi link @lsp.type.interface @interface
-            hi link @lsp.type.namespace @namespace
-            hi link @lsp.type.parameter @parameter
-            hi link @lsp.type.property @property
-            hi link @lsp.typemod.function.defaultLibrary Special
-            hi link @lsp.typemod.variable.defaultLibrary @variable.builtin
-            hi link @lsp.typemod.operator.injected @operator
-            hi link @lsp.typemod.string.injected @string
-            hi link @lsp.typemod.variable.injected @variable
-            hi link @text.title.1.markdown markdownH1
-            hi link @text.title.1.marker.markdown markdownH1Delimiter
-            hi link @text.title.2.markdown markdownH2
-            hi link @text.title.2.marker.markdown markdownH2Delimiter
-            hi link @text.title.3.markdown markdownH3
-            hi link @text.title.3.marker.markdown markdownH3Delimiter
-            hi link @text.title.4.markdown markdownH4
-            hi link @text.title.4.marker.markdown markdownH4Delimiter
-            hi link @text.title.5.markdown markdownH5
-            hi link @text.title.5.marker.markdown markdownH5Delimiter
-            hi link @text.title.6.markdown markdownH6
-            hi link @text.title.6.marker.markdown markdownH6Delimiter
-            hi link SignAdd GitSignsAdd
-            hi link SignChange GitSignsChange
-            hi link SignDelete GitSignsDelete
-            hi link NvimTreeOpenedFolderName NvimTreeFolderName
-            hi link NvimTreeSpecialFile NvimTreeNormal
-            hi link NeorgHeading1Title NeorgHeading1Prefix
-            hi link NeorgHeading2Title NeorgHeading2Prefix
-            hi link NeorgHeading3Title NeorgHeading3Prefix
-            hi link NeorgHeading4Title NeorgHeading4Prefix
-            hi link NeorgHeading5Title NeorgHeading5Prefix
-            hi link NeorgHeading6Title NeorgHeading6Prefix
-            hi link DapUIVariable Normal
-            hi link DapUIValue Normal
-            hi link DapUIFrameName Normal
-            hi link DapUIWatchesValue DapUIThread
-            hi link DapUIBreakpointsInfo DapUIThread
-            hi link DapUIWatchesError DapUIWatchesEmpty
-            hi link DapUIScope DapUIBreakpointsPath
-            hi link DapUILineNumber DapUIBreakpointsPath
-            hi link DapUIBreakpointsLine DapUIBreakpointsPath
-            hi link DapUIFloatBorder DapUIBreakpointsPath
-            hi link DapUIStoppedThread DapUIBreakpointsPath
-            hi link DapUIDecoration DapUIBreakpointsPath
-            ]])
+	           hi link @function.call.lua LuaFunctionCall
+	           hi link @lsp.type.variable.lua variable
+	           hi link @lsp.type.variable.ocaml variable
+	           hi link @lsp.type.variable.rust variable
+	           hi link @lsp.type.namespace @namespace
+	           hi link @lsp.type.comment @comment
+	           hi link @punctuation.bracket.rapper @text.literal
+	           hi link @normal Normal
+	           hi link CurSearch IncSearch
+	           hi link diffAdded DiffAdd
+	           hi link diffChanged DiffChange
+	           hi link diffRemoved DiffDelete
+	           hi link StatusLineTerm StatusLine
+	           hi link StatusLineTermNC StatusLineNC
+	           hi link WildMenu IncSearch
+	           hi link Typedef Type
+	           hi link markdownH1Delimiter markdownH1
+	           hi link markdownH2Delimiter markdownH2
+	           hi link markdownH3Delimiter markdownH3
+	           hi link markdownH4Delimiter markdownH4
+	           hi link markdownH5Delimiter markdownH5
+	           hi link markdownH6Delimiter markdownH6
+	           hi link markdownUrl markdownLinkText
+	           hi link mkdLink mkdInlineURL
+	           hi link mkdLinkDef mkdInlineURL
+	           hi link mkdURL mkdInlineURL
+	           hi link @boolean Boolean
+	           hi link @character Character
+	           hi link @character.special @character
+	           hi link @comment Comment
+	           hi link @conditional Conditional
+	           hi link @constant Constant
+	           hi link @constant.macro @constant
+	           hi link @function Function
+	           hi link @function.macro @function
+	           hi link @include Include
+	           hi link @keyword Keyword
+	           hi link @label Label
+	           hi link @macro Macro
+	           hi link @number Number
+	           hi link @operator Operator
+	           hi link @preproc PreProc
+	           hi link @punctuation.bracket @punctuation
+	           hi link @punctuation.delimiter @punctuation
+	           hi link @punctuation.special @punctuation
+	           hi link @regexp String
+	           hi link @repeat Repeat
+	           hi link @storageclass StorageClass
+	           hi link @string String
+	           hi link @string.special @string
+	           hi link @symbol Identifier
+	           hi link @tag Tag
+	           hi link @text.math Special
+	           hi link @text.environment Macro
+	           hi link @text.environment.name Type
+	           hi link @text.title Title
+	           hi link @text.note SpecialComment
+	           hi link @todo Todo
+	           hi link @type Type
+	           hi link @namespace @include
+	           hi link @lsp.type.enum @type
+	           hi link @lsp.type.keyword @keyword
+	           hi link @lsp.type.interface @interface
+	           hi link @lsp.type.namespace @namespace
+	           hi link @lsp.type.parameter @parameter
+	           hi link @lsp.type.property @property
+	           hi link @lsp.typemod.function.defaultLibrary Special
+	           hi link @lsp.typemod.variable.defaultLibrary @variable.builtin
+	           hi link @lsp.typemod.operator.injected @operator
+	           hi link @lsp.typemod.string.injected @string
+	           hi link @lsp.typemod.variable.injected @variable
+	           hi link @text.title.1.markdown markdownH1
+	           hi link @text.title.1.marker.markdown markdownH1Delimiter
+	           hi link @text.title.2.markdown markdownH2
+	           hi link @text.title.2.marker.markdown markdownH2Delimiter
+	           hi link @text.title.3.markdown markdownH3
+	           hi link @text.title.3.marker.markdown markdownH3Delimiter
+	           hi link @text.title.4.markdown markdownH4
+	           hi link @text.title.4.marker.markdown markdownH4Delimiter
+	           hi link @text.title.5.markdown markdownH5
+	           hi link @text.title.5.marker.markdown markdownH5Delimiter
+	           hi link @text.title.6.markdown markdownH6
+	           hi link @text.title.6.marker.markdown markdownH6Delimiter
+	           hi link SignAdd GitSignsAdd
+	           hi link SignChange GitSignsChange
+	           hi link SignDelete GitSignsDelete
+	           hi link NvimTreeOpenedFolderName NvimTreeFolderName
+	           hi link NvimTreeSpecialFile NvimTreeNormal
+	           hi link NeorgHeading1Title NeorgHeading1Prefix
+	           hi link NeorgHeading2Title NeorgHeading2Prefix
+	           hi link NeorgHeading3Title NeorgHeading3Prefix
+	           hi link NeorgHeading4Title NeorgHeading4Prefix
+	           hi link NeorgHeading5Title NeorgHeading5Prefix
+	           hi link NeorgHeading6Title NeorgHeading6Prefix
+	           hi link DapUIVariable Normal
+	           hi link DapUIValue Normal
+	           hi link DapUIFrameName Normal
+	           hi link DapUIWatchesValue DapUIThread
+	           hi link DapUIBreakpointsInfo DapUIThread
+	           hi link DapUIWatchesError DapUIWatchesEmpty
+	           hi link DapUIScope DapUIBreakpointsPath
+	           hi link DapUILineNumber DapUIBreakpointsPath
+	           hi link DapUIBreakpointsLine DapUIBreakpointsPath
+	           hi link DapUIFloatBorder DapUIBreakpointsPath
+	           hi link DapUIStoppedThread DapUIBreakpointsPath
+	           hi link DapUIDecoration DapUIBreakpointsPath
+	           ]])
 		end,
 	},
 }

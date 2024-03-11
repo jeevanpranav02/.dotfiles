@@ -1,14 +1,15 @@
 return {
 	"mfussenegger/nvim-lint",
+	enabled = false,
 	event = {
 		"BufReadPre",
 		"BufNewFile",
 	},
 	config = function()
-		require("lint").linters_by_ft = {
-			php = { "phpcs" },
-			blade = { "phpcs" },
-		}
+		-- require("lint").linters_by_ft = {
+		-- 	php = { "phpcs" },
+		-- 	blade = { "phpcs" },
+		-- }
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 

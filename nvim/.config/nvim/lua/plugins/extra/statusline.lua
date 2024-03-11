@@ -1,7 +1,9 @@
 return {
 	"tjdevries/express_line.nvim",
+	dependencies = { "nvim-tree/nvim-web-devicons" },
 	dev = false,
 	config = function()
+		RELOAD("el")
 		require("el").reset_windows()
 
 		vim.opt.laststatus = 3
