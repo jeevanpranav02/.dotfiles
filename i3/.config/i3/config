@@ -3,7 +3,7 @@
 # Set the Mod key
 set $mod Mod4
 
-set $term --no-startup-id kitty
+set $term --no-startup-id wezterm
 # set $term --no-startup-id i3-sensible-terminal
 
 # Enable moving floating windows with Mod key + mouse
@@ -22,7 +22,8 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 
 # Screen Timeout
-exec xset dpms 0 0 2800
+# exec xset dpms 0 0 2800
+exec --no-startup-id xset s off -dpms
 
 # Volume controls
 set $refresh_i3status killall -SIGUSR1 i3status
