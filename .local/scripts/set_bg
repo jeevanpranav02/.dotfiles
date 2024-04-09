@@ -1,12 +1,6 @@
 #!/bin/bash
 
-# Set previer based on terminal
-if [$TERM -eq "xterm-kitty"]; then
-    image_viewer="kitten icat"
-else
-    image_viewer="chafa"
-fi
-
+image_viewer="chafa"
 
 # Get path from user
 if [[ $# -eq 1 ]]; then
