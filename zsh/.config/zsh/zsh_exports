@@ -48,3 +48,13 @@ export PATH=$PATH:$HOME/.config/composer/vendor/bin
 
 # Dart Binaries
 export PATH="$PATH":"$HOME/.pub-cache/bin"
+
+# Cuda configuration
+export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+# NVM configuration
+# export NVM_DIR="$HOME/.config/nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+eval "$(starship init zsh)"
