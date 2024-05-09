@@ -56,3 +56,6 @@ alias gce='gh copilot explain'
 
 # Navigation Aliases
 alias dots='cd ~/.dotfiles'
+
+# VSCode Aliases
+alias code='code --disable-gpu'
