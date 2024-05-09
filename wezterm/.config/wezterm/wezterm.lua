@@ -15,6 +15,7 @@ config.use_fancy_tab_bar = false
 -- I don't like putting anything at the ege if I can help it.
 config.enable_scroll_bar = false
 config.enable_tab_bar = false
+-- config.window_background_opacity = 0.6
 config.window_padding = {
 	left = 0,
 	right = 0,
