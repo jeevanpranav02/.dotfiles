@@ -242,6 +242,9 @@ bindsym Print exec --no-startup-id maim | xclip -selection clipboard -t image/pn
 bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
 bindsym Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 
+# Flameshot
+bindsym $mod+Shift+s exec --no-startup-id flameshot gui
+
 bindsym $mod+b exec --no-startup-id brave-browser
 
 # Dunstctl(Notification control)
