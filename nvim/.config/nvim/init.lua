@@ -30,6 +30,7 @@ Spec("plugins.lsp.lang.yaml")
 
 -- Editor Plugins
 Spec("plugins.editor.colors")
+Spec("plugins.editor.tabline")
 Spec("plugins.editor.autopairs")
 Spec("plugins.editor.colorizer")
 Spec("plugins.editor.filetree")

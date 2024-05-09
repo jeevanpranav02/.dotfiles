@@ -48,11 +48,6 @@ return {
 		"tjdevries/colorbuddy.vim",
 		lazy = _enable_lazy[4],
 		config = function()
-			-- This will clear the style italic and set it to none
-			-- if vim.env.USER == "jp" then
-			--     rawset(require("colorbuddy").styles, "italic", require("colorbuddy").styles.none)
-			-- end
-
 			vim.cmd.colorscheme("gruvbuddy")
 
 			local colors = require("colorbuddy.color").colors
@@ -69,11 +64,8 @@ return {
 
 			Group.new("TabLineFill", nil, nil)
 
-			-- General Stuff
-			Group.new("Normal", colors.superwhite, nil)
+			-- -- General Stuff
 			Group.new("NormalFloat", colors.superwhite, nil)
-			Group.new("LineNr", colors.gray3, nil)
-			Group.new("SignColumn", colors.superwhite, nil)
 			Group.new("ColorColumn", nil, colors.gray2)
 			Group.new("Folded", colors.gray3, nil)
 
@@ -84,22 +76,15 @@ return {
 			Group.new("CmpItemAbbrMatchFuzzy", groups.CmpItemAbbr.fg:dark(), nil, styles.italic)
 			Group.new("CmpItemMenu", groups.NonText)
 			Group.new("CmpItemKind", groups.Special)
-			-- Group.new("CmpItemKindVariable", colors.skyblue)
-			-- Group.new("CmpItemKindFunction", colors.lightblue)
-			-- Group.new("CmpItemKindKeyword", colors.pink)
-			-- Group.new("CmpItemKindProperty", colors.front)
-			-- Group.new("CmpItemKindUnit", colors.superwhite)
 
 			-- Harpoon
 			Group.new("HarpoonWindow", colors.superwhite, nil)
 			Group.new("HarpoonBorder", colors.gray3, nil)
 			Group.new("HarpoonTitle", colors.gray3, nil)
 
-			-- GitSigns
-			Group.new("GitSignsAdd", colors.green:dark(), nil)
-			Group.new("GitSignsChange", colors.orange:light(), nil)
-			Group.new("GitSignsDelete", colors.red:light(), nil)
-			Group.new("GitSignsUntracked", colors.blue:light(), nil)
+			Group.new("TreesitterContext", nil, groups.Normal.bg:light())
+			Group.new("TreesitterContextLineNumber", colors.blue)
+
 		end,
 	},
 }

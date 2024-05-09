@@ -3,7 +3,14 @@ return {
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	dev = false,
 	config = function()
-		RELOAD("el")
+		-- TODO: Need to add those sweet sweet lsp workspace diagnostic counts
+		if not pcall(require, "el") then
+			-- TODO: Add in a nice default statusline here.
+			-- Would be good to research anyway for the course
+			return
+		end
+
+		RELOAD "el"
 		require("el").reset_windows()
 
 		vim.opt.laststatus = 3
@@ -25,16 +32,15 @@ return {
 			})
 		end
 
-		local builtin = require("el.builtin")
-		local extensions = require("el.extensions")
-		local sections = require("el.sections")
-		local subscribe = require("el.subscribe")
-		local lsp_statusline = require("el.plugins.lsp_status")
-		local diagnostic = require("el.diagnostic")
+		local builtin = require "el.builtin"
+		local extensions = require "el.extensions"
+		local sections = require "el.sections"
+		local subscribe = require "el.subscribe"
+		local lsp_statusline = require "el.plugins.lsp_status"
+		local helper = require "el.helper"
+		local diagnostic = require "el.diagnostic"
 
 		local has_lsp_extensions, ws_diagnostics = pcall(require, "lsp_extensions.workspace.diagnostic")
-
-		sections.filetype("alpha", "")
 
 		-- TODO: Spinning planet extension. Integrated w/ telescope.
 		-- ◐ ◓ ◑ ◒
@@ -104,12 +110,12 @@ return {
 
 		local diagnostic_display = diagnostic.make_buffer()
 
-		require("el").setup({
+		require("el").setup {
 			generator = function(window, buffer)
 				local is_minimal = minimal_status_line(window, buffer)
 				local is_sourcegraph = is_sourcegraph(window, buffer)
 
-				local mode = extensions.gen_mode({ format_string = " %s " })
+				local mode = extensions.gen_mode { format_string = " %s " }
 				if is_sourcegraph then
 					return {
 						{ mode },
@@ -127,7 +133,7 @@ return {
 					{ sections.split, required = true },
 					{ git_icon },
 					{ sections.maximum_width(builtin.file_relative, 0.60), required = true },
-					{ sections.collapse_builtin({ { " " }, { builtin.modified_flag } }) },
+					{ sections.collapse_builtin { { " " }, { builtin.modified_flag } } },
 					{ sections.split, required = true },
 					{ diagnostic_display },
 					{ show_current_func },
@@ -140,12 +146,12 @@ return {
 					{ builtin.column_with_width(2) },
 					{ "]" },
 					{
-						sections.collapse_builtin({
+						sections.collapse_builtin {
 							"[",
 							builtin.help_list,
 							builtin.readonly_list,
 							"]",
-						}),
+						},
 					},
 					{ builtin.filetype },
 				}
@@ -165,6 +171,42 @@ return {
 
 				return result
 			end,
-		})
+		}
+
+		require("fidget").setup {}
+
+		--[[
+		let s:left_sep = ' ❯❯ '
+		let s:right_sep = ' ❮❮ '
+
+		let s:seperator.filenameright = ''
+		let s:seperator.filesizeright = ''
+		let s:seperator.gitleft = ''
+		let s:seperator.gitright = ''
+		let s:seperator.lineinfoleft = ''
+		let s:seperator.lineformatright = ''
+		let s:seperator.EndSeperate = ' '
+		let s:seperator.emptySeperate1 = ''
+	elseif a:style == 'slant-cons'
+		let s:seperator.homemoderight = ''
+		let s:seperator.filenameright = ''
+		let s:seperator.filesizeright = '' let s:seperator.gitleft = ''
+		let s:seperator.gitright = ''
+		let s:seperator.lineinfoleft = ''
+		let s:seperator.lineformatright = ''
+		let s:seperator.EndSeperate = ' '
+		let s:seperator.emptySeperate1 = ''
+	elseif a:style == 'slant-fade'
+		let s:seperator.homemoderight = ''
+		let s:seperator.filenameright = ''
+		let s:seperator.filesizeright = ''
+		let s:seperator.gitleft = ''
+		let s:seperator.gitright = ''
+		" let s:seperator.gitright = ''
+		let s:seperator.lineinfoleft = ''
+		let s:seperator.lineformatright = ''
+		let s:seperator.EndSeperate = ' '
+		let s:seperator.emptySeperate1 = ''
+		--]]
 	end,
 }
