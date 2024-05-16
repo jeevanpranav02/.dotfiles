@@ -59,3 +59,7 @@ alias dots='cd ~/.dotfiles'
 
 # VSCode Aliases
 alias code='code --disable-gpu'
+
+# Enable Second Monitor
+alias extend_monitor="xrandr --output HDMI-1-0 --auto --right-of eDP"
+alias disconnect_monitor="xrandr --output HDMI-1-0 --off --output eDP --auto"

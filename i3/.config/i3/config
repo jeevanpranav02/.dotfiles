@@ -274,3 +274,29 @@ for_window [class="Spotify"]            move to workspace $ws9
 for_window [class="Lutris"]            move to workspace $ws8
 
 for_window [class="steam"]         move to workspace $ws8
+
+# # <<--------- MultiMonitor Setup -------->>
+
+# Moving workspaces between screens
+bindsym $mod+Control+l move workspace to output right
+bindsym $mod+Control+h move workspace to output left
+
+# Monitor 1
+set $fm eDP
+
+# Monitor 2
+set $sm HDMI-1-0
+
+# Workspace Setup on Monitor 1
+workspace $ws1 output $fm
+workspace $ws2 output $fm
+workspace $ws3 output $fm
+workspace $ws4 output $fm
+workspace $ws5 output $fm
+
+# Workspace Setup on Monitor 2
+workspace $ws6 output $sm
+workspace $ws7 output $sm
+workspace $ws8 output $sm
+workspace $ws9 output $sm
+workspace $ws10 output $sm
