@@ -35,6 +35,7 @@ Spec("plugins.editor.autopairs")
 Spec("plugins.editor.colorizer")
 Spec("plugins.editor.filetree")
 Spec("plugins.editor.toggleterm")
+Spec("plugins.editor.oil")
 
 -- UI Plugins
 Spec("plugins.formatter")
